@@ -1,0 +1,163 @@
+import { FireCalculator } from '@/components/calculators/fire-calculator'
+
+# FIRE Calculator: Calculate Your Financial Independence Number
+
+Financial independence is the point at which your investment portfolio generates enough passive income to cover your living expenses — forever. The FIRE calculator below estimates exactly when you'll reach that milestone based on your current savings, annual expenses, and investment return assumptions.
+
+Enter your numbers to calculate your personal FIRE number (the total portfolio you need), your years to financial independence, and a year-by-year portfolio growth projection.
+
+---
+
+## Use the FIRE Calculator
+
+<FireCalculator />
+
+---
+
+## What Do These Results Mean?
+
+### Your FIRE Number
+
+Your FIRE number is the total investment portfolio you need to retire and live off your investments indefinitely. It's calculated by dividing your annual expenses by your chosen withdrawal rate. At the standard 4% withdrawal rate, you need 25 times your annual spending.
+
+For example, if you spend $40,000 per year, your FIRE number is $1,000,000. If you spend $60,000, your FIRE number is $1,500,000.
+
+### Years to Financial Independence
+
+This is how many years it will take for your portfolio to reach your FIRE number, given your current portfolio balance, annual investment contributions, and real (inflation-adjusted) return rate. Reducing expenses or increasing contributions dramatically shortens this timeline.
+
+### FIRE Age
+
+Your FIRE age is the age at which you're projected to reach financial independence. This is simply your current age plus your years to FIRE. It's your earliest possible retirement date under current assumptions.
+
+### Portfolio Growth Chart
+
+The chart shows your projected portfolio value by age (blue line) and your FIRE target (red dashed line). The point where the two lines intersect is your FIRE date. After that intersection, your portfolio continues growing even without further contributions.
+
+---
+
+## How This Calculator Works
+
+The FIRE calculator uses two core formulas.
+
+First, it calculates your FIRE number: your annual expenses divided by your withdrawal rate. The most widely used withdrawal rate is 4%, based on the Trinity Study, which found that a portfolio invested in a mix of stocks and bonds historically sustained a 4% annual withdrawal for at least 30 years.
+
+Second, it projects your portfolio growth using the future value of an annuity formula, which accounts for your starting portfolio, annual contributions, and inflation-adjusted return rate. The calculator uses a real return rate (your nominal return minus inflation) to show projections in today's dollars — meaning the FIRE number and portfolio values are all expressed in current purchasing power.
+
+All calculations run instantly in your browser as you adjust inputs. No data is sent to any server.
+
+---
+
+## Example Scenarios
+
+### Example 1: The Standard FIRE Path
+
+Sarah is 32, has a $75,000 portfolio, earns $90,000/year, and spends $50,000/year. She invests $30,000 annually and assumes 7% nominal returns with 3% inflation.
+
+- **FIRE Number:** $1,250,000
+- **Years to FIRE:** approximately 22 years
+- **FIRE Age:** 54
+
+Sarah can retire early at 54 by maintaining her current savings rate. Cutting expenses to $40,000/year would reduce her FIRE number to $1,000,000 and shave nearly 5 years off her timeline.
+
+### Example 2: The Aggressive Saver
+
+Marcus is 28, has $20,000 saved, earns $110,000, and lives frugally on $35,000/year. He invests $55,000 annually.
+
+- **FIRE Number:** $875,000
+- **Years to FIRE:** approximately 13 years
+- **FIRE Age:** 41
+
+By maintaining a high savings rate, Marcus is on track for extreme early retirement at 41 — the classic high-income, low-spending FIRE path.
+
+### Example 3: The Late Starter
+
+Jennifer is 45, has $150,000 saved, spends $55,000/year, and contributes $25,000 annually. She expects 6% nominal returns.
+
+- **FIRE Number:** $1,375,000
+- **Years to FIRE:** approximately 20 years
+- **FIRE Age:** 65
+
+Jennifer reaches a traditional retirement age but could accelerate the timeline significantly by increasing contributions or reducing spending. Bumping contributions to $40,000/year would bring her FIRE age closer to 60.
+
+---
+
+## Understanding the FIRE Movement
+
+FIRE stands for Financial Independence, Retire Early. The movement gained mainstream attention through blogs like Mr. Money Mustache and books like *Your Money or Your Life*, built around a straightforward idea: save aggressively, invest in low-cost index funds, and retire decades before the traditional age of 65.
+
+### The 4% Safe Withdrawal Rate
+
+The foundation of most FIRE planning is the "4% rule," derived from the Trinity Study (Bengen, 1994). The study found that retirees who withdrew 4% of their initial portfolio annually — adjusting for inflation each year — never ran out of money over a 30-year retirement period when invested in a stock/bond mix.
+
+For longer retirements (40–50+ years, common for early retirees), many FIRE practitioners use a more conservative 3% to 3.5% withdrawal rate to reduce sequence-of-returns risk.
+
+### Types of FIRE
+
+**Lean FIRE:** Retiring on a very frugal budget, typically under $40,000/year.
+
+**Fat FIRE:** Retiring with a generous lifestyle budget, typically $100,000/year or more.
+
+**Coast FIRE:** Reaching a point where your investments, left to grow without additional contributions, will reach your FIRE number by traditional retirement age.
+
+**Barista FIRE:** A hybrid approach where you semi-retire, covering some expenses with part-time work, and letting a smaller portfolio cover the rest.
+
+---
+
+## Frequently Asked Questions
+
+### What is a FIRE number?
+
+Your FIRE number is the total investment portfolio you need to retire and live off investment returns indefinitely. It equals your annual expenses divided by your safe withdrawal rate. At the popular 4% rule, your FIRE number is 25 times your annual spending. For $50,000 in annual expenses, you need $1,250,000.
+
+### How accurate is this FIRE calculator?
+
+This calculator provides projections based on your inputs and assumes consistent returns. Real investment returns vary year to year. The projections are directionally accurate for planning purposes, but actual results will differ. For a more conservative estimate, use a lower expected return (5–6%) or a lower withdrawal rate (3–3.5%).
+
+### What withdrawal rate should I use?
+
+The 4% rate (SWR) is the most commonly used starting point, supported by historical research. However, if you're planning a retirement lasting 40–50 years, consider using 3% to 3.5% for a more conservative estimate.
+
+### Does this calculator account for inflation?
+
+Yes. The calculator computes a real (inflation-adjusted) return rate by adjusting your nominal expected return for the inflation rate you enter. This means your FIRE number, years to FIRE, and portfolio projections are all expressed in today's purchasing power.
+
+### What if my income varies?
+
+Enter your best estimate of average annual contributions. If your income varies significantly, run the calculator with a conservative (lower) contributions figure to model a worst-case timeline.
+
+### Should I include home equity in my FIRE number calculation?
+
+Generally, no — unless you plan to downsize or sell your home in retirement. The FIRE number refers to liquid investment assets that generate returns. A paid-off home reduces your expenses but doesn't generate income in the same way.
+
+### What about taxes?
+
+This calculator does not account for taxes on withdrawals. Tax-advantaged accounts (401(k), IRA, Roth) have different withdrawal tax treatments. Consult a financial advisor to model the tax impact on your specific situation.
+
+### How does the savings rate affect my FIRE timeline?
+
+Savings rate has more impact than almost any other variable. Moving from a 20% savings rate to a 50% savings rate can cut your years to FIRE nearly in half.
+
+---
+
+## Related Calculators
+
+- FIRE Number Calculator — Focus specifically on calculating your FIRE portfolio target
+- Coast FIRE Calculator — Find out if you can stop contributing and coast to retirement
+- Savings Rate Calculator — See how your savings rate maps to your retirement timeline
+- 4% Rule Calculator — Calculate safe annual withdrawal amounts from your portfolio
+- Compound Interest Calculator — See how your investments grow through compounding
+
+---
+
+## Related Articles
+
+- [What is FIRE? Financial Independence Retire Early Explained](/blog/what-is-fire)
+- [How to Calculate Your FIRE Number](/blog/how-to-calculate-fire-number)
+- [The 4% Rule Explained](/blog/4-percent-rule-explained)
+
+---
+
+## Disclaimer
+
+*This FIRE calculator is provided for educational and informational purposes only. It does not constitute financial, investment, or tax advice. All projections are estimates based on hypothetical scenarios and historical market patterns — actual investment returns vary and past performance does not guarantee future results. Please consult a qualified financial advisor before making investment decisions.*
