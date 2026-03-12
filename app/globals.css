@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -122,49 +122,87 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
   }
   html {
-    @apply font-sans;
+    /* Both variables point to Inter — one consistent font everywhere */
+    --font-dm-sans: var(--font-inter);
+    --font-playfair: var(--font-inter);
   }
 }
 
-/* Calculator card hover */
-a:hover .calc-card-live {
-  background: oklch(0.16 0.005 260) !important;
+/* ── FIRE Light-Mode Design Tokens ──────────────────────────────────────── */
+:root {
+  /* Brand blue (matches mouon.io reference) */
+  --f-blue:          oklch(0.50 0.18 258);
+  --f-blue-hover:    oklch(0.44 0.18 258);
+  --f-blue-light:    oklch(0.95 0.04 258);
+  --f-blue-border:   oklch(0.85 0.07 258);
+
+  /* Chart accent colors */
+  --f-chart-1: oklch(0.50 0.18 258);   /* blue */
+  --f-chart-2: oklch(0.74 0.15 195);   /* teal */
+  --f-chart-3: oklch(0.80 0.16 85);    /* amber */
+  --f-chart-4: oklch(0.68 0.19 315);   /* purple */
+  --f-chart-5: oklch(0.65 0.20 25);    /* coral */
+
+  /* Surfaces */
+  --f-page:    oklch(0.965 0.003 255);
+  --f-card:    oklch(1 0 0);
+  --f-sidebar: oklch(1 0 0);
+  --f-input:   oklch(1 0 0);
+
+  /* Borders */
+  --f-border:        oklch(0.91 0.005 255);
+  --f-border-strong: oklch(0.84 0.008 255);
+  --f-border-focus:  oklch(0.50 0.18 258);
+
+  /* Text */
+  --f-text-heading: oklch(0.18 0.010 255);
+  --f-text-body:    oklch(0.35 0.010 255);
+  --f-text-muted:   oklch(0.55 0.008 255);
+  --f-text-faint:   oklch(0.72 0.005 255);
+  --f-text-label:   oklch(0.45 0.010 255);
+
+  /* Shadows */
+  --f-shadow-card: 0 1px 3px oklch(0 0 0 / 0.06), 0 1px 2px oklch(0 0 0 / 0.04);
+  --f-shadow-md:   0 4px 16px oklch(0 0 0 / 0.08), 0 1px 4px oklch(0 0 0 / 0.04);
+  --f-shadow-lg:   0 8px 32px oklch(0 0 0 / 0.10), 0 2px 8px oklch(0 0 0 / 0.05);
 }
 
-/* Homepage design tokens */
-:root {
-  --fire-amber: oklch(0.78 0.16 68);
-  --fire-amber-dim: oklch(0.65 0.12 68);
-  --fire-charcoal: oklch(0.13 0.005 260);
-  --fire-charcoal-mid: oklch(0.17 0.005 260);
-  --fire-charcoal-border: oklch(0.22 0.008 260);
-  --fire-text-muted: oklch(0.55 0.01 260);
-  --fire-text-dim: oklch(0.38 0.01 260);
+/* ── Base body ──────────────────────────────────────────────────────────── */
+body {
+  background: var(--f-page) !important;
+  color: var(--f-text-body);
 }
-/* Slider — amber on dark */
+
+/* ── Slider — blue on light ─────────────────────────────────────────────── */
 [data-slot="slider-track"] {
-  background: oklch(0.22 0.008 260) !important;
-  height: 3px !important;
+  background: var(--f-border-strong) !important;
+  height: 4px !important;
+  border-radius: 999px !important;
 }
 [data-slot="slider-range"] {
-  background: oklch(0.78 0.16 68) !important;
+  background: var(--f-blue) !important;
+  border-radius: 999px !important;
 }
 [data-slot="slider-thumb"] {
-  background: oklch(0.78 0.16 68) !important;
-  border-color: oklch(0.78 0.16 68) !important;
-  width: 14px !important;
-  height: 14px !important;
-  box-shadow: 0 0 0 3px oklch(0.78 0.16 68 / 0.15) !important;
+  background: var(--f-card) !important;
+  border: 2px solid var(--f-blue) !important;
+  width: 16px !important;
+  height: 16px !important;
+  box-shadow: 0 1px 4px oklch(0 0 0 / 0.15) !important;
+  transition: box-shadow 0.15s ease, transform 0.15s ease !important;
 }
 [data-slot="slider-thumb"]:hover,
 [data-slot="slider-thumb"]:focus-visible {
-  box-shadow: 0 0 0 5px oklch(0.78 0.16 68 / 0.28) !important;
+  box-shadow: 0 0 0 4px oklch(0.50 0.18 258 / 0.15), 0 1px 4px oklch(0 0 0 / 0.15) !important;
+  transform: scale(1.1) !important;
 }
 
-/* Hide number input spin arrows */
+/* ── Number input — hide spin arrows ────────────────────────────────────── */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -172,4 +210,36 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ── Input focus ────────────────────────────────────────────────────────── */
+.f-input:focus {
+  outline: none;
+  border-color: var(--f-blue) !important;
+  box-shadow: 0 0 0 3px oklch(0.50 0.18 258 / 0.12) !important;
+}
+
+/* ── Sidebar nav active link ─────────────────────────────────────────────── */
+.sidebar-link-active {
+  color: var(--f-blue) !important;
+  font-weight: 600 !important;
+}
+
+/* ── Calc card hover (homepage) ─────────────────────────────────────────── */
+.calc-card:hover {
+  border-color: var(--f-blue-border) !important;
+  box-shadow: var(--f-shadow-md) !important;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--f-border-strong); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--f-text-faint); }
+
+/* ── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: oklch(0.50 0.18 258 / 0.15);
+  color: var(--f-text-heading);
 }

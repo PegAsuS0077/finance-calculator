@@ -8,193 +8,259 @@ interface FireResultsProps {
   results: FireResults
 }
 
-export function FireResults({ results }: FireResultsProps) {
-  const { fireNumber, yearsToFire, fireAge, remainingGap } = results
-
-  const yearsDisplay =
-    yearsToFire === Infinity ? '∞' : formatNumber(yearsToFire, 1)
-
-  const fireAgeDisplay = fireAge === Infinity ? '—' : String(fireAge)
-
-  const gapDisplay =
-    remainingGap === 0 ? 'Reached' : formatCurrency(remainingGap)
-
-  const reachedFire = remainingGap === 0
-
+// Segmented horizontal bar — like the mouon reference
+function SegmentedBar({ segments }: { segments: Array<{ color: string; pct: number }> }) {
   return (
     <div
       style={{
         display: 'flex',
-        flexDirection: 'column',
-        gap: '1px',
-        background: 'var(--fire-charcoal-border)',
-        border: '1px solid var(--fire-charcoal-border)',
-        borderRadius: '6px',
+        height: '6px',
+        borderRadius: '999px',
         overflow: 'hidden',
+        gap: '2px',
+        background: 'var(--f-border)',
       }}
     >
-      {/* Hero result — FIRE Age */}
-      <div
-        style={{
-          background: reachedFire
-            ? 'oklch(0.22 0.06 68)'
-            : 'var(--fire-charcoal-mid)',
-          padding: '1.75rem 1.5rem',
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'space-between',
-          gap: '1rem',
-        }}
-      >
-        <div>
-          <p
-            style={{
-              fontSize: '0.6875rem',
-              fontWeight: 600,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--fire-amber)',
-              marginBottom: '0.5rem',
-            }}
-          >
-            {reachedFire ? 'You have reached FIRE' : 'Retire at age'}
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-              fontWeight: 900,
-              color: reachedFire ? 'var(--fire-amber)' : 'oklch(0.97 0.005 260)',
-              lineHeight: 1,
-              letterSpacing: '-0.03em',
-            }}
-          >
-            {fireAgeDisplay}
-          </p>
-          <p
-            style={{
-              fontSize: '0.8125rem',
-              color: 'var(--fire-text-muted)',
-              marginTop: '0.5rem',
-              fontWeight: 300,
-            }}
-          >
-            {yearsToFire === Infinity
-              ? 'Increase contributions to reach FIRE'
-              : yearsToFire <= 0
-              ? 'Financial independence achieved'
-              : `${yearsDisplay} years from now`}
-          </p>
-        </div>
-        {/* Visual accent */}
+      {segments.map((seg, i) => (
         <div
-          aria-hidden
+          key={i}
           style={{
-            width: '48px',
-            height: '48px',
-            border: '2px solid oklch(0.78 0.16 68 / 0.25)',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
+            flex: seg.pct,
+            background: seg.color,
+            borderRadius: '999px',
+            minWidth: seg.pct > 0 ? '4px' : 0,
+            transition: 'flex 0.4s ease',
           }}
-        >
-          <div
-            style={{
-              width: '10px',
-              height: '10px',
-              background: 'var(--fire-amber)',
-              borderRadius: '50%',
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Secondary results — 3-column row */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px',
-          background: 'var(--fire-charcoal-border)',
-        }}
-      >
-        <StatCell
-          label="FIRE Number"
-          value={formatCurrency(fireNumber)}
-          sub="Target portfolio"
         />
-        <StatCell
-          label="Years to FIRE"
-          value={yearsToFire === Infinity ? '∞' : `${yearsDisplay} yr`}
-          sub="From today"
-        />
-        <StatCell
-          label="Remaining Gap"
-          value={gapDisplay}
-          sub={reachedFire ? 'Congratulations' : 'Still needed'}
-          highlight={reachedFire}
-        />
-      </div>
+      ))}
     </div>
   )
 }
 
-function StatCell({
-  label,
-  value,
-  sub,
-  highlight,
-}: {
-  label: string
-  value: string
-  sub?: string
-  highlight?: boolean
-}) {
+export function FireResults({ results }: FireResultsProps) {
+  const { fireNumber, yearsToFire, fireAge, remainingGap } = results
+
+  const yearsDisplay = yearsToFire === Infinity ? '∞' : formatNumber(yearsToFire, 1)
+  const fireAgeDisplay = fireAge === Infinity ? '—' : String(fireAge)
+  const reachedFire = remainingGap === 0
+
+  // Compute portfolio-vs-target ratio for the segmented bar
+  const currentPortfolio = Math.max(0, fireNumber - remainingGap)
+  const totalForBar = Math.max(fireNumber, currentPortfolio)
+  const portfolioPct = totalForBar > 0 ? (currentPortfolio / totalForBar) * 100 : 0
+  const gapPct = 100 - portfolioPct
+
+  // Breakdown rows — what makes up your FIRE plan
+  const annualWithdrawal = fireNumber * 0.04
+  const savingsRate = currentPortfolio > 0
+    ? Math.min(100, Math.round((currentPortfolio / fireNumber) * 100))
+    : 0
+
+  const breakdownRows = [
+    {
+      label: 'Current Portfolio',
+      value: formatCurrency(currentPortfolio),
+      color: 'var(--f-chart-1)',
+      pct: portfolioPct.toFixed(1) + '%',
+    },
+    {
+      label: 'Remaining Gap',
+      value: reachedFire ? 'Reached' : formatCurrency(remainingGap),
+      color: 'var(--f-chart-2)',
+      pct: reachedFire ? '0%' : gapPct.toFixed(1) + '%',
+    },
+    {
+      label: 'Annual Withdrawal',
+      value: formatCurrency(annualWithdrawal),
+      color: 'var(--f-chart-3)',
+      pct: '4% rule',
+    },
+    {
+      label: 'Progress to FIRE',
+      value: `${savingsRate}%`,
+      color: 'var(--f-chart-4)',
+      pct: `${savingsRate}% funded`,
+    },
+  ]
+
   return (
-    <div
-      style={{
-        background: 'var(--fire-charcoal)',
-        padding: '1.25rem 1.5rem',
-      }}
-    >
-      <p
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      {/* Primary result */}
+      <div
         style={{
-          fontSize: '0.6875rem',
-          fontWeight: 600,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: 'var(--fire-text-dim)',
-          marginBottom: '0.375rem',
+          padding: '2rem 1.875rem 1.625rem',
+          borderBottom: '1px solid var(--f-border)',
         }}
       >
-        {label}
-      </p>
-      <p
-        style={{
-          fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
-          fontWeight: 700,
-          color: highlight ? 'var(--fire-amber)' : 'oklch(0.92 0.005 260)',
-          lineHeight: 1.1,
-          letterSpacing: '-0.02em',
-        }}
-      >
-        {value}
-      </p>
-      {sub && (
         <p
           style={{
             fontSize: '0.6875rem',
-            color: 'var(--fire-text-dim)',
-            marginTop: '0.25rem',
-            fontWeight: 300,
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: reachedFire ? 'oklch(0.52 0.17 145)' : 'var(--f-blue)',
+            marginBottom: '0.5rem',
           }}
         >
-          {sub}
+          {reachedFire ? 'Financial Independence Reached' : 'Projected Retirement Age'}
         </p>
-      )}
+
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.625rem', marginBottom: '0.5rem' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
+              fontSize: 'clamp(3rem, 6vw, 4.25rem)',
+              fontWeight: 900,
+              color: reachedFire ? 'oklch(0.52 0.17 145)' : 'var(--f-text-heading)',
+              lineHeight: 1,
+              letterSpacing: '-0.04em',
+            }}
+          >
+            {fireAgeDisplay}
+          </span>
+          {!reachedFire && fireAge !== Infinity && (
+            <span
+              style={{
+                fontSize: '0.9375rem',
+                color: 'var(--f-text-muted)',
+                fontWeight: 300,
+                paddingBottom: '0.5rem',
+              }}
+            >
+              years old
+            </span>
+          )}
+        </div>
+
+        <p style={{ fontSize: '0.8125rem', color: 'var(--f-text-muted)', fontWeight: 300 }}>
+          {yearsToFire === Infinity
+            ? 'Increase contributions or reduce expenses to reach FIRE'
+            : yearsToFire <= 0
+            ? 'Financial independence already achieved'
+            : `${yearsDisplay} years from today`}
+        </p>
+      </div>
+
+      {/* Toggle: Monthly / Annual (visual only, matches reference) */}
+      <div
+        style={{
+          padding: '0.875rem 1.875rem',
+          borderBottom: '1px solid var(--f-border)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <span style={{ fontSize: '0.8125rem', color: 'var(--f-text-faint)', fontWeight: 300 }}>
+          Your FIRE number based on a{' '}
+          <strong style={{ color: 'var(--f-text-body)', fontWeight: 500 }}>4% withdrawal rate</strong>
+          {' '}is:
+        </span>
+      </div>
+
+      {/* Big FIRE number */}
+      <div
+        style={{
+          padding: '1.5rem 1.875rem',
+          borderBottom: '1px solid var(--f-border)',
+        }}
+      >
+        <p
+          style={{
+            fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
+            fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
+            fontWeight: 700,
+            color: 'var(--f-blue)',
+            letterSpacing: '-0.035em',
+            lineHeight: 1,
+            marginBottom: '1rem',
+          }}
+        >
+          {formatCurrency(fireNumber)}
+        </p>
+
+        {/* Segmented bar */}
+        <SegmentedBar
+          segments={[
+            { color: 'var(--f-chart-1)', pct: portfolioPct },
+            { color: 'var(--f-chart-2)', pct: gapPct },
+          ]}
+        />
+      </div>
+
+      {/* Breakdown rows */}
+      <div style={{ padding: '0.25rem 0', flex: 1 }}>
+        {breakdownRows.map((row) => (
+          <div
+            key={row.label}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '0.75rem 1.875rem',
+              borderBottom: '1px solid var(--f-border)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+              <div
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: row.color,
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ fontSize: '0.8125rem', color: 'var(--f-text-body)', fontWeight: 400 }}>
+                {row.label}
+              </span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--f-text-faint)', fontWeight: 300 }}>
+                {row.pct}
+              </span>
+              <span
+                style={{
+                  fontSize: '0.9375rem',
+                  fontWeight: 600,
+                  color: 'var(--f-text-heading)',
+                  minWidth: '80px',
+                  textAlign: 'right',
+                  fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {row.value}
+              </span>
+            </div>
+          </div>
+        ))}
+
+        {/* Summary stat: Years to FIRE */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '1rem 1.875rem',
+          }}
+        >
+          <span style={{ fontSize: '0.8125rem', color: 'var(--f-text-muted)', fontWeight: 300 }}>
+            Years to FIRE
+          </span>
+          <span
+            style={{
+              fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
+              fontSize: '1.375rem',
+              fontWeight: 700,
+              color: reachedFire ? 'oklch(0.52 0.17 145)' : 'var(--f-text-heading)',
+              letterSpacing: '-0.025em',
+            }}
+          >
+            {yearsToFire === Infinity ? '∞' : `${yearsDisplay} yr`}
+          </span>
+        </div>
+      </div>
     </div>
   )
 }

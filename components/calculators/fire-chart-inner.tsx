@@ -31,20 +31,20 @@ function CustomTooltip({
   return (
     <div
       style={{
-        background: 'oklch(0.17 0.005 260)',
-        border: '1px solid oklch(0.28 0.008 260)',
-        borderRadius: '4px',
+        background: 'var(--f-card)',
+        border: '1px solid var(--f-border-strong)',
+        borderRadius: '8px',
         padding: '0.625rem 0.875rem',
-        boxShadow: '0 8px 24px oklch(0 0 0 / 0.4)',
+        boxShadow: 'var(--f-shadow-md)',
       }}
     >
       <p
         style={{
-          fontSize: '0.6875rem',
-          color: 'oklch(0.50 0.01 260)',
+          fontSize: '0.625rem',
+          color: 'var(--f-text-faint)',
           marginBottom: '0.25rem',
-          fontWeight: 500,
-          letterSpacing: '0.06em',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
           textTransform: 'uppercase',
         }}
       >
@@ -52,9 +52,9 @@ function CustomTooltip({
       </p>
       <p
         style={{
-          fontFamily: 'var(--font-playfair), Georgia, serif',
+          fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
           fontSize: '1.125rem',
-          color: 'oklch(0.78 0.16 68)',
+          color: 'var(--f-blue)',
           fontWeight: 700,
           letterSpacing: '-0.02em',
           lineHeight: 1,
@@ -68,69 +68,61 @@ function CustomTooltip({
 
 export default function FireChartInner({ data, fireNumber }: FireChartInnerProps) {
   return (
-    <ResponsiveContainer width="100%" height={288}>
-      <AreaChart data={data} margin={{ top: 12, right: 56, left: 4, bottom: 0 }}>
+    <ResponsiveContainer width="100%" height={260}>
+      <AreaChart data={data} margin={{ top: 8, right: 64, left: 4, bottom: 0 }}>
         <defs>
           <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="oklch(0.78 0.16 68)" stopOpacity={0.15} />
-            <stop offset="100%" stopColor="oklch(0.78 0.16 68)" stopOpacity={0} />
+            <stop offset="0%" stopColor="oklch(0.50 0.18 258)" stopOpacity={0.15} />
+            <stop offset="70%" stopColor="oklch(0.50 0.18 258)" stopOpacity={0.03} />
+            <stop offset="100%" stopColor="oklch(0.50 0.18 258)" stopOpacity={0} />
           </linearGradient>
         </defs>
         <CartesianGrid
-          strokeDasharray="1 5"
-          stroke="oklch(0.22 0.008 260)"
+          strokeDasharray="2 6"
+          stroke="var(--f-border)"
           vertical={false}
         />
         <XAxis
           dataKey="age"
-          tick={{
-            fontSize: 11,
-            fill: 'oklch(0.40 0.01 260)',
-          }}
-          axisLine={{ stroke: 'oklch(0.22 0.008 260)' }}
+          tick={{ fontSize: 11, fill: 'var(--f-text-faint)', fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif' }}
+          axisLine={{ stroke: 'var(--f-border)' }}
           tickLine={false}
           label={{
             value: 'Age',
             position: 'insideBottomRight',
             offset: -4,
             fontSize: 10,
-            fill: 'oklch(0.35 0.01 260)',
+            fill: 'var(--f-text-faint)',
           }}
         />
         <YAxis
           tickFormatter={formatCompactCurrency}
-          tick={{
-            fontSize: 11,
-            fill: 'oklch(0.40 0.01 260)',
-          }}
+          tick={{ fontSize: 11, fill: 'var(--f-text-faint)', fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif' }}
           axisLine={false}
           tickLine={false}
           width={68}
         />
         <Tooltip
           content={<CustomTooltip />}
-          cursor={{
-            stroke: 'oklch(0.35 0.01 260)',
-            strokeWidth: 1,
-            strokeDasharray: '3 3',
-          }}
+          cursor={{ stroke: 'var(--f-border-strong)', strokeWidth: 1, strokeDasharray: '4 4' }}
         />
         <ReferenceLine
           y={fireNumber}
-          stroke="oklch(0.72 0.14 68)"
-          strokeDasharray="5 4"
+          stroke="oklch(0.68 0.15 195)"
+          strokeDasharray="6 4"
           strokeWidth={1.5}
           label={{
             value: 'FIRE Target',
             position: 'right',
             fontSize: 10,
-            fill: 'oklch(0.60 0.12 68)',
+            fill: 'oklch(0.55 0.12 195)',
+            fontFamily: 'var(--font-inter), ui-sans-serif, sans-serif',
           }}
         />
         <Area
           type="monotone"
           dataKey="portfolioValue"
-          stroke="oklch(0.78 0.16 68)"
+          stroke="var(--f-blue)"
           strokeWidth={2.5}
           fill="url(#portfolioGradient)"
           dot={false}

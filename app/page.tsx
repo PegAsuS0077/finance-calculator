@@ -2,18 +2,17 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { config } from "@/lib/config"
+import { SiteHeader } from "@/components/layout/site-header"
+import { SiteFooter } from "@/components/layout/site-footer"
 
 export const metadata: Metadata = {
-  title: "FIRE Tools — Free Financial Independence Calculators",
+  title: "Finance Calculator — Free Financial Independence Calculators",
   description:
     "Free financial independence calculators for the FIRE movement. Calculate your FIRE number, retirement timeline, savings rate, compound interest, and more. No signup required.",
-  alternates: {
-    canonical: config.siteUrl,
-  },
+  alternates: { canonical: config.siteUrl },
   openGraph: {
-    title: "FIRE Tools — Free Financial Independence Calculators",
-    description:
-      "Calculate your path to financial independence with free FIRE calculators. FIRE number, Coast FIRE, savings rate, 4% rule, and more.",
+    title: "Finance Calculator — Free Financial Independence Calculators",
+    description: "Calculate your path to financial independence with free FIRE calculators.",
     url: config.siteUrl,
     siteName: "FIRE Tools",
     type: "website",
@@ -21,76 +20,16 @@ export const metadata: Metadata = {
 }
 
 const calculators = [
-  {
-    slug: "fire-calculator",
-    name: "FIRE Calculator",
-    description: "Calculate your FIRE number, years to financial independence, and projected retirement age based on your savings rate.",
-    tag: "Most Popular",
-    live: true,
-  },
-  {
-    slug: "fire-number-calculator",
-    name: "FIRE Number Calculator",
-    description: "Find exactly how much you need to retire. Based on your annual expenses and the 4% safe withdrawal rule.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "coast-fire-calculator",
-    name: "Coast FIRE Calculator",
-    description: "Discover the portfolio size where you can stop contributing and let compound interest carry you to retirement.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "savings-rate-calculator",
-    name: "Savings Rate Calculator",
-    description: "Calculate your savings rate and see how dramatically increasing it shortens your path to financial independence.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "4-percent-rule-calculator",
-    name: "4% Rule Calculator",
-    description: "Model safe withdrawal rates for retirement. See how long your portfolio lasts under different spending scenarios.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "compound-interest-calculator",
-    name: "Compound Interest Calculator",
-    description: "Visualize how your investments grow over time with regular contributions and compound returns.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "investment-growth-calculator",
-    name: "Investment Growth Calculator",
-    description: "Project your portfolio value over any time horizon with customizable return rates and contribution schedules.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "retirement-timeline-calculator",
-    name: "Retirement Timeline Calculator",
-    description: "See a year-by-year roadmap to retirement based on your income, expenses, and investment growth assumptions.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "lean-fire-calculator",
-    name: "Lean FIRE Calculator",
-    description: "Plan an ultra-frugal early retirement. Calculate the minimum portfolio for a lean, location-independent lifestyle.",
-    tag: "Coming Soon",
-    live: false,
-  },
-  {
-    slug: "barista-fire-calculator",
-    name: "Barista FIRE Calculator",
-    description: "Semi-retirement planning: combine part-time income with a smaller portfolio for flexible financial independence.",
-    tag: "Coming Soon",
-    live: false,
-  },
+  { slug: "fire-calculator", name: "FIRE Calculator", description: "Calculate your FIRE number, years to financial independence, and projected retirement age.", tag: "Live", live: true },
+  { slug: "fire-number-calculator", name: "FIRE Number Calculator", description: "Find exactly how much you need to retire based on your expenses and withdrawal rate.", tag: "Soon", live: false },
+  { slug: "coast-fire-calculator", name: "Coast FIRE Calculator", description: "Discover when compound interest alone will carry you to retirement — no contributions needed.", tag: "Soon", live: false },
+  { slug: "savings-rate-calculator", name: "Savings Rate Calculator", description: "See how dramatically increasing your savings rate shortens your path to independence.", tag: "Soon", live: false },
+  { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", tag: "Soon", live: false },
+  { slug: "compound-interest-calculator", name: "Compound Interest Calculator", description: "Visualize how your investments compound over time with regular contributions.", tag: "Soon", live: false },
+  { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", tag: "Soon", live: false },
+  { slug: "retirement-timeline-calculator", name: "Retirement Timeline", description: "A year-by-year roadmap to retirement based on income, expenses, and investment growth.", tag: "Soon", live: false },
+  { slug: "lean-fire-calculator", name: "Lean FIRE Calculator", description: "Plan an ultra-frugal early retirement and calculate the minimum portfolio needed.", tag: "Soon", live: false },
+  { slug: "barista-fire-calculator", name: "Barista FIRE Calculator", description: "Semi-retirement planning with part-time income and a smaller required portfolio.", tag: "Soon", live: false },
 ]
 
 const stats = [
@@ -102,171 +41,108 @@ const stats = [
 
 export default function HomePage() {
   return (
-    <div
-      style={{
-        background: "var(--fire-charcoal)",
-        color: "oklch(0.93 0.005 260)",
-        minHeight: "100vh",
-        fontFamily: "var(--font-dm-sans), ui-sans-serif, sans-serif",
-      }}
-    >
-      {/* Nav */}
-      <header
-        style={{
-          borderBottom: "1px solid var(--fire-charcoal-border)",
-          padding: "0 clamp(1.5rem, 5vw, 4rem)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "60px",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontWeight: 700,
-              fontSize: "1.25rem",
-              letterSpacing: "-0.01em",
-              color: "oklch(0.97 0.005 260)",
-            }}
-          >
-            FIRE<span style={{ color: "var(--fire-amber)" }}>Tools</span>
-          </span>
-          <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-            <Link
-              href="/fire-calculator"
-              style={{
-                fontSize: "0.8125rem",
-                fontWeight: 500,
-                color: "var(--fire-text-muted)",
-                textDecoration: "none",
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
-              }}
-            >
-              Calculators
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <SiteHeader activePath="/" />
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <section
         style={{
-          padding: "clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 8vw, 6rem)",
-          maxWidth: "1200px",
-          margin: "0 auto",
+          background: "linear-gradient(135deg, oklch(0.95 0.025 275) 0%, oklch(0.97 0.012 258) 40%, oklch(0.98 0.010 50) 100%)",
+          padding: "clamp(4rem, 9vw, 7.5rem) clamp(1.5rem, 5vw, 4rem)",
+          textAlign: "center",
           position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Decorative grid lines */}
+        {/* Floating accent dots */}
+        <div aria-hidden style={{ position: "absolute", left: "8%", top: "38%", width: "10px", height: "10px", borderRadius: "50%", background: "oklch(0.75 0.18 48)", opacity: 0.7, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", left: "26%", top: "62%", width: "7px", height: "7px", borderRadius: "50%", background: "oklch(0.65 0.18 145)", opacity: 0.6, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", right: "12%", top: "30%", width: "8px", height: "8px", borderRadius: "50%", background: "var(--f-blue)", opacity: 0.25, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", right: "28%", bottom: "20%", width: "5px", height: "5px", borderRadius: "50%", background: "oklch(0.65 0.18 145)", opacity: 0.5, pointerEvents: "none" }} />
+
+        {/* Decorative blur blob */}
         <div
           aria-hidden
           style={{
             position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(var(--fire-charcoal-border) 1px, transparent 1px), linear-gradient(90deg, var(--fire-charcoal-border) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-            opacity: 0.25,
-            pointerEvents: "none",
-          }}
-        />
-        {/* Amber glow */}
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: "-120px",
-            right: "10%",
-            width: "600px",
-            height: "600px",
-            background: "radial-gradient(circle, oklch(0.78 0.16 68 / 0.07) 0%, transparent 65%)",
+            left: "-10%",
+            top: "-30%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "oklch(0.88 0.06 275 / 0.35)",
+            filter: "blur(80px)",
             pointerEvents: "none",
           }}
         />
 
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", maxWidth: "720px", margin: "0 auto" }}>
           {/* Eyebrow */}
           <p
             style={{
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
+              fontSize: "0.6875rem",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--fire-amber)",
-              marginBottom: "1.5rem",
+              color: "var(--f-blue)",
+              marginBottom: "1.125rem",
             }}
           >
-            Financial Independence · Retire Early
+            10 Free Calculators
           </p>
 
-          {/* Headline */}
+          {/* Heading */}
           <h1
             style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "clamp(2.75rem, 6vw, 5.5rem)",
-              fontWeight: 900,
-              lineHeight: 1.05,
-              letterSpacing: "-0.025em",
-              color: "oklch(0.97 0.005 260)",
-              marginBottom: "1.75rem",
-              maxWidth: "800px",
+              fontSize: "clamp(2.25rem, 5.5vw, 4rem)",
+              fontWeight: 800,
+              color: "var(--f-text-heading)",
+              letterSpacing: "-0.035em",
+              lineHeight: 1.08,
+              marginBottom: "1.375rem",
             }}
           >
-            Every number you need on your path to{" "}
-            <span
-              style={{
-                color: "var(--fire-amber)",
-                fontStyle: "italic",
-              }}
-            >
-              financial freedom.
-            </span>
+            Your path to financial{" "}
+            <span style={{ color: "var(--f-blue)" }}>independence</span>{" "}
+            starts here.
           </h1>
 
           {/* Sub */}
           <p
             style={{
-              fontSize: "clamp(1rem, 1.5vw, 1.2rem)",
-              color: "var(--fire-text-muted)",
-              lineHeight: 1.7,
-              maxWidth: "560px",
+              fontSize: "clamp(0.9375rem, 1.6vw, 1.125rem)",
+              color: "var(--f-text-muted)",
+              lineHeight: 1.75,
               marginBottom: "2.5rem",
-              fontWeight: 300,
+              fontWeight: 400,
+              maxWidth: "560px",
+              margin: "0 auto 2.5rem",
             }}
           >
-            Free calculators for the FIRE movement. Instantly model your retirement timeline,
-            savings rate, FIRE number, and investment growth — no account needed.
+            Model your FIRE number, savings rate, and retirement timeline — all free, all instant, no account required.
           </p>
 
-          {/* CTA */}
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+          {/* CTAs */}
+          <div style={{ display: "flex", gap: "0.875rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link
               href="/fire-calculator"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
-                background: "var(--fire-amber)",
-                color: "var(--fire-charcoal)",
+                background: "var(--f-blue)",
+                color: "#fff",
                 fontWeight: 600,
                 fontSize: "0.9375rem",
                 padding: "0.8125rem 1.75rem",
-                borderRadius: "4px",
+                borderRadius: "9px",
                 textDecoration: "none",
-                letterSpacing: "-0.01em",
+                boxShadow: "0 4px 16px oklch(0.50 0.18 258 / 0.32)",
               }}
             >
-              Try the FIRE Calculator
+              Try FIRE Calculator
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
             <Link
@@ -274,15 +150,14 @@ export default function HomePage() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "0.5rem",
-                border: "1px solid var(--fire-charcoal-border)",
-                color: "var(--fire-text-muted)",
+                background: "rgba(255,255,255,0.85)",
+                border: "1px solid var(--f-border-strong)",
+                color: "var(--f-text-body)",
                 fontWeight: 500,
                 fontSize: "0.9375rem",
                 padding: "0.8125rem 1.75rem",
-                borderRadius: "4px",
+                borderRadius: "9px",
                 textDecoration: "none",
-                letterSpacing: "-0.01em",
               }}
             >
               Browse all tools
@@ -291,19 +166,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <div
-        style={{
-          borderTop: "1px solid var(--fire-charcoal-border)",
-          borderBottom: "1px solid var(--fire-charcoal-border)",
-          background: "var(--fire-charcoal-mid)",
-        }}
-      >
+      {/* ── Stats strip ── */}
+      <div style={{ borderBottom: "1px solid var(--f-border)", background: "var(--f-card)" }}>
         <div
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-            padding: "0 clamp(1.5rem, 5vw, 4rem)",
+            padding: "0 clamp(1.5rem, 4vw, 3rem)",
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
           }}
@@ -312,32 +181,26 @@ export default function HomePage() {
             <div
               key={stat.label}
               style={{
-                padding: "1.75rem 0",
-                borderRight: i < stats.length - 1 ? "1px solid var(--fire-charcoal-border)" : undefined,
+                padding: "1.5rem 0",
+                borderRight: i < stats.length - 1 ? "1px solid var(--f-border)" : undefined,
                 paddingLeft: i > 0 ? "2rem" : 0,
                 paddingRight: i < stats.length - 1 ? "2rem" : 0,
+                textAlign: "center",
               }}
             >
               <div
                 style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  fontSize: "2.25rem",
+                  fontSize: "2rem",
                   fontWeight: 700,
-                  color: "var(--fire-amber)",
+                  color: "var(--f-blue)",
                   lineHeight: 1,
-                  marginBottom: "0.375rem",
+                  marginBottom: "0.25rem",
+                  letterSpacing: "-0.03em",
                 }}
               >
                 {stat.value}
               </div>
-              <div
-                style={{
-                  fontSize: "0.8125rem",
-                  color: "var(--fire-text-muted)",
-                  fontWeight: 400,
-                  letterSpacing: "0.02em",
-                }}
-              >
+              <div style={{ fontSize: "0.8125rem", color: "var(--f-text-faint)", fontWeight: 400 }}>
                 {stat.label}
               </div>
             </div>
@@ -345,72 +208,60 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Calculator grid */}
-      <section
-        id="calculators"
-        style={{
-          padding: "clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
-          maxWidth: "1200px",
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ marginBottom: "3rem" }}>
-          <p
-            style={{
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--fire-amber)",
-              marginBottom: "0.75rem",
-            }}
-          >
+      {/* ── Calculator grid ── */}
+      <section id="calculators">
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            padding: "clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem)",
+          }}
+        >
+        <div style={{ marginBottom: "2rem" }}>
+          <p style={{ fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--f-blue)", marginBottom: "0.5rem" }}>
             All Tools
           </p>
           <h2
             style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+              fontSize: "clamp(1.5rem, 3vw, 2.25rem)",
               fontWeight: 700,
-              color: "oklch(0.97 0.005 260)",
-              letterSpacing: "-0.02em",
+              color: "var(--f-text-heading)",
+              letterSpacing: "-0.025em",
               lineHeight: 1.15,
+              margin: 0,
             }}
           >
-            Ten calculators. Every angle of{" "}
-            <span style={{ color: "var(--fire-amber)", fontStyle: "italic" }}>FIRE.</span>
+            Ten calculators. Every angle of FIRE.
           </h2>
         </div>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))",
-            gap: "1px",
-            background: "var(--fire-charcoal-border)",
-            border: "1px solid var(--fire-charcoal-border)",
-            borderRadius: "6px",
-            overflow: "hidden",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(300px, 100%), 1fr))",
+            gap: "1rem",
           }}
         >
-          {calculators.map((calc, i) => (
-            <CalculatorCard key={calc.slug} calc={calc} index={i} />
+          {calculators.map((calc) => (
+            <CalcCard key={calc.slug} calc={calc} />
           ))}
+        </div>
         </div>
       </section>
 
-      {/* What is FIRE — SEO content section */}
+      {/* ── What is FIRE ── */}
       <section
+        id="what-is-fire"
         style={{
-          borderTop: "1px solid var(--fire-charcoal-border)",
-          padding: "clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem)",
-          background: "var(--fire-charcoal-mid)",
+          borderTop: "1px solid var(--f-border)",
+          background: "var(--f-card)",
         }}
       >
         <div
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
+            padding: "clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem)",
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gap: "clamp(2rem, 5vw, 5rem)",
@@ -418,118 +269,70 @@ export default function HomePage() {
           }}
         >
           <div>
-            <p
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "var(--fire-amber)",
-                marginBottom: "0.75rem",
-              }}
-            >
+            <p style={{ fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--f-blue)", marginBottom: "0.625rem" }}>
               What is FIRE?
             </p>
             <h2
               style={{
-                fontFamily: "var(--font-playfair), Georgia, serif",
-                fontSize: "clamp(1.5rem, 2.5vw, 2.25rem)",
+                fontSize: "clamp(1.5rem, 2.5vw, 2.125rem)",
                 fontWeight: 700,
-                color: "oklch(0.97 0.005 260)",
-                letterSpacing: "-0.02em",
+                color: "var(--f-text-heading)",
+                letterSpacing: "-0.025em",
                 lineHeight: 1.2,
-                marginBottom: "1.5rem",
-              }}
-            >
-              Financial Independence,{" "}
-              <span style={{ color: "var(--fire-amber)", fontStyle: "italic" }}>Retire Early.</span>
-            </h2>
-            <p
-              style={{
-                color: "var(--fire-text-muted)",
-                lineHeight: 1.75,
-                fontSize: "0.9375rem",
                 marginBottom: "1.25rem",
-                fontWeight: 300,
               }}
             >
-              FIRE is a financial movement built on a simple principle: save and invest aggressively
-              enough that your portfolio generates more income than you spend. At that point, work
-              becomes optional — you are financially independent.
+              Financial Independence, Retire Early.
+            </h2>
+            <p style={{ color: "var(--f-text-muted)", lineHeight: 1.8, fontSize: "0.9375rem", marginBottom: "1rem", fontWeight: 400 }}>
+              FIRE is built on a simple principle: save and invest aggressively enough that your portfolio
+              generates more income than you spend. At that point, work becomes optional.
             </p>
-            <p
-              style={{
-                color: "var(--fire-text-muted)",
-                lineHeight: 1.75,
-                fontSize: "0.9375rem",
-                fontWeight: 300,
-              }}
-            >
+            <p style={{ color: "var(--f-text-muted)", lineHeight: 1.8, fontSize: "0.9375rem", fontWeight: 400, marginBottom: "1.75rem" }}>
               The most widely used framework is the{" "}
-              <strong style={{ color: "oklch(0.78 0.005 260)", fontWeight: 500 }}>4% rule</strong>:
-              if your annual spending equals 4% or less of your total invested portfolio, your money
-              will last indefinitely in the vast majority of historical market scenarios. Your{" "}
-              <strong style={{ color: "oklch(0.78 0.005 260)", fontWeight: 500 }}>FIRE number</strong>{" "}
-              is therefore 25 times your annual expenses.
+              <strong style={{ color: "var(--f-text-body)", fontWeight: 600 }}>4% rule</strong>: if your
+              annual spending equals 4% or less of your total invested portfolio, your money will last
+              indefinitely. Your <strong style={{ color: "var(--f-text-body)", fontWeight: 600 }}>FIRE number</strong>{" "}
+              is therefore 25× your annual expenses.
             </p>
+            <Link
+              href="/fire-calculator"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                color: "var(--f-blue)",
+                textDecoration: "none",
+              }}
+            >
+              Calculate your FIRE number
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+                <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "1px",
-              background: "var(--fire-charcoal-border)",
-              border: "1px solid var(--fire-charcoal-border)",
-              borderRadius: "6px",
-              overflow: "hidden",
-            }}
-          >
+          <div style={{ display: "flex", flexDirection: "column", gap: "1px", border: "1px solid var(--f-border)", borderRadius: "10px", overflow: "hidden", boxShadow: "var(--f-shadow-card)" }}>
             {[
-              {
-                term: "FIRE Number",
-                def: "Annual expenses × 25. The total portfolio value at which the 4% rule allows indefinite withdrawals.",
-              },
-              {
-                term: "Savings Rate",
-                def: "The percentage of your income you save and invest. Higher savings rates compress your timeline dramatically.",
-              },
-              {
-                term: "Coast FIRE",
-                def: "The portfolio size at which you can stop contributing and compound interest alone will reach your FIRE number.",
-              },
-              {
-                term: "Safe Withdrawal Rate",
-                def: "The annual percentage you can withdraw from a portfolio without depleting it over a 30+ year retirement.",
-              },
-            ].map((item) => (
+              { term: "FIRE Number", def: "Annual expenses × 25. The portfolio at which 4% withdrawals sustain you indefinitely." },
+              { term: "Savings Rate", def: "Percentage of income saved and invested. Higher rates dramatically compress your timeline." },
+              { term: "Coast FIRE", def: "The balance at which you can stop contributing and compound interest alone reaches your FIRE number." },
+              { term: "Safe Withdrawal Rate", def: "The annual % you can withdraw without depleting a portfolio over a 30+ year retirement." },
+            ].map((item, i) => (
               <div
                 key={item.term}
                 style={{
-                  background: "var(--fire-charcoal)",
+                  background: i % 2 === 0 ? "var(--f-card)" : "oklch(0.98 0.003 258)",
                   padding: "1.25rem 1.5rem",
+                  borderBottom: "1px solid var(--f-border)",
                 }}
               >
-                <dt
-                  style={{
-                    fontFamily: "var(--font-playfair), Georgia, serif",
-                    fontSize: "0.9375rem",
-                    fontWeight: 600,
-                    color: "var(--fire-amber)",
-                    marginBottom: "0.375rem",
-                  }}
-                >
+                <dt style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--f-blue)", marginBottom: "0.3rem" }}>
                   {item.term}
                 </dt>
-                <dd
-                  style={{
-                    fontSize: "0.8125rem",
-                    color: "var(--fire-text-muted)",
-                    lineHeight: 1.65,
-                    fontWeight: 300,
-                    margin: 0,
-                  }}
-                >
+                <dd style={{ fontSize: "0.8125rem", color: "var(--f-text-muted)", lineHeight: 1.65, fontWeight: 400, margin: 0 }}>
                   {item.def}
                 </dd>
               </div>
@@ -538,166 +341,119 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why free section */}
-      <section
-        style={{
-          padding: "clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem)",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "2rem",
-        }}
-      >
-        {[
-          {
-            icon: "◈",
-            title: "Instant results",
-            body: "Every calculator updates live as you type — no submit button, no loading, no friction.",
-          },
-          {
-            icon: "◉",
-            title: "No account needed",
-            body: "All calculations run in your browser. Nothing is stored, nothing is tracked. Your numbers stay yours.",
-          },
-          {
-            icon: "◫",
-            title: "Built on proven math",
-            body: "Every formula is grounded in the academic research behind the 4% rule and safe withdrawal rate studies.",
-          },
-        ].map((item) => (
-          <div key={item.title}>
+      {/* ── Why free ── */}
+      <section>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+          {[
+            {
+              title: "Instant results",
+              body: "Every calculator updates live as you type — no submit button, no loading, no friction.",
+              icon: (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                  <path d="M9 1v16M1 9h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx="9" cy="9" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              ),
+            },
+            {
+              title: "No account needed",
+              body: "All calculations run in your browser. Nothing is stored or tracked. Your numbers stay yours.",
+              icon: (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                  <rect x="2" y="3" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M6 3V2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M6 9h6M6 12h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              ),
+            },
+            {
+              title: "Built on proven math",
+              body: "Every formula is grounded in the research behind the Trinity Study and safe withdrawal rates.",
+              icon: (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+                  <path d="M2 13l4-5 3 3 3-4 4 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <rect x="1" y="1" width="16" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+                </svg>
+              ),
+            },
+          ].map((item) => (
             <div
+              key={item.title}
               style={{
-                fontSize: "1.25rem",
-                color: "var(--fire-amber)",
-                marginBottom: "0.875rem",
+                background: "var(--f-card)",
+                border: "1px solid var(--f-border)",
+                borderRadius: "10px",
+                padding: "1.625rem",
+                boxShadow: "var(--f-shadow-card)",
               }}
             >
-              {item.icon}
+              <div
+                style={{
+                  width: "38px",
+                  height: "38px",
+                  background: "var(--f-blue-light)",
+                  border: "1px solid var(--f-blue-border)",
+                  borderRadius: "8px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--f-blue)",
+                  marginBottom: "1rem",
+                }}
+              >
+                {item.icon}
+              </div>
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  color: "var(--f-text-heading)",
+                  marginBottom: "0.5rem",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                {item.title}
+              </h3>
+              <p style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 400, margin: 0 }}>
+                {item.body}
+              </p>
             </div>
-            <h3
-              style={{
-                fontFamily: "var(--font-playfair), Georgia, serif",
-                fontSize: "1.0625rem",
-                fontWeight: 600,
-                color: "oklch(0.92 0.005 260)",
-                marginBottom: "0.5rem",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {item.title}
-            </h3>
-            <p
-              style={{
-                fontSize: "0.875rem",
-                color: "var(--fire-text-muted)",
-                lineHeight: 1.7,
-                fontWeight: 300,
-              }}
-            >
-              {item.body}
-            </p>
-          </div>
-        ))}
+          ))}
+        </div>
+        </div>
       </section>
 
-      {/* Footer */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--fire-charcoal-border)",
-          padding: "2rem clamp(1.5rem, 5vw, 4rem)",
-          background: "var(--fire-charcoal-mid)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontWeight: 700,
-              fontSize: "1rem",
-              color: "oklch(0.6 0.005 260)",
-            }}
-          >
-            FIRE<span style={{ color: "var(--fire-amber-dim)" }}>Tools</span>
-          </span>
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "var(--fire-text-dim)",
-              lineHeight: 1.6,
-              maxWidth: "480px",
-              textAlign: "center",
-            }}
-          >
-            For informational purposes only. Not financial advice. Always consult a qualified financial
-            professional before making investment decisions.
-          </p>
-          <span style={{ fontSize: "0.75rem", color: "var(--fire-text-dim)" }}>
-            © {new Date().getFullYear()} FIRE Tools
-          </span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
 
-function CalculatorCard({
-  calc,
-  index,
-}: {
-  calc: (typeof calculators)[0]
-  index: number
-}) {
-  const content = (
+function CalcCard({ calc }: { calc: (typeof calculators)[0] }) {
+  const inner = (
     <div
       style={{
-        background: "var(--fire-charcoal)",
-        padding: "1.75rem",
+        background: "var(--f-card)",
+        border: "1px solid var(--f-border)",
+        borderRadius: "10px",
+        padding: "1.5rem",
         height: "100%",
+        boxSizing: "border-box",
+        transition: calc.live ? "border-color 0.15s ease, box-shadow 0.15s ease" : undefined,
         position: "relative",
-        transition: calc.live ? "background 0.15s ease" : undefined,
       }}
-      className={calc.live ? "calc-card-live" : undefined}
+      className={calc.live ? "calc-card" : undefined}
     >
-      {/* Number */}
-      <span
-        style={{
-          position: "absolute",
-          top: "1.25rem",
-          right: "1.5rem",
-          fontFamily: "var(--font-playfair), Georgia, serif",
-          fontSize: "1.5rem",
-          fontWeight: 700,
-          color: calc.live ? "var(--fire-amber)" : "var(--fire-text-dim)",
-          lineHeight: 1,
-          opacity: 0.5,
-        }}
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
-      {/* Tag */}
+      {/* Status tag */}
       <span
         style={{
           display: "inline-block",
-          fontSize: "0.6875rem",
+          fontSize: "0.625rem",
           fontWeight: 600,
-          letterSpacing: "0.08em",
+          letterSpacing: "0.07em",
           textTransform: "uppercase",
-          color: calc.live ? "var(--fire-amber)" : "var(--fire-text-dim)",
-          border: `1px solid ${calc.live ? "oklch(0.78 0.16 68 / 0.35)" : "var(--fire-text-dim)"}`,
-          borderRadius: "2px",
+          color: calc.live ? "var(--f-blue)" : "var(--f-text-faint)",
+          background: calc.live ? "var(--f-blue-light)" : "oklch(0.94 0 0)",
+          borderRadius: "4px",
           padding: "0.2rem 0.5rem",
           marginBottom: "0.875rem",
         }}
@@ -707,13 +463,12 @@ function CalculatorCard({
 
       <h3
         style={{
-          fontFamily: "var(--font-playfair), Georgia, serif",
-          fontSize: "1.125rem",
+          fontSize: "1rem",
           fontWeight: 600,
-          color: calc.live ? "oklch(0.97 0.005 260)" : "oklch(0.55 0.005 260)",
+          color: calc.live ? "var(--f-text-heading)" : "var(--f-text-muted)",
           letterSpacing: "-0.01em",
-          marginBottom: "0.625rem",
-          lineHeight: 1.25,
+          marginBottom: "0.4375rem",
+          lineHeight: 1.3,
         }}
       >
         {calc.name}
@@ -721,42 +476,38 @@ function CalculatorCard({
       <p
         style={{
           fontSize: "0.8125rem",
-          color: calc.live ? "var(--fire-text-muted)" : "var(--fire-text-dim)",
+          color: calc.live ? "var(--f-text-muted)" : "var(--f-text-faint)",
           lineHeight: 1.65,
-          fontWeight: 300,
+          fontWeight: 400,
+          margin: 0,
         }}
       >
         {calc.description}
       </p>
 
       {calc.live && (
-        <div
+        <p
           style={{
-            marginTop: "1.25rem",
+            marginTop: "1rem",
+            fontSize: "0.8125rem",
+            fontWeight: 600,
+            color: "var(--f-blue)",
             display: "flex",
             alignItems: "center",
-            gap: "0.375rem",
-            fontSize: "0.8125rem",
-            fontWeight: 500,
-            color: "var(--fire-amber)",
+            gap: "0.3rem",
           }}
         >
-          Use calculator
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-            <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          Open calculator
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden>
+            <path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </div>
+        </p>
       )}
     </div>
   )
 
   if (calc.live) {
-    return (
-      <Link href={`/${calc.slug}`} style={{ textDecoration: "none", display: "block" }}>
-        {content}
-      </Link>
-    )
+    return <Link href={`/${calc.slug}`} style={{ textDecoration: "none", display: "block" }}>{inner}</Link>
   }
-
-  return <div>{content}</div>
+  return <div style={{ opacity: 0.6 }}>{inner}</div>
 }
