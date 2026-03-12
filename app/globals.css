@@ -122,8 +122,54 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   }
   html {
     @apply font-sans;
   }
+}
+
+/* Calculator card hover */
+a:hover .calc-card-live {
+  background: oklch(0.16 0.005 260) !important;
+}
+
+/* Homepage design tokens */
+:root {
+  --fire-amber: oklch(0.78 0.16 68);
+  --fire-amber-dim: oklch(0.65 0.12 68);
+  --fire-charcoal: oklch(0.13 0.005 260);
+  --fire-charcoal-mid: oklch(0.17 0.005 260);
+  --fire-charcoal-border: oklch(0.22 0.008 260);
+  --fire-text-muted: oklch(0.55 0.01 260);
+  --fire-text-dim: oklch(0.38 0.01 260);
+}
+/* Slider — amber on dark */
+[data-slot="slider-track"] {
+  background: oklch(0.22 0.008 260) !important;
+  height: 3px !important;
+}
+[data-slot="slider-range"] {
+  background: oklch(0.78 0.16 68) !important;
+}
+[data-slot="slider-thumb"] {
+  background: oklch(0.78 0.16 68) !important;
+  border-color: oklch(0.78 0.16 68) !important;
+  width: 14px !important;
+  height: 14px !important;
+  box-shadow: 0 0 0 3px oklch(0.78 0.16 68 / 0.15) !important;
+}
+[data-slot="slider-thumb"]:hover,
+[data-slot="slider-thumb"]:focus-visible {
+  box-shadow: 0 0 0 5px oklch(0.78 0.16 68 / 0.28) !important;
+}
+
+/* Hide number input spin arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
