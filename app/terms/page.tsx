@@ -2,8 +2,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Terms of Use — FinCalc",
-  description: "Terms of use for FinCalc. Free financial independence calculators for educational purposes.",
+  title: "Terms of Use — FreedomCalc",
+  description: "Terms of use for FreedomCalc. Free financial independence calculators for educational purposes.",
 }
 
 export default function TermsPage() {
@@ -22,17 +22,17 @@ export default function TermsPage() {
         </p>
 
         <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
-          By using FinCalc, you agree to these terms. Please read them carefully.
+          By using FreedomCalc, you agree to these terms. Please read them carefully.
         </p>
 
         {[
           {
             title: "Educational use only",
-            body: "FinCalc provides financial calculators for educational and informational purposes only. Nothing on this site constitutes financial, investment, tax, or legal advice. All projections and calculations are estimates based on hypothetical scenarios and mathematical models. They do not guarantee future results.",
+            body: "FreedomCalc provides financial calculators for educational and informational purposes only. Nothing on this site constitutes financial, investment, tax, or legal advice. All projections and calculations are estimates based on hypothetical scenarios and mathematical models. They do not guarantee future results.",
           },
           {
             title: "No professional relationship",
-            body: "Use of FinCalc does not create any professional relationship between you and FinCalc or its operators. We are not your financial advisor, accountant, or attorney. Always consult qualified professionals before making financial decisions.",
+            body: "Use of FreedomCalc does not create any professional relationship between you and FreedomCalc or its operators. We are not your financial advisor, accountant, or attorney. Always consult qualified professionals before making financial decisions.",
           },
           {
             title: "Accuracy of calculations",
@@ -40,7 +40,7 @@ export default function TermsPage() {
           },
           {
             title: "Intellectual property",
-            body: "All content on this site — including text, design, code, and branding — is owned by FinCalc. You may not reproduce, distribute, or create derivative works without express written permission.",
+            body: "All content on this site — including text, design, code, and branding — is owned by FreedomCalc. You may not reproduce, distribute, or create derivative works without express written permission.",
           },
           {
             title: "Acceptable use",
@@ -48,7 +48,7 @@ export default function TermsPage() {
           },
           {
             title: "Limitation of liability",
-            body: "To the fullest extent permitted by law, FinCalc and its operators are not liable for any direct, indirect, incidental, or consequential damages arising from your use of the site or reliance on any calculations or information provided.",
+            body: "To the fullest extent permitted by law, FreedomCalc and its operators are not liable for any direct, indirect, incidental, or consequential damages arising from your use of the site or reliance on any calculations or information provided.",
           },
           {
             title: "Changes to these terms",

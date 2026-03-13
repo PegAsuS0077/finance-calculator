@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "Calculate your exact FIRE number using the 4% rule or a custom withdrawal rate. Free, instant results.",
     url: `${config.siteUrl}/fire-number-calculator`,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

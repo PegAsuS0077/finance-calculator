@@ -13,8 +13,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Finance Calculator — Free Financial Independence Calculators",
-    template: "%s | Finance Calculator",
+    default: "FreedomCalc — Free Retirement & Financial Independence Calculators",
+    template: "%s | FreedomCalc",
   },
   description: "Free financial independence calculators for the FIRE movement. Calculate your FIRE number, retirement timeline, savings rate, and more — all free, no signup required.",
 }

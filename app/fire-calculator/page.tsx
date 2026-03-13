@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "Calculate your FIRE number, years to financial independence, and retirement age. Instant results, no signup.",
     url: `${config.siteUrl}/fire-calculator`,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

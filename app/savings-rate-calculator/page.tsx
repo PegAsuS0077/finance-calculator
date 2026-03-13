@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "Calculate your savings rate and see how many years until financial independence. Free, instant results.",
     url: `${config.siteUrl}/savings-rate-calculator`,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

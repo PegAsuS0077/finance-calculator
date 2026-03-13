@@ -2,8 +2,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — FinCalc",
-  description: "FinCalc privacy policy. We don't collect, store, or sell your personal data.",
+  title: "Privacy Policy — FreedomCalc",
+  description: "FreedomCalc privacy policy. We don't collect, store, or sell your personal data.",
 }
 
 export default function PrivacyPage() {
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         </p>
 
         <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
-          Your privacy matters. This policy explains what data FinCalc collects (very little),
+          Your privacy matters. This policy explains what data FreedomCalc collects (very little),
           how it&apos;s used, and your rights.
         </p>
 
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           },
           {
             title: "Cookies",
-            body: "FinCalc uses minimal cookies. Google Analytics sets cookies to distinguish unique visitors. We do not use advertising cookies, tracking pixels, or any third-party marketing cookies.",
+            body: "FreedomCalc uses minimal cookies. Google Analytics sets cookies to distinguish unique visitors. We do not use advertising cookies, tracking pixels, or any third-party marketing cookies.",
           },
           {
             title: "Third-party services",
@@ -45,7 +45,7 @@ export default function PrivacyPage() {
           },
           {
             title: "Children's privacy",
-            body: "FinCalc is not directed at children under 13. We do not knowingly collect any personal information from children.",
+            body: "FreedomCalc is not directed at children under 13. We do not knowingly collect any personal information from children.",
           },
           {
             title: "Changes to this policy",
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
           },
           {
             title: "Contact",
-            body: "Questions about this policy? You can reach us through the contact information listed on our About page.",
+            body: "Questions about this policy? Email us at hello@freedomcalc.dev — we read every message.",
           },
         ].map((section) => (
           <div key={section.title}>

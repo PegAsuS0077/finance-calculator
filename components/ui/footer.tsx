@@ -2,11 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import {
   TrendingUp,
-  Facebook,
-  Twitter,
-  Linkedin,
-  Github,
-  Instagram,
   Mail,
   MapPin
 } from 'lucide-react';
@@ -30,30 +25,12 @@ const Footer: React.FC = () => {
                 <TrendingUp className="h-6 w-6" />
               </div>
               <span className="ml-3 text-xl font-bold tracking-tight" style={{ color: "var(--f-text-heading)" }}>
-                Fin<span style={{ color: "var(--f-blue)" }}>Calc</span>
+                Freedom<span style={{ color: "var(--f-blue)" }}>Calc</span>
               </span>
             </div>
-            <p className="leading-relaxed mb-8" style={{ color: "var(--f-text-muted)", fontSize: "0.9rem" }}>
+            <p className="leading-relaxed" style={{ color: "var(--f-text-muted)", fontSize: "0.9rem" }}>
               Free financial independence calculators for the FIRE movement. No signup, no tracking, no BS.
             </p>
-            <div className="flex space-x-4">
-              {[
-                { icon: Facebook, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Linkedin, href: "#" },
-                { icon: Github, href: "#" },
-                { icon: Instagram, href: "#" },
-              ].map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-lg hover:scale-105"
-                  style={{ background: "var(--f-card)", border: "1px solid var(--f-border)", color: "var(--f-text-muted)" }}
-                >
-                  <social.icon size={18} />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Calculators */}
@@ -65,7 +42,6 @@ const Footer: React.FC = () => {
                 { label: "FIRE Number", href: "/fire-number-calculator" },
                 { label: "Coast FIRE", href: "/coast-fire-calculator" },
                 { label: "Savings Rate", href: "/savings-rate-calculator" },
-                { label: "4% Rule", href: "/4-percent-rule-calculator" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
@@ -77,16 +53,16 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* More Tools */}
+          {/* Resources */}
           <div>
-            <h4 className="text-lg font-bold tracking-tight mb-6" style={{ color: "var(--f-text-heading)" }}>More Tools</h4>
+            <h4 className="text-lg font-bold tracking-tight mb-6" style={{ color: "var(--f-text-heading)" }}>Resources</h4>
             <ul className="space-y-4">
               {[
-                { label: "Compound Interest", href: "/compound-interest-calculator" },
-                { label: "Investment Growth", href: "/investment-growth-calculator" },
-                { label: "Retirement Timeline", href: "/retirement-timeline-calculator" },
-                { label: "Lean FIRE", href: "/lean-fire-calculator" },
-                { label: "Barista FIRE", href: "/barista-fire-calculator" },
+                { label: "Blog", href: "/blog" },
+                { label: "What is FIRE?", href: "/blog/what-is-fire" },
+                { label: "The 4% Rule", href: "/blog/4-percent-rule-explained" },
+                { label: "Savings Rate Guide", href: "/blog/savings-rate-and-retirement" },
+                { label: "Coast FIRE Explained", href: "/blog/coast-fire-explained" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
@@ -107,9 +83,9 @@ const Footer: React.FC = () => {
                 Free &amp; open to everyone
               </li>
               <li>
-                <a href="mailto:hello@fincalc.app" className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
+                <a href="mailto:hello@freedomcalc.dev" className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
                   <Mail className="w-4 h-4 mr-2" style={{ color: "var(--f-text-faint)" }} />
-                  hello@fincalc.app
+                  hello@freedomcalc.dev
                 </a>
               </li>
               {[
@@ -130,7 +106,7 @@ const Footer: React.FC = () => {
 
         <div className="mt-24 pt-8 text-center" style={{ borderTop: "1px solid var(--f-border)" }}>
           <p style={{ color: "var(--f-text-faint)", fontSize: "0.75rem" }}>
-            © {new Date().getFullYear()} FinCalc. For educational purposes only — not financial advice.
+            © {new Date().getFullYear()} FreedomCalc. For educational purposes only — not financial advice.
           </p>
         </div>
       </div>

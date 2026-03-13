@@ -2,8 +2,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "About — FinCalc",
-  description: "Learn about FinCalc — free, open financial independence calculators built for anyone working toward FIRE.",
+  title: "About — FreedomCalc",
+  description: "Learn about FreedomCalc — free, open financial independence calculators built for anyone working toward FIRE.",
 }
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
         </h1>
 
         <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
-          FinCalc is a free suite of financial independence calculators built for the FIRE community —
+          FreedomCalc is a free suite of financial independence calculators built for the FIRE community —
           anyone working toward Financial Independence, Retire Early. Every tool is free, runs entirely
           in your browser, and requires no account or sign-up.
         </p>
@@ -57,14 +57,25 @@ export default function AboutPage() {
           Our commitment
         </h2>
         <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
-          FinCalc will always be free to use. We may introduce optional premium features in the
+          FreedomCalc will always be free to use. We may introduce optional premium features in the
           future, but the core calculators will remain free, open, and accessible to everyone.
+        </p>
+
+        <h2 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--f-text-heading)", letterSpacing: "-0.02em", margin: "2.5rem 0 0.75rem" }}>
+          Contact
+        </h2>
+        <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
+          Have a question, found an error, or want to suggest a calculator? Reach us at{" "}
+          <a href="mailto:hello@freedomcalc.dev" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
+            hello@freedomcalc.dev
+          </a>
+          . We read every message.
         </p>
 
         <div style={{ marginTop: "3rem", padding: "1.25rem 1.5rem", background: "var(--f-card)", border: "1px solid var(--f-border)", borderRadius: "10px" }}>
           <p style={{ fontSize: "0.8125rem", color: "var(--f-text-faint)", lineHeight: 1.7, fontWeight: 400, margin: 0 }}>
             <strong style={{ fontWeight: 600, color: "var(--f-text-muted)" }}>Disclaimer: </strong>
-            FinCalc is for educational and informational purposes only. Nothing on this site
+            FreedomCalc is for educational and informational purposes only. Nothing on this site
             constitutes financial, investment, or tax advice. Always consult a qualified financial
             professional before making financial decisions.
           </p>

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "Find your Coast FIRE number and let compound growth do the rest. Free, instant results.",
     url: `${config.siteUrl}/coast-fire-calculator`,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

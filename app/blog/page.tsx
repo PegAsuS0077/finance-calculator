@@ -9,10 +9,10 @@ export const metadata: Metadata = {
   description: "In-depth articles on financial independence, the FIRE movement, safe withdrawal rates, index fund investing, and retirement planning strategies.",
   alternates: { canonical: `${config.siteUrl}/blog` },
   openGraph: {
-    title: "FIRE Tools Blog — Financial Independence Articles",
+    title: "FreedomCalc Blog — Financial Independence Articles",
     description: "In-depth guides on FIRE, safe withdrawal rates, savings rate, index investing, and early retirement planning.",
     url: `${config.siteUrl}/blog`,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

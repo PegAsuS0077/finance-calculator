@@ -4,15 +4,15 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 
 export const metadata: Metadata = {
-  title: "Finance Calculator — Free Financial Independence Calculators",
+  title: "FreedomCalc — Free Retirement & Financial Independence Calculators",
   description:
     "Free financial independence calculators for the FIRE movement. Calculate your FIRE number, retirement timeline, savings rate, compound interest, and more. No signup required.",
   alternates: { canonical: config.siteUrl },
   openGraph: {
-    title: "Finance Calculator — Free Financial Independence Calculators",
+    title: "FreedomCalc — Free Retirement & Financial Independence Calculators",
     description: "Calculate your path to financial independence with free FIRE calculators.",
     url: config.siteUrl,
-    siteName: "FIRE Tools",
+    siteName: "FreedomCalc",
     type: "website",
   },
 }

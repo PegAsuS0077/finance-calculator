@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.description,
       url: `${config.siteUrl}/blog/${slug}`,
-      siteName: "FIRE Tools",
+      siteName: "FreedomCalc",
       type: "article",
       publishedTime: post.date,
     },
