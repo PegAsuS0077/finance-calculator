@@ -1,7 +1,7 @@
 // components/calculators/fire-calculator.tsx
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { Slider } from '@/components/ui/slider'
 import { fireSchema, type FireInputs } from '@/lib/validation/fire-schema'
 import { calculateFire } from '@/lib/calculators/fire'
@@ -51,6 +51,10 @@ function NumberInput({
   min?: number; max?: number; prefix?: string; hint?: string
 }) {
   const [raw, setRaw] = useState(() => String(value))
+
+  useEffect(() => {
+    setRaw(String(value))
+  }, [value])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const str = e.target.value
@@ -265,14 +269,52 @@ function GroupLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
+// ─── Monthly/Annual toggle ─────────────────────────────────────────────────────
+
+function FrequencyToggle({ isMonthly, onChange }: { isMonthly: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--f-border)', borderRadius: '7px', padding: '0.1875rem' }}>
+      {(['Annual', 'Monthly'] as const).map((label) => {
+        const active = label === 'Monthly' ? isMonthly : !isMonthly
+        return (
+          <button
+            key={label}
+            type="button"
+            onClick={() => onChange(label === 'Monthly')}
+            style={{
+              flex: 1,
+              padding: '0.3125rem 0.625rem',
+              borderRadius: '5px',
+              border: 'none',
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'background 0.15s ease, color 0.15s ease',
+              background: active ? 'var(--f-card)' : 'transparent',
+              color: active ? 'var(--f-text-heading)' : 'var(--f-text-faint)',
+              boxShadow: active ? '0 1px 3px oklch(0 0 0 / 0.10)' : 'none',
+            }}
+          >
+            {label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 // ─── Main component ────────────────────────────────────────────────────────────
 
 export function FireCalculator() {
   const [inputs, setInputs] = useState<FireInputs>(DEFAULTS)
+  const [isMonthly, setIsMonthly] = useState(false)
 
   function set<K extends keyof FireInputs>(key: K, value: FireInputs[K]) {
     setInputs((prev) => ({ ...prev, [key]: value }))
   }
+
+  // When toggle changes, values stay the same (always stored as annual)
+  const scale = isMonthly ? 12 : 1
 
   const results = useMemo(() => {
     const parsed = fireSchema.safeParse(inputs)
@@ -308,16 +350,21 @@ export function FireCalculator() {
             gap: '1.125rem',
           }}
         >
-          <GroupLabel>Your Finances</GroupLabel>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <GroupLabel>Your Finances</GroupLabel>
+            <div style={{ marginBottom: '0.875rem', paddingBottom: '0.5rem' }}>
+              <FrequencyToggle isMonthly={isMonthly} onChange={setIsMonthly} />
+            </div>
+          </div>
 
           <NumberInput id="currentAge" label="Current Age" value={inputs.currentAge}
             onChange={(v) => set('currentAge', v)} min={18} max={80} hint="years old" />
-          <NumberInput id="annualIncome" label="Annual Income" value={inputs.annualIncome}
-            onChange={(v) => set('annualIncome', v)} prefix="$" min={1000} hint="pre-tax" />
-          <NumberInput id="annualExpenses" label="Annual Expenses" value={inputs.annualExpenses}
-            onChange={(v) => set('annualExpenses', v)} prefix="$" min={1000} hint="post-tax" />
-          <NumberInput id="annualContributions" label="Annual Contributions" value={inputs.annualContributions}
-            onChange={(v) => set('annualContributions', v)} prefix="$" min={0} hint="invested / year" />
+          <NumberInput id="annualIncome" label={isMonthly ? 'Monthly Income' : 'Annual Income'} value={Math.round(inputs.annualIncome / scale)}
+            onChange={(v) => set('annualIncome', v * scale)} prefix="$" min={0} hint="pre-tax" />
+          <NumberInput id="annualExpenses" label={isMonthly ? 'Monthly Expenses' : 'Annual Expenses'} value={Math.round(inputs.annualExpenses / scale)}
+            onChange={(v) => set('annualExpenses', v * scale)} prefix="$" min={0} hint="post-tax" />
+          <NumberInput id="annualContributions" label={isMonthly ? 'Monthly Contributions' : 'Annual Contributions'} value={Math.round(inputs.annualContributions / scale)}
+            onChange={(v) => set('annualContributions', v * scale)} prefix="$" min={0} hint={isMonthly ? 'invested / month' : 'invested / year'} />
           <NumberInput id="currentPortfolio" label="Current Portfolio" value={inputs.currentPortfolio}
             onChange={(v) => set('currentPortfolio', v)} prefix="$" min={0} hint="invested assets" />
 

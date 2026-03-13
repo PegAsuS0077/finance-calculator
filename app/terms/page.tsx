@@ -1,7 +1,5 @@
 // app/terms/page.tsx
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/layout/site-header"
-import { SiteFooter } from "@/components/layout/site-footer"
 
 export const metadata: Metadata = {
   title: "Terms of Use — FinCalc",
@@ -11,7 +9,6 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
-      <SiteHeader />
       <main style={{ maxWidth: "720px", margin: "0 auto", padding: "clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2rem)" }}>
 
         <p style={{ fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--f-blue)", marginBottom: "0.625rem" }}>
@@ -73,7 +70,6 @@ export default function TermsPage() {
         ))}
 
       </main>
-      <SiteFooter />
     </div>
   )
 }

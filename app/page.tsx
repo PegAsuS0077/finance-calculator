@@ -2,8 +2,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { config } from "@/lib/config"
-import { SiteHeader } from "@/components/layout/site-header"
-import { SiteFooter } from "@/components/layout/site-footer"
 
 export const metadata: Metadata = {
   title: "Finance Calculator — Free Financial Independence Calculators",
@@ -20,16 +18,16 @@ export const metadata: Metadata = {
 }
 
 const calculators = [
-  { slug: "fire-calculator", name: "FIRE Calculator", description: "Calculate your FIRE number, years to financial independence, and projected retirement age.", tag: "Live", live: true },
-  { slug: "fire-number-calculator", name: "FIRE Number Calculator", description: "Find exactly how much you need to retire based on your expenses and withdrawal rate.", tag: "Soon", live: false },
-  { slug: "coast-fire-calculator", name: "Coast FIRE Calculator", description: "Discover when compound interest alone will carry you to retirement — no contributions needed.", tag: "Soon", live: false },
-  { slug: "savings-rate-calculator", name: "Savings Rate Calculator", description: "See how dramatically increasing your savings rate shortens your path to independence.", tag: "Soon", live: false },
-  { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", tag: "Soon", live: false },
-  { slug: "compound-interest-calculator", name: "Compound Interest Calculator", description: "Visualize how your investments compound over time with regular contributions.", tag: "Soon", live: false },
-  { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", tag: "Soon", live: false },
-  { slug: "retirement-timeline-calculator", name: "Retirement Timeline", description: "A year-by-year roadmap to retirement based on income, expenses, and investment growth.", tag: "Soon", live: false },
-  { slug: "lean-fire-calculator", name: "Lean FIRE Calculator", description: "Plan an ultra-frugal early retirement and calculate the minimum portfolio needed.", tag: "Soon", live: false },
-  { slug: "barista-fire-calculator", name: "Barista FIRE Calculator", description: "Semi-retirement planning with part-time income and a smaller required portfolio.", tag: "Soon", live: false },
+  { slug: "fire-calculator", name: "FIRE Calculator", description: "Calculate your FIRE number, years to financial independence, and projected retirement age.", live: true },
+  { slug: "fire-number-calculator", name: "FIRE Number Calculator", description: "Find exactly how much you need to retire based on your expenses and withdrawal rate.", live: true },
+  { slug: "coast-fire-calculator", name: "Coast FIRE Calculator", description: "Discover when compound interest alone will carry you to retirement — no contributions needed.", live: true },
+  { slug: "savings-rate-calculator", name: "Savings Rate Calculator", description: "See how dramatically increasing your savings rate shortens your path to independence.", live: false },
+  { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", live: false },
+  { slug: "compound-interest-calculator", name: "Compound Interest Calculator", description: "Visualize how your investments compound over time with regular contributions.", live: false },
+  { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", live: false },
+  { slug: "retirement-timeline-calculator", name: "Retirement Timeline", description: "A year-by-year roadmap to retirement based on income, expenses, and investment growth.", live: false },
+  { slug: "lean-fire-calculator", name: "Lean FIRE Calculator", description: "Plan an ultra-frugal early retirement and calculate the minimum portfolio needed.", live: false },
+  { slug: "barista-fire-calculator", name: "Barista FIRE Calculator", description: "Semi-retirement planning with part-time income and a smaller required portfolio.", live: false },
 ]
 
 const stats = [
@@ -42,7 +40,6 @@ const stats = [
 export default function HomePage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
-      <SiteHeader activePath="/" />
 
       {/* ── Hero ── */}
       <section
@@ -423,7 +420,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <SiteFooter />
     </div>
   )
 }
@@ -443,23 +439,7 @@ function CalcCard({ calc }: { calc: (typeof calculators)[0] }) {
       }}
       className={calc.live ? "calc-card" : undefined}
     >
-      {/* Status tag */}
-      <span
-        style={{
-          display: "inline-block",
-          fontSize: "0.625rem",
-          fontWeight: 600,
-          letterSpacing: "0.07em",
-          textTransform: "uppercase",
-          color: calc.live ? "var(--f-blue)" : "var(--f-text-faint)",
-          background: calc.live ? "var(--f-blue-light)" : "oklch(0.94 0 0)",
-          borderRadius: "4px",
-          padding: "0.2rem 0.5rem",
-          marginBottom: "0.875rem",
-        }}
-      >
-        {calc.tag}
-      </span>
+
 
       <h3
         style={{

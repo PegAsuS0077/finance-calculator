@@ -2,6 +2,8 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { NavBar } from "@/components/ui/tubelight-navbar"
+import Footer from "@/components/ui/footer"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +23,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
-        {children}
+        <NavBar />
+        <div className="pt-20 sm:pt-24 pb-20 sm:pb-0">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   )
