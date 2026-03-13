@@ -83,9 +83,9 @@ const Footer: React.FC = () => {
                 Free &amp; open to everyone
               </li>
               <li>
-                <a href="mailto:hello@freedomcalc.dev" className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
+                <a href="mailto:contact@freedomcalc.dev" className="transition-colors duration-300 flex items-center group" style={{ color: "var(--f-text-faint)", textDecoration: "none", fontSize: "0.8125rem" }}>
                   <Mail className="w-4 h-4 mr-2" style={{ color: "var(--f-text-faint)" }} />
-                  hello@freedomcalc.dev
+                  contact@freedomcalc.dev
                 </a>
               </li>
               {[

@@ -53,7 +53,7 @@ export default function PrivacyPage() {
           },
           {
             title: "Contact",
-            body: "Questions about this policy? Email us at hello@freedomcalc.dev — we read every message.",
+            body: "Questions about this policy? Email us at contact@freedomcalc.dev — we read every message.",
           },
         ].map((section) => (
           <div key={section.title}>

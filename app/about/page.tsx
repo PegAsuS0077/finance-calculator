@@ -66,8 +66,8 @@ export default function AboutPage() {
         </h2>
         <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 400, margin: "0 0 1.25rem" }}>
           Have a question, found an error, or want to suggest a calculator? Reach us at{" "}
-          <a href="mailto:hello@freedomcalc.dev" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
-            hello@freedomcalc.dev
+          <a href="mailto:contact@freedomcalc.dev" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
+            contact@freedomcalc.dev
           </a>
           . We read every message.
         </p>
