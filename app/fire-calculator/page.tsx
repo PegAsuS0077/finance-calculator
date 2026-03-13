@@ -593,7 +593,7 @@ export default function FireCalculatorPage() {
                   title="See how your savings rate drives your timeline"
                   description="The Savings Rate Calculator shows exactly how much earlier you retire as your savings rate increases."
                   href="/savings-rate-calculator"
-                  live={false}
+                  live={true}
                 />
                 <NextStepCard
                   title="Stress-test your withdrawal strategy"
@@ -610,7 +610,7 @@ export default function FireCalculatorPage() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))", gap: "1rem" }}>
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Focus specifically on your target portfolio based on annual spending." live={true} />
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find when compound interest alone will carry you to retirement." live={false} />
-                <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps to years until financial independence." live={false} />
+                <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps to years until financial independence." live={true} />
                 <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from any portfolio size." live={false} />
                 <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Visualize how investments grow with regular contributions." live={false} />
               </div>

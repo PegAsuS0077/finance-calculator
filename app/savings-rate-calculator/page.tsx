@@ -1,35 +1,37 @@
-// app/coast-fire-calculator/page.tsx
+// app/savings-rate-calculator/page.tsx
 import type { Metadata } from "next"
 import Link from "next/link"
 import { config } from "@/lib/config"
-import { CoastFireCalculator } from "@/components/calculators/coast-fire-calculator"
+import { SavingsRateCalculator } from "@/components/calculators/savings-rate-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
 
 export const metadata: Metadata = {
-  title: "Coast FIRE Calculator — How Much Do You Need to Invest Today?",
+  title: "Savings Rate Calculator — How Fast Can You Reach FIRE?",
   description:
-    "Calculate your Coast FIRE number — the lump sum you need invested today so compound growth alone reaches your FIRE target by retirement. No more contributions needed once you hit it.",
+    "Calculate your current savings rate and see exactly how many years until financial independence. Based on the Mr. Money Mustache model.",
   alternates: {
-    canonical: `${config.siteUrl}/coast-fire-calculator`,
+    canonical: `${config.siteUrl}/savings-rate-calculator`,
   },
   openGraph: {
-    title: "Coast FIRE Calculator — How Much Do You Need to Invest Today?",
+    title: "Savings Rate Calculator — How Fast Can You Reach FIRE?",
     description:
-      "Find your Coast FIRE number and let compound growth do the rest. Free, instant results.",
-    url: `${config.siteUrl}/coast-fire-calculator`,
+      "Calculate your savings rate and see how many years until financial independence. Free, instant results.",
+    url: `${config.siteUrl}/savings-rate-calculator`,
     siteName: "FIRE Tools",
     type: "website",
   },
 }
 
 const ON_THIS_PAGE = [
-  { id: "how-to-use", label: "How to use" },
-  { id: "use-your-results", label: "Use your results" },
-  { id: "how-it-works", label: "How it works" },
+  { id: "how-to-use", label: "How to Use" },
+  { id: "use-your-results", label: "Your Results" },
+  { id: "how-it-works", label: "How It Works" },
   { id: "examples", label: "Examples" },
-  { id: "coast-fire-explained", label: "What is Coast FIRE?" },
+  { id: "why-it-matters", label: "Why It Matters" },
   { id: "faq", label: "FAQ" },
-  { id: "next-steps", label: "Next steps" },
+  { id: "next-steps", label: "Next Steps" },
+  { id: "related-calculators", label: "Related Calculators" },
+  { id: "disclaimer", label: "Disclaimer" },
 ]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -83,15 +85,11 @@ function FormulaBlock({ formula, example }: { formula: string; example: string }
 }
 
 function ExampleCard({
-  name, currentAge, retirementAge, expenses, coastNumber, fireNumber, alreadyCoasted,
+  name, inputs, outputs,
 }: {
   name: string
-  currentAge: string
-  retirementAge: string
-  expenses: string
-  coastNumber: string
-  fireNumber: string
-  alreadyCoasted?: boolean
+  inputs: { label: string; value: string }[]
+  outputs: { label: string; value: string; highlight?: boolean }[]
 }) {
   return (
     <div
@@ -118,14 +116,7 @@ function ExampleCard({
         {name}
       </p>
       <dl>
-        {[
-          { label: "Current Age", value: currentAge },
-          { label: "Retirement Age", value: retirementAge },
-          { label: "Annual Expenses", value: expenses },
-          { label: "FIRE Number", value: fireNumber },
-          { label: "Coast FIRE Number", value: coastNumber, highlight: true },
-          ...(alreadyCoasted ? [{ label: "Status", value: "Already Coasting!", highlight: true }] : []),
-        ].map((row) => (
+        {[...inputs, ...outputs].map((row) => (
           <div
             key={row.label}
             style={{
@@ -141,10 +132,10 @@ function ExampleCard({
             </dt>
             <dd
               style={{
-                fontSize: row.highlight ? "0.9375rem" : "0.875rem",
-                color: row.highlight ? "var(--f-blue)" : "var(--f-text-body)",
-                fontWeight: row.highlight ? 700 : 450,
-                fontFamily: row.highlight ? "var(--font-inter), ui-sans-serif, sans-serif" : undefined,
+                fontSize: (row as { highlight?: boolean }).highlight ? "0.9375rem" : "0.875rem",
+                color: (row as { highlight?: boolean }).highlight ? "var(--f-blue)" : "var(--f-text-body)",
+                fontWeight: (row as { highlight?: boolean }).highlight ? 700 : 450,
+                fontFamily: (row as { highlight?: boolean }).highlight ? "var(--font-inter), ui-sans-serif, sans-serif" : undefined,
                 margin: 0,
               }}
             >
@@ -304,7 +295,7 @@ function NextStepCard({ title, description, href, live }: {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function CoastFireCalculatorPage() {
+export default function SavingsRateCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
 
@@ -322,7 +313,7 @@ export default function CoastFireCalculatorPage() {
               marginBottom: "0.625rem",
             }}
           >
-            Coast FIRE Calculator
+            Savings Rate Calculator
           </p>
           <h1
             style={{
@@ -335,7 +326,7 @@ export default function CoastFireCalculatorPage() {
               marginBottom: "0.75rem",
             }}
           >
-            How Much Do You Need to Invest Today to Coast to Retirement?
+            How Fast Can You Reach Financial Independence?
           </h1>
           <p
             style={{
@@ -345,15 +336,16 @@ export default function CoastFireCalculatorPage() {
               fontWeight: 300,
             }}
           >
-            Coast FIRE is the point where your portfolio is large enough that compound growth alone — with zero new
-            contributions — will grow to your full FIRE number by retirement. Calculate your Coast FIRE number and
-            see exactly how close you are.
+            Your savings rate is the single most powerful lever in your FIRE journey. Enter your income and
+            expenses to see your current savings rate, your FIRE number, and exactly how many years until
+            financial independence — plus a full table showing how each 10% increase in savings rate cuts
+            years off your timeline.
           </p>
         </div>
 
         {/* ── Calculator widget ── */}
-        <section id="calculator" aria-label="Coast FIRE Calculator" style={{ marginBottom: "3rem" }}>
-          <CoastFireCalculator />
+        <section id="calculator" aria-label="Savings Rate Calculator" style={{ marginBottom: "3rem" }}>
+          <SavingsRateCalculator />
         </section>
 
         {/* ── Two-column: on-this-page + content ── */}
@@ -377,34 +369,34 @@ export default function CoastFireCalculatorPage() {
             >
               <SectionHeading>How to use this calculator</SectionHeading>
               <p style={{ fontSize: "0.9rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 300, marginBottom: "1.5rem" }}>
-                Enter your details and the calculator instantly shows your Coast FIRE number:
+                Enter your income and expenses — results update instantly as you type:
               </p>
               <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                 {[
                   {
                     n: "1",
-                    title: "Current age and retirement age",
-                    body: "Enter your current age and the age at which you want to retire. The gap between these is your coasting window — the number of years compound growth has to do the work. A longer window means a much lower Coast FIRE number.",
+                    title: "Annual gross income",
+                    body: "Enter your total annual income before taxes. This field is informational and used to give context alongside your take-home pay. If you are self-employed, enter your gross business revenue before expenses.",
                   },
                   {
                     n: "2",
-                    title: "Current portfolio value",
-                    body: "Enter the total value of your invested assets today. This is what you compare against your Coast FIRE number to see how far along you are. Include retirement accounts, brokerage accounts, and any other invested assets.",
+                    title: "Annual take-home income",
+                    body: "Enter what actually hits your bank account after all taxes and deductions. This is the income you live on and save from. For most salaried employees, this is your net pay multiplied by your pay periods per year.",
                   },
                   {
                     n: "3",
-                    title: "Annual expenses in retirement",
-                    body: "How much do you expect to spend each year in retirement? This drives your FIRE number, which the calculator then discounts back to today to find your Coast FIRE number.",
+                    title: "Annual expenses",
+                    body: "How much do you spend in a year? Include housing, food, transport, subscriptions, travel, and discretionary spending. This drives both your savings rate calculation and your FIRE number. Lower expenses have a double impact: they increase your savings AND lower your target.",
                   },
                   {
                     n: "4",
-                    title: "Withdrawal rate and expected return",
-                    body: "The withdrawal rate determines your FIRE number (default 4%). The annual return rate determines how aggressively your portfolio grows during the coasting window. Adjust the sliders to model conservative or optimistic scenarios.",
+                    title: "Expected annual return",
+                    body: "Adjust the slider for your assumed investment return rate. A diversified stock portfolio has historically returned 7–10% nominally. Use 5–7% for conservative estimates. The default is 5% to produce realistic results for most scenarios.",
                   },
                   {
                     n: "5",
-                    title: "Read your results",
-                    body: "The calculator shows your Coast FIRE number, progress bar, gap to cover, and a chart showing portfolio growth from today to retirement. If your current portfolio already exceeds the Coast FIRE number, you'll see a green 'Already Coasting' indicator.",
+                    title: "Current portfolio value",
+                    body: "Enter the current value of all your invested assets: 401(k), IRA, Roth, brokerage accounts. A non-zero starting portfolio reduces your years to FI by letting compound growth work from day one. Enter 0 if you are starting from scratch.",
                   },
                 ].map((step) => (
                   <li key={step.n} style={{ display: "flex", gap: "1.25rem", alignItems: "flex-start" }}>
@@ -442,14 +434,14 @@ export default function CoastFireCalculatorPage() {
 
             {/* Use your results */}
             <section id="use-your-results" style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Use your results</SectionHeading>
+              <SectionHeading>Understanding your results</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(240px, 100%), 1fr))", gap: "1rem" }}>
                 {[
-                  { label: "Coast FIRE Number", body: "The lump sum you need invested today for compound growth to reach your FIRE target by retirement — with no further contributions. Once you hit this number, your retirement is mathematically secured." },
-                  { label: "FIRE Number", body: "Your full retirement target: the portfolio needed to fund your lifestyle indefinitely at your chosen withdrawal rate. Coast FIRE is simply the present value of this future target." },
-                  { label: "Years of Growth", body: "The number of years between now and retirement — the coasting window. More years means exponentially more growth and a much lower Coast FIRE number. This is the most powerful variable in the formula." },
-                  { label: "Gap to Cover", body: "The difference between your current portfolio and your Coast FIRE number. This is what you need to save before you can stop contributing. Once the gap is closed, compound growth handles the rest." },
-                  { label: "Progress Bar", body: "Visual indicator of how far along you are toward your Coast FIRE number. Reaching 100% means you've hit Coast FIRE — you can redirect contributions to spending or other goals." },
+                  { label: "Savings Rate (%)", body: "The percentage of your take-home income you save and invest each year. This is the primary variable that determines how quickly you reach FI. A 50% savings rate means you can theoretically retire in about 17 years from scratch at a 5% return." },
+                  { label: "Annual Savings", body: "The dollar amount you save per year: take-home income minus annual expenses. This is the fuel for your wealth-building engine. Even small increases in annual savings compound dramatically over time." },
+                  { label: "FIRE Number", body: "The portfolio size needed to sustain your expenses indefinitely using the 4% safe withdrawal rate. It equals your annual expenses multiplied by 25. Reducing expenses shrinks this target — one of the most powerful moves in the FIRE playbook." },
+                  { label: "Years to FI", body: "How many years at your current savings rate and return assumption before your portfolio reaches your FIRE number. This uses the Mr. Money Mustache formula, which accounts for compound growth on your existing portfolio and ongoing contributions." },
+                  { label: "Years to FI Table", body: "The table rows show years to FI at savings rates from 10% to 90% — holding your take-home income and return constant. The row closest to your current savings rate is highlighted. Use this to model the impact of increasing your savings rate." },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -484,37 +476,42 @@ export default function CoastFireCalculatorPage() {
                 boxShadow: "var(--f-shadow-card)",
               }}
             >
-              <SectionHeading>How the Coast FIRE Calculator works</SectionHeading>
+              <SectionHeading>How the Savings Rate Calculator works</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "start" }}>
                 <div style={{ fontSize: "0.9rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 300 }}>
                   <p>
-                    The calculator uses two formulas in sequence. First, it calculates your full FIRE number —
-                    the portfolio needed to sustain your retirement spending. Then it discounts that future target
-                    back to today using the compound interest present value formula.
+                    The calculator uses three formulas in sequence. First it calculates your savings rate,
+                    then your FIRE number, then the years to FI using the logarithmic compound growth formula
+                    popularized by Mr. Money Mustache.
                   </p>
                   <FormulaBlock
-                    formula="FIRE Number = Annual Expenses ÷ Withdrawal Rate"
-                    example="Example: $40,000 ÷ 0.04 = $1,000,000"
+                    formula="Savings Rate = (Take-Home − Expenses) ÷ Take-Home"
+                    example="Example: ($60,000 − $45,000) ÷ $60,000 = 25%"
+                  />
+                  <FormulaBlock
+                    formula="FIRE Number = Annual Expenses ÷ 0.04"
+                    example="Example: $45,000 ÷ 0.04 = $1,125,000"
                   />
                   <p style={{ marginTop: "1rem" }}>
-                    The Coast FIRE number is the present value of the FIRE number — the amount that, when compounded
-                    at your expected return for the number of years until retirement, equals your FIRE target:
+                    The years to FI formula accounts for the compound growth of both your existing portfolio
+                    and your ongoing annual savings contributions:
                   </p>
                   <FormulaBlock
-                    formula="Coast FIRE Number = FIRE Number ÷ (1 + r)ⁿ"
-                    example="r = annual return rate · n = years until retirement"
+                    formula="Years = log((F × r + S) ÷ (P × r + S)) ÷ log(1 + r)"
+                    example="F = FIRE Number · r = annual return · S = annual savings · P = current portfolio"
                   />
                   <p style={{ marginTop: "1rem" }}>
-                    This is the standard present value formula. Compound growth is exponential, so even modest
-                    differences in years or return rate produce dramatically different Coast FIRE numbers.
+                    If your return rate is zero, a simpler linear formula is used: (FIRE Number − Portfolio) ÷ Annual Savings.
+                    If your savings rate is negative (expenses exceed income), years to FI is shown as 100+ to indicate
+                    FI cannot be reached at the current trajectory.
                   </p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                   {[
-                    { title: "The power of time", body: "A 30-year-old targeting retirement at 65 has a 35-year coasting window. At 7% return, $1M discounted 35 years back is only ~$94,000. A 40-year-old targeting the same goal needs ~$184,000 — nearly double." },
-                    { title: "Why this matters for your strategy", body: "Once you hit Coast FIRE, you can redirect your investment contributions to other things — spending more now, working part-time, or pursuing projects you love. You've already 'funded' retirement." },
-                    { title: "Return rate sensitivity", body: "The Coast FIRE number is highly sensitive to your assumed return rate. At 5%, the Coast number is much higher than at 8%. Use a conservative rate (6–7%) for planning to avoid over-optimism." },
-                    { title: "Inflation and the 4% rule", body: "Your annual expenses are in today's dollars. The FIRE number based on the 4% rule historically accounts for inflation-adjusted withdrawals, so the formula remains valid as long as you invest in real assets that grow with inflation." },
+                    { title: "Why savings rate beats income", body: "Two households earning the same income can have radically different timelines to FI. A household spending 80% of income needs 45 years to retire; one spending 50% needs only 17. Income matters less than what you keep." },
+                    { title: "The double benefit of lower expenses", body: "Reducing annual expenses improves your savings rate AND reduces your FIRE number. Cutting $5,000 per year increases your annual savings by $5,000 and reduces your FIRE target by $125,000 (25×). No other single move has this dual impact." },
+                    { title: "Compound growth on existing savings", body: "The formula gives full credit to your existing portfolio — it grows at your assumed return rate, reducing the heavy lifting your annual savings must do. Even a modest portfolio of $50,000 can meaningfully compress your timeline." },
+                    { title: "The 4% rule assumption", body: "The FIRE Number uses the 4% rule: annual expenses ÷ 0.04 = 25× expenses. This is based on the Trinity Study, which found that a 4% initial withdrawal rate sustained a 30-year retirement in the vast majority of historical periods." },
                   ].map((item) => (
                     <div
                       key={item.title}
@@ -539,7 +536,7 @@ export default function CoastFireCalculatorPage() {
 
             {/* Examples */}
             <section id="examples" style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Examples of Coast FIRE scenarios</SectionHeading>
+              <SectionHeading>Savings rate scenarios</SectionHeading>
               <div
                 style={{
                   display: "grid",
@@ -549,28 +546,43 @@ export default function CoastFireCalculatorPage() {
                 }}
               >
                 <ExampleCard
-                  name="Early starter — 25-year-old, retire at 60"
-                  currentAge="25"
-                  retirementAge="60"
-                  expenses="$40,000 / yr"
-                  fireNumber="$1,000,000"
-                  coastNumber="~$74,000"
+                  name="Average American — 15% savings rate"
+                  inputs={[
+                    { label: "Take-Home Income", value: "$60,000 / yr" },
+                    { label: "Annual Expenses", value: "$51,000 / yr" },
+                    { label: "Annual Savings", value: "$9,000 / yr" },
+                  ]}
+                  outputs={[
+                    { label: "Savings Rate", value: "15%", highlight: true },
+                    { label: "FIRE Number", value: "$1,275,000" },
+                    { label: "Years to FI (5% return)", value: "~43 years", highlight: true },
+                  ]}
                 />
                 <ExampleCard
-                  name="Mid-career — 35-year-old, retire at 65"
-                  currentAge="35"
-                  retirementAge="65"
-                  expenses="$50,000 / yr"
-                  fireNumber="$1,250,000"
-                  coastNumber="~$164,000"
+                  name="Serious saver — 40% savings rate"
+                  inputs={[
+                    { label: "Take-Home Income", value: "$80,000 / yr" },
+                    { label: "Annual Expenses", value: "$48,000 / yr" },
+                    { label: "Annual Savings", value: "$32,000 / yr" },
+                  ]}
+                  outputs={[
+                    { label: "Savings Rate", value: "40%", highlight: true },
+                    { label: "FIRE Number", value: "$1,200,000" },
+                    { label: "Years to FI (7% return)", value: "~19 years", highlight: true },
+                  ]}
                 />
                 <ExampleCard
-                  name="Late starter — 45-year-old, retire at 65"
-                  currentAge="45"
-                  retirementAge="65"
-                  expenses="$60,000 / yr"
-                  fireNumber="$1,500,000"
-                  coastNumber="~$387,000"
+                  name="FIRE optimized — 65% savings rate"
+                  inputs={[
+                    { label: "Take-Home Income", value: "$100,000 / yr" },
+                    { label: "Annual Expenses", value: "$35,000 / yr" },
+                    { label: "Annual Savings", value: "$65,000 / yr" },
+                  ]}
+                  outputs={[
+                    { label: "Savings Rate", value: "65%", highlight: true },
+                    { label: "FIRE Number", value: "$875,000" },
+                    { label: "Years to FI (7% return)", value: "~10 years", highlight: true },
+                  ]}
                 />
               </div>
               <div
@@ -582,14 +594,16 @@ export default function CoastFireCalculatorPage() {
                 }}
               >
                 <p style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 300, margin: 0 }}>
-                  Notice how powerfully time affects the Coast FIRE number: the 25-year-old needs only $74,000 invested today to secure a $1M retirement — because 35 years of 7% compounding does the heavy lifting. The 45-year-old with only 20 years has a Coast FIRE number more than 5× higher. Starting early is the single most powerful lever in the Coast FIRE equation.
+                  Notice how dramatically the FIRE Number drops as expenses fall. The 65% saver not only contributes
+                  more each year — they also need far less to retire. This dual compression is why FIRE practitioners
+                  focus on expenses first and income second. Cutting expenses is the highest-leverage move available.
                 </p>
               </div>
             </section>
 
-            {/* Coast FIRE explained */}
+            {/* Why it matters */}
             <section
-              id="coast-fire-explained"
+              id="why-it-matters"
               style={{
                 marginBottom: "3rem",
                 background: "var(--f-card)",
@@ -599,30 +613,33 @@ export default function CoastFireCalculatorPage() {
                 boxShadow: "var(--f-shadow-card)",
               }}
             >
-              <SectionHeading>What is Coast FIRE?</SectionHeading>
+              <SectionHeading>Why savings rate is the master variable</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem" }}>
                 <div style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 300 }}>
                   <p>
-                    Coast FIRE is a milestone on the path to full financial independence. It&apos;s the point at which
-                    your portfolio is large enough that — even if you never contribute another dollar — compound
-                    growth will carry it to your FIRE number by your target retirement age.
+                    In 2013, Mr. Money Mustache published a blog post titled{" "}
+                    <em>The Shockingly Simple Math Behind Early Retirement</em>. The central insight:
+                    your savings rate — not your income, not your investment picks — is the primary
+                    determinant of how long you must work.
                   </p>
                   <p style={{ marginTop: "1rem" }}>
-                    The term &quot;coasting&quot; captures the concept perfectly: you&apos;ve pedaled hard to build momentum, and now
-                    you can let the portfolio coast downhill on its own.
+                    A person saving 10% of income needs roughly 43 years to retire (at 5% return).
+                    A person saving 50% needs only about 17 years. A person saving 75% can retire in
+                    about 7 years. The relationship is non-linear: each additional percentage point
+                    of savings rate has a larger impact than the last.
                   </p>
                   <p style={{ marginTop: "1rem" }}>
-                    Coast FIRE doesn&apos;t mean you stop working — it means you no longer <em>need</em> to save for
-                    retirement. You can work a lower-paying job you love, cut hours, or spend more of your income
-                    today, knowing your future is already funded.
+                    This insight is liberating because it decouples retirement from income. A household
+                    earning $60,000 and saving 50% will reach FI before a household earning $150,000 and
+                    saving 10%. What matters is the gap between what you earn and what you spend.
                   </p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                   {[
-                    { label: "Coast FIRE vs Full FIRE", body: "Full FIRE means your portfolio is large enough to fund retirement withdrawals immediately. Coast FIRE is an earlier milestone where the portfolio just needs time to grow — you still need income to cover current expenses." },
-                    { label: "Coast FIRE vs Barista FIRE", body: "Barista FIRE means working part-time to cover some expenses while your portfolio covers the rest. Coast FIRE is about when you can stop contributing — it says nothing about whether you need income now." },
-                    { label: "The emotional value", body: "Many people find Coast FIRE more motivating than full FIRE because it's achievable earlier. Knowing your retirement is 'locked in' changes your relationship with work and money in ways that are hard to quantify." },
-                    { label: "Who should target Coast FIRE", body: "Coast FIRE is especially valuable for high earners in their 20s and 30s who want flexibility sooner, parents who want to reduce work during child-rearing years, and anyone who wants to pursue lower-paying meaningful work." },
+                    { label: "Savings rate vs. investment returns", body: "For most people in the accumulation phase, savings rate has a far larger impact on timeline than investment returns. Increasing savings from 20% to 30% cuts years off your timeline more reliably than chasing higher returns." },
+                    { label: "The frugality multiplier", body: "Every dollar you don't spend does double duty: it increases your savings by $1, and it reduces your FIRE number by $25 (since the FIRE number is 25× annual expenses). This is why FIRE practitioners describe frugality as a superpower." },
+                    { label: "Starting point matters less than you think", body: "Whether you're starting from $0 or $100,000, the savings rate formula shows that your ongoing savings rate dominates your timeline. A late starter with a high savings rate can still reach FI faster than an early starter with a low one." },
+                    { label: "Benchmarks to aim for", body: "Financial advisors typically recommend saving 10–15% of income. FIRE practitioners target 40–70%+. Even moving from 15% to 25% can cut your working years significantly — use the calculator's table to model the impact of each 10% increase." },
                   ].map((item) => (
                     <div
                       key={item.label}
@@ -650,43 +667,43 @@ export default function CoastFireCalculatorPage() {
               <SectionHeading>Frequently asked questions</SectionHeading>
               <div style={{ borderTop: "1px solid var(--f-border)", maxWidth: "720px" }}>
                 <FAQItem
-                  q="What is Coast FIRE?"
-                  a="Coast FIRE is the point at which your portfolio is large enough that — with no additional contributions — it will grow to your full FIRE number by your target retirement age through compound interest alone. You've 'coasted' to a funded retirement."
+                  q="What is a savings rate?"
+                  a="Your savings rate is the percentage of your take-home income that you save and invest each year. It is calculated as: (Take-Home Income − Annual Expenses) ÷ Take-Home Income. A 25% savings rate means you invest $1 for every $3 you spend."
                 />
                 <FAQItem
-                  q="How is the Coast FIRE number calculated?"
-                  a="First, your FIRE number is calculated: Annual Expenses ÷ Withdrawal Rate. Then the Coast FIRE number is the present value of that future target: FIRE Number ÷ (1 + annual return)^years until retirement. A $1,000,000 FIRE target 30 years away at 7% annual return gives a Coast FIRE number of about $131,000."
+                  q="What is a good savings rate for FIRE?"
+                  a="Traditional financial advice targets 10–15%. FIRE practitioners typically aim for 40–70% or more. At 50%, you can theoretically retire in about 17 years from scratch (at a 5% return). At 65%, closer to 10 years. There is no single 'right' number — it depends on your income, expenses, lifestyle goals, and timeline."
                 />
                 <FAQItem
-                  q="Does Coast FIRE mean I can stop working?"
-                  a="Not necessarily. Coast FIRE means you can stop contributing to retirement savings. You still need income to cover your current living expenses. The difference is that your retirement is now funded without any further investment contributions — you just need to pay your bills today."
+                  q="Should I use gross or take-home income for savings rate?"
+                  a="This calculator uses take-home income (after taxes) for the savings rate formula, which is the most practical approach. Your savings rate is about what you do with money you actually control. Some FIRE resources use gross income — just be consistent with whatever definition you track over time."
                 />
                 <FAQItem
-                  q="What return rate should I use?"
-                  a="For long-term projections, a 6–7% nominal return is commonly cited for a diversified stock market portfolio. More aggressive assumptions (8–10%) give a lower Coast FIRE number but carry more risk. For conservative planning, use 5–6%. The calculator uses 7% as a default."
+                  q="Does the calculator account for inflation?"
+                  a="The inputs are in today's dollars. The expected annual return you enter is a nominal return. If you want to model real (inflation-adjusted) returns, reduce your return rate by your expected inflation rate — for example, enter 5% instead of 7% if you expect 2% inflation. The FIRE Number via the 4% rule is designed for inflation-adjusted withdrawals, so using a slightly conservative return rate is appropriate."
                 />
                 <FAQItem
-                  q="Should I include my 401(k) and IRA balances?"
-                  a="Yes — include all invested assets: 401(k), IRA, Roth accounts, taxable brokerage accounts. Even though you can't withdraw from retirement accounts without penalty until 59½ (with some exceptions), they still compound and count toward your Coast FIRE number."
+                  q="What is the FIRE Number and why is it 25× expenses?"
+                  a="The FIRE Number is the portfolio size from which you can withdraw your annual expenses indefinitely using the 4% safe withdrawal rate. At 4% withdrawal, your portfolio needs to be 1 ÷ 0.04 = 25 times your annual spending. This is based on the Trinity Study, which found a 4% initial withdrawal rate survived the vast majority of 30-year historical periods."
                 />
                 <FAQItem
-                  q="What if I've already hit my Coast FIRE number?"
-                  a="Congratulations — you're coasting. The calculator will show a green indicator confirming this. At this point, you can redirect future investment contributions to other goals: more spending now, paying off low-interest debt, charitable giving, or building a larger cushion for an earlier retirement."
+                  q="Why does the table show years to FI capped at 100?"
+                  a="If your savings rate is very low (or negative), the formula can produce very large numbers or infinity — meaning at that savings rate, you would never mathematically reach FI. Rather than showing 'infinite years', the table caps at 100 to indicate that a given savings rate is not a viable path to financial independence within a realistic timeframe."
                 />
                 <FAQItem
-                  q="How does Coast FIRE differ from the full FIRE Calculator?"
-                  a="The full FIRE Calculator projects when you'll reach retirement based on your current portfolio, income, and ongoing contributions. Coast FIRE only asks: how much do you need invested today so future growth alone gets you there? It answers a different question: not 'when will I retire?' but 'when can I stop saving for retirement?'"
+                  q="Should I include 401(k) contributions in my savings rate?"
+                  a="Yes — your 401(k), IRA, Roth IRA, and all other investment contributions count. The key distinction is the difference between your take-home income and total spending. If you contribute to a 401(k) before your paycheck hits your bank, your take-home is already reduced, so just use your actual after-all-contributions net income as take-home and your actual spending as expenses."
                 />
                 <FAQItem
-                  q="Does this account for inflation?"
-                  a="Your annual expenses are stated in today's dollars. The withdrawal rate methodology (historically the 4% rule) is designed for inflation-adjusted withdrawals, so the FIRE number in today's dollars is approximately correct as long as your investments grow at a real return above inflation. For precision, you could reduce your expected return by 2–3% to use a real (inflation-adjusted) rate."
+                  q="My employer matches my 401(k) — does that count?"
+                  a="Employer matching is effectively part of your total compensation. Some people include it in their savings rate calculation; others exclude it for a conservative estimate. Either is fine — consistency over time matters more than the exact methodology. Including the match gives a higher, more optimistic savings rate; excluding it gives a more conservative baseline."
                 />
               </div>
             </section>
 
             {/* Next steps */}
             <section id="next-steps" style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Next steps for your FIRE journey</SectionHeading>
+              <SectionHeading>Next steps on your FIRE journey</SectionHeading>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 <NextStepCard
                   title="Get your full FIRE projection"
@@ -695,65 +712,35 @@ export default function CoastFireCalculatorPage() {
                   live={true}
                 />
                 <NextStepCard
-                  title="Calculate your FIRE number"
-                  description="Find the exact portfolio size needed to retire based on your expenses and chosen withdrawal rate."
-                  href="/fire-number-calculator"
-                  live={true}
-                />
-                <NextStepCard
-                  title="See how your savings rate matters"
-                  description="Discover how dramatically increasing your savings rate accelerates your path to both Coast FIRE and full FIRE."
-                  href="/savings-rate-calculator"
-                  live={true}
-                />
-                <NextStepCard
-                  title="Model your safe withdrawal rate"
-                  description="Use the 4% Rule Calculator to see how different withdrawal rates affect how long your portfolio lasts in retirement."
-                  href="/4-percent-rule-calculator"
+                  title="Explore compound interest growth"
+                  description="See exactly how your investments compound over time with regular contributions — and how starting earlier changes everything."
+                  href="/compound-interest-calculator"
                   live={false}
                 />
               </div>
             </section>
 
             {/* Related calculators */}
-            <section style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Other FIRE calculators</SectionHeading>
+            <section id="related-calculators" style={{ marginBottom: "3rem" }}>
+              <SectionHeading>Related FIRE calculators</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))", gap: "1rem" }}>
                 <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with income, portfolio, contributions, and retirement timeline." live={true} />
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your expenses and withdrawal rate." live={true} />
-                <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps directly to years until financial independence." live={true} />
-                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Model safe withdrawal rates and portfolio longevity in retirement." live={false} />
+                <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
                 <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={false} />
               </div>
             </section>
 
-            {/* Learn more */}
-            <section style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Learn more about Coast FIRE</SectionHeading>
-              <div style={{ background: "var(--f-card)", border: "1px solid var(--f-border)", borderRadius: "10px", padding: "1.5rem" }}>
-                <p style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 300, margin: 0 }}>
-                  Articles on Coast FIRE strategy, the math behind coasting, and real-world case studies are coming soon.
-                  Explore the{" "}
-                  <Link href="/fire-calculator" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
-                    full FIRE Calculator
-                  </Link>{" "}
-                  or the{" "}
-                  <Link href="/fire-number-calculator" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
-                    FIRE Number Calculator
-                  </Link>{" "}
-                  in the meantime.
-                </p>
-              </div>
-            </section>
-
             {/* Disclaimer */}
-            <div style={{ padding: "1.25rem", background: "var(--f-card)", border: "1px solid var(--f-border)", borderRadius: "8px" }}>
+            <div id="disclaimer" style={{ padding: "1.25rem", background: "var(--f-card)", border: "1px solid var(--f-border)", borderRadius: "8px" }}>
               <p style={{ fontSize: "0.75rem", color: "var(--f-text-faint)", lineHeight: 1.7, fontWeight: 300, margin: 0 }}>
                 <strong style={{ fontWeight: 500, color: "var(--f-text-muted)" }}>Disclaimer: </strong>
-                This calculator is for educational and informational purposes only. It does not constitute financial, investment, or
-                tax advice. All projections are estimates based on hypothetical scenarios — actual investment returns vary and past
-                performance does not guarantee future results. The Coast FIRE number assumes a constant annual return rate, which
-                does not reflect real-world market volatility. Consult a qualified financial advisor before making investment decisions.
+                This calculator is for educational and informational purposes only. It does not constitute financial,
+                investment, or tax advice. All projections are estimates based on hypothetical scenarios — actual
+                investment returns vary and past performance does not guarantee future results. The years-to-FI
+                calculation assumes constant annual returns and contributions, which does not reflect real-world
+                market volatility or life changes. The 4% safe withdrawal rate is a historical guideline, not a
+                guarantee. Consult a qualified financial advisor before making investment decisions.
               </p>
             </div>
 

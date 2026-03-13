@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -11,16 +11,82 @@ interface NavItem {
   name: string
   url: string
   icon: LucideIcon
-  sectionId?: string  // for homepage scroll sections
+  sectionId?: string
 }
 
 const navItems: NavItem[] = [
   { name: "Home", url: "/", icon: Home },
   { name: "Calculators", url: "/#calculators", icon: Calculator, sectionId: "calculators" },
   { name: "FIRE Guide", url: "/#what-is-fire", icon: BookOpen, sectionId: "what-is-fire" },
-  { name: "Blog", url: "#", icon: FileText },
+  { name: "Blog", url: "/blog", icon: FileText },
   { name: "About", url: "/about", icon: Info },
 ]
+
+function NavItems({ activeTab }: { activeTab: string }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
+  const [highlight, setHighlight] = useState<{ left: number; width: number } | null>(null)
+
+  useEffect(() => {
+    const activeIndex = navItems.findIndex((item) => item.name === activeTab)
+    const activeEl = itemRefs.current[activeIndex]
+    const containerEl = containerRef.current
+    if (!activeEl || !containerEl) return
+
+    const containerRect = containerEl.getBoundingClientRect()
+    const itemRect = activeEl.getBoundingClientRect()
+    setHighlight({
+      left: itemRect.left - containerRect.left,
+      width: itemRect.width,
+    })
+  }, [activeTab])
+
+  return (
+    <div
+      ref={containerRef}
+      className="hidden sm:flex"
+      style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", alignItems: "center", gap: "0.125rem" }}
+    >
+      {/* Single always-mounted sliding highlight */}
+      {highlight && (
+        <motion.div
+          animate={{ left: highlight.left, width: highlight.width }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{ position: "absolute", top: 0, height: "100%", borderRadius: "9999px", zIndex: 0 }}
+          className="bg-muted"
+        >
+          {/* Lamp glow on top */}
+          <div
+            className="absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-1 rounded-t-full"
+            style={{ background: "var(--f-blue)" }}
+          >
+            <div className="absolute w-10 h-5 rounded-full blur-md -top-2 -left-2" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
+            <div className="absolute w-6 h-5 rounded-full blur-md -top-1" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
+          </div>
+        </motion.div>
+      )}
+
+      {navItems.map((item, i) => {
+        const isActive = activeTab === item.name
+        return (
+          <Link
+            key={item.name}
+            href={item.url}
+            ref={(el) => { itemRefs.current[i] = el }}
+            className={cn(
+              "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
+              "text-foreground/60 hover:text-foreground",
+              isActive && "text-foreground",
+            )}
+            style={{ zIndex: 1 }}
+          >
+            {item.name}
+          </Link>
+        )
+      })}
+    </div>
+  )
+}
 
 interface NavBarProps {
   className?: string
@@ -36,8 +102,6 @@ export function NavBar({ className }: NavBarProps) {
 
     const sectionItems = navItems.filter((item) => item.sectionId)
     const observers: IntersectionObserver[] = []
-
-    // Track which sections are currently visible
     const visible = new Set<string>()
 
     sectionItems.forEach((item) => {
@@ -50,7 +114,6 @@ export function NavBar({ className }: NavBarProps) {
           } else {
             visible.delete(item.sectionId!)
           }
-          // Pick the first matching section in navItems order
           const active = sectionItems.find((i) => visible.has(i.sectionId!))
           setActiveSection(active ? active.name : "Home")
         },
@@ -63,10 +126,9 @@ export function NavBar({ className }: NavBarProps) {
     return () => observers.forEach((o) => o.disconnect())
   }, [isHome])
 
-  // On non-home pages, match by pathname
   const activeTab = isHome
     ? activeSection
-    : (navItems.find((item) => item.url === pathname)?.name ?? "Home")
+    : (navItems.find((item) => item.url === pathname || (item.url !== "/" && pathname.startsWith(item.url)))?.name ?? "Home")
 
   return (
     <>
@@ -93,37 +155,7 @@ export function NavBar({ className }: NavBarProps) {
           </Link>
 
           {/* Nav items — absolutely centered */}
-          <nav className="hidden sm:flex" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", alignItems: "center", gap: "0.125rem" }}>
-            {navItems.map((item) => {
-              const isActive = activeTab === item.name
-              return (
-                <Link
-                  key={item.name}
-                  href={item.url}
-                  className={cn(
-                    "relative cursor-pointer text-sm font-semibold px-4 py-2 rounded-full transition-colors",
-                    "text-foreground/60 hover:text-foreground",
-                    isActive && "text-foreground",
-                  )}
-                >
-                  {item.name}
-                  {isActive && (
-                    <motion.div
-                      layoutId="lamp"
-                      className="absolute inset-0 w-full bg-muted rounded-full -z-10"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    >
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-1 rounded-t-full" style={{ background: "var(--f-blue)" }}>
-                        <div className="absolute w-10 h-5 rounded-full blur-md -top-2 -left-2" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
-                        <div className="absolute w-6 h-5 rounded-full blur-md -top-1" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
-                      </div>
-                    </motion.div>
-                  )}
-                </Link>
-              )
-            })}
-          </nav>
+          <NavItems activeTab={activeTab} />
 
           {/* CTA */}
           <div style={{ marginLeft: "auto" }}>
