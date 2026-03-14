@@ -710,7 +710,7 @@ export default function FireNumberCalculatorPage() {
                   title="Model safe withdrawal scenarios"
                   description="Use the 4% Rule Calculator to stress-test different withdrawal rates and see how long your portfolio lasts."
                   href="/4-percent-rule-calculator"
-                  live={false}
+                  live={true}
                 />
               </div>
             </section>
@@ -720,7 +720,7 @@ export default function FireNumberCalculatorPage() {
               <SectionHeading>Other FIRE calculators</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))", gap: "1rem" }}>
                 <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with your income, expenses, portfolio, and timeline to retirement." live={true} />
-                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from a portfolio and how long the money lasts." live={false} />
+                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from a portfolio and how long the money lasts." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps directly to years until financial independence." live={true} />
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
                 <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Project how investments grow over time with regular contributions." live={false} />

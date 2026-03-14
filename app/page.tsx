@@ -22,7 +22,7 @@ const calculators = [
   { slug: "fire-number-calculator", name: "FIRE Number Calculator", description: "Find exactly how much you need to retire based on your expenses and withdrawal rate.", live: true },
   { slug: "coast-fire-calculator", name: "Coast FIRE Calculator", description: "Discover when compound interest alone will carry you to retirement — no contributions needed.", live: true },
   { slug: "savings-rate-calculator", name: "Savings Rate Calculator", description: "See how dramatically increasing your savings rate shortens your path to independence.", live: true },
-  { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", live: false },
+  { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", live: true },
   { slug: "compound-interest-calculator", name: "Compound Interest Calculator", description: "Visualize how your investments compound over time with regular contributions.", live: false },
   { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", live: true },
   { slug: "retirement-timeline-calculator", name: "Retirement Timeline", description: "A year-by-year roadmap to retirement based on income, expenses, and investment growth.", live: false },
