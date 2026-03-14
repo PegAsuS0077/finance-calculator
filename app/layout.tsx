@@ -1,10 +1,12 @@
 // app/layout.tsx
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { NavBar } from "@/components/ui/tubelight-navbar"
 import Footer from "@/components/ui/footer"
 import { CustomScrollbar } from "@/components/ui/custom-scrollbar"
+import { config } from "@/lib/config"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,6 +46,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${config.gaId}`} strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${config.gaId}');
+        `}</Script>
+      </head>
       <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <CustomScrollbar />
         <NavBar />
