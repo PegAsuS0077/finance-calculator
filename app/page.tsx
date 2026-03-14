@@ -24,7 +24,7 @@ const calculators = [
   { slug: "savings-rate-calculator", name: "Savings Rate Calculator", description: "See how dramatically increasing your savings rate shortens your path to independence.", live: true },
   { slug: "4-percent-rule-calculator", name: "4% Rule Calculator", description: "Model safe withdrawal rates and see how long your portfolio lasts under different spending.", live: false },
   { slug: "compound-interest-calculator", name: "Compound Interest Calculator", description: "Visualize how your investments compound over time with regular contributions.", live: false },
-  { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", live: false },
+  { slug: "investment-growth-calculator", name: "Investment Growth Calculator", description: "Project your portfolio value over any horizon with customizable return rates.", live: true },
   { slug: "retirement-timeline-calculator", name: "Retirement Timeline", description: "A year-by-year roadmap to retirement based on income, expenses, and investment growth.", live: false },
   { slug: "lean-fire-calculator", name: "Lean FIRE Calculator", description: "Plan an ultra-frugal early retirement and calculate the minimum portfolio needed.", live: false },
   { slug: "barista-fire-calculator", name: "Barista FIRE Calculator", description: "Semi-retirement planning with part-time income and a smaller required portfolio.", live: false },

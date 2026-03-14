@@ -66,6 +66,14 @@ export const blogPosts: BlogPost[] = [
     readingTime: "13 min read",
     category: "Investing",
   },
+  {
+    slug: "investment-growth-and-compound-returns",
+    title: "How Investment Growth Works: Compound Returns Explained",
+    description: "The math behind compound investment growth, why time is the most powerful variable, and how to project your portfolio using the future value formula.",
+    date: "2026-03-14",
+    readingTime: "10 min read",
+    category: "Investing",
+  },
 ]
 
 export function getBlogPost(slug: string): BlogPost | undefined {
