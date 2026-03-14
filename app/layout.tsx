@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     template: "%s | FreedomCalc",
   },
   description: "Free financial independence calculators for the FIRE movement. Calculate your FIRE number, retirement timeline, savings rate, and more — all free, no signup required.",
+  icons: {
+    icon: "/icon.svg",
+  },
   openGraph: {
     title: "FreedomCalc — Free Financial Independence Calculators",
     description: "Free financial independence calculators for the FIRE movement. No signup required.",
