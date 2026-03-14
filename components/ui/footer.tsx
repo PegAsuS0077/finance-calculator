@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  TrendingUp,
   Mail,
   MapPin
 } from 'lucide-react';
@@ -21,9 +20,28 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="group">
             <div className="flex items-center mb-8">
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-300" style={{ background: "var(--f-blue)" }}>
-                <TrendingUp className="h-6 w-6" />
-              </div>
+              <svg width="48" height="48" viewBox="0 0 64 64" fill="none" aria-hidden className="group-hover:scale-105 transition-transform duration-300" style={{ flexShrink: 0 }}>
+                <defs>
+                  <linearGradient id="fbg" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0f0c29"/>
+                    <stop offset="100%" stopColor="#302b63"/>
+                  </linearGradient>
+                  <linearGradient id="fline" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#fbbf24"/>
+                    <stop offset="100%" stopColor="#f59e0b"/>
+                  </linearGradient>
+                  <linearGradient id="ffill" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.35"/>
+                    <stop offset="100%" stopColor="#fbbf24" stopOpacity="0"/>
+                  </linearGradient>
+                </defs>
+                <rect width="64" height="64" rx="14" fill="url(#fbg)"/>
+                <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="1"/>
+                <polygon points="10,46 20,38 30,40 40,28 54,16 54,46" fill="url(#ffill)"/>
+                <polyline points="10,46 20,38 30,40 40,28 54,16" stroke="url(#fline)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <circle cx="54" cy="16" r="3" fill="#fbbf24"/>
+                <line x1="10" y1="50" x2="54" y2="50" stroke="white" strokeOpacity="0.12" strokeWidth="1"/>
+              </svg>
               <span className="ml-3 text-xl font-bold tracking-tight" style={{ color: "var(--f-text-heading)" }}>
                 Freedom<span style={{ color: "var(--f-blue)" }}>Calc</span>
               </span>

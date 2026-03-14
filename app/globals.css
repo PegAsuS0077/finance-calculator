@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -232,11 +233,9 @@ input[type="number"] {
   box-shadow: var(--f-shadow-md) !important;
 }
 
-/* ── Scrollbar ──────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--f-border-strong); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--f-text-faint); }
+/* ── Scrollbar — native hidden, replaced by CustomScrollbar component ───── */
+::-webkit-scrollbar { width: 0; height: 0; }
+* { scrollbar-width: none; }
 
 /* ── Blog article prose ─────────────────────────────────────────────────── */
 .prose-blog {

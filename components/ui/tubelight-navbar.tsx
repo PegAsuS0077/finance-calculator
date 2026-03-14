@@ -143,14 +143,30 @@ export function NavBar({ className }: NavBarProps) {
 
           {/* Logo */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.5rem", textDecoration: "none", flexShrink: 0 }}>
-            <div style={{ width: "34px", height: "34px", background: "var(--f-blue)", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-                <path d="M3 5h8M3 9h5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <path d="M11 8v6M11 14l-2-2M11 14l2-2" stroke="#86efac" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="34" height="34" viewBox="0 0 64 64" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+                <defs>
+                  <linearGradient id="nbg" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#0f0c29"/>
+                    <stop offset="100%" stopColor="#302b63"/>
+                  </linearGradient>
+                  <linearGradient id="nline" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#fbbf24"/>
+                    <stop offset="100%" stopColor="#f59e0b"/>
+                  </linearGradient>
+                  <linearGradient id="nfill" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.35"/>
+                    <stop offset="100%" stopColor="#fbbf24" stopOpacity="0"/>
+                  </linearGradient>
+                </defs>
+                <rect width="64" height="64" rx="14" fill="url(#nbg)"/>
+                <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="1"/>
+                <polygon points="10,46 20,38 30,40 40,28 54,16 54,46" fill="url(#nfill)"/>
+                <polyline points="10,46 20,38 30,40 40,28 54,16" stroke="url(#nline)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <circle cx="54" cy="16" r="3" fill="#fbbf24"/>
+                <line x1="10" y1="50" x2="54" y2="50" stroke="white" strokeOpacity="0.12" strokeWidth="1"/>
               </svg>
-            </div>
             <span style={{ fontWeight: 700, fontSize: "1.0625rem", color: "var(--f-text-heading)", letterSpacing: "0.01em" }}>
-              Fin<span style={{ color: "var(--f-blue)" }}>Calc</span>
+              Freedom<span style={{ color: "var(--f-blue)" }}>Calc</span>
             </span>
           </Link>
 
