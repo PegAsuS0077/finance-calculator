@@ -1,22 +1,22 @@
-// app/investment-growth-calculator/page.tsx
+// app/retirement-timeline-calculator/page.tsx
 import type { Metadata } from "next"
 import Link from "next/link"
 import { config } from "@/lib/config"
-import { InvestmentGrowthCalculator } from "@/components/calculators/investment-growth-calculator"
+import { RetirementTimelineCalculator } from "@/components/calculators/retirement-timeline-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
 
 export const metadata: Metadata = {
-  title: "Investment Growth Calculator — Project Your Portfolio Over Time",
+  title: "Retirement Timeline Calculator — When Can You Retire?",
   description:
-    "Calculate how your investments grow over time with compound interest and regular contributions. See your final value, total growth, and year-by-year breakdown.",
+    "Calculate your retirement timeline and explore what-if scenarios: what happens if you cut expenses 20% or increase contributions? Free, instant results.",
   alternates: {
-    canonical: `${config.siteUrl}/investment-growth-calculator`,
+    canonical: `${config.siteUrl}/retirement-timeline-calculator`,
   },
   openGraph: {
-    title: "Investment Growth Calculator — Project Your Portfolio Over Time",
+    title: "Retirement Timeline Calculator — When Can You Retire?",
     description:
-      "See how your investments compound over any time horizon. Free, instant results with year-by-year breakdown.",
-    url: `${config.siteUrl}/investment-growth-calculator`,
+      "See your retirement age based on income, expenses, and portfolio — plus scenario comparisons showing how small changes drastically shorten your timeline.",
+    url: `${config.siteUrl}/retirement-timeline-calculator`,
     siteName: "FreedomCalc",
     type: "website",
   },
@@ -27,7 +27,7 @@ const ON_THIS_PAGE = [
   { id: "use-your-results", label: "Your Results" },
   { id: "how-it-works", label: "How It Works" },
   { id: "examples", label: "Examples" },
-  { id: "power-of-compounding", label: "Power of Compounding" },
+  { id: "why-it-matters", label: "Why It Matters" },
   { id: "faq", label: "FAQ" },
   { id: "next-steps", label: "Next Steps" },
   { id: "related-calculators", label: "Related Calculators" },
@@ -148,7 +148,7 @@ function ExampleCard({
   )
 }
 
-function FAQItem({ q, a }: { q: string; a: React.ReactNode }) {
+function FAQItem({ q, a }: { q: string; a: string }) {
   return (
     <details style={{ borderBottom: "1px solid var(--f-border)" }}>
       <summary
@@ -295,7 +295,7 @@ function NextStepCard({ title, description, href, live }: {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function InvestmentGrowthCalculatorPage() {
+export default function RetirementTimelineCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
 
@@ -313,7 +313,7 @@ export default function InvestmentGrowthCalculatorPage() {
               marginBottom: "0.625rem",
             }}
           >
-            Investment Growth Calculator
+            Retirement Timeline Calculator
           </p>
           <h1
             style={{
@@ -326,7 +326,7 @@ export default function InvestmentGrowthCalculatorPage() {
               marginBottom: "0.75rem",
             }}
           >
-            See How Your Investments Grow Over Time
+            When Can You Retire?
           </h1>
           <p
             style={{
@@ -336,15 +336,15 @@ export default function InvestmentGrowthCalculatorPage() {
               fontWeight: 300,
             }}
           >
-            Enter your initial investment, monthly contributions, and expected return rate to project your
-            portfolio value over any time horizon. See exactly how much comes from compound growth versus
-            your own contributions — and watch the compounding effect accelerate over time.
+            Enter your income, expenses, portfolio, and return assumptions to see your projected retirement age
+            — then explore what-if scenarios showing exactly how cutting expenses by 10–30%, increasing
+            contributions, or earning a higher return changes your retirement timeline. Results update instantly.
           </p>
         </div>
 
         {/* ── Calculator widget ── */}
-        <section id="calculator" aria-label="Investment Growth Calculator" style={{ marginBottom: "3rem" }}>
-          <InvestmentGrowthCalculator />
+        <section id="calculator" aria-label="Retirement Timeline Calculator" style={{ marginBottom: "3rem" }}>
+          <RetirementTimelineCalculator />
         </section>
 
         {/* ── Two-column: on-this-page + content ── */}
@@ -368,34 +368,34 @@ export default function InvestmentGrowthCalculatorPage() {
             >
               <SectionHeading>How to use this calculator</SectionHeading>
               <p style={{ fontSize: "0.9rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 300, marginBottom: "1.5rem" }}>
-                Adjust the inputs to model any investment scenario — results update instantly:
+                Enter your financial situation — results and scenario table update as you type:
               </p>
               <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                 {[
                   {
                     n: "1",
-                    title: "Initial investment",
-                    body: "The lump sum you invest today. This is your starting principal — even a small amount has a dramatic impact over long periods because it compounds from day one. Enter 0 if you are starting with no savings and plan to build through regular contributions.",
+                    title: "Current age",
+                    body: "Your age today. The calculator uses this as the starting point for your timeline projection and to compute your retirement age (current age + years to FI).",
                   },
                   {
                     n: "2",
-                    title: "Monthly contribution",
-                    body: "How much you plan to add each month. Regular contributions are the most powerful tool for building wealth over time. A consistent $500/month invested for 30 years at 7% grows to over $566,000 from contributions alone — plus compounding on top.",
+                    title: "Annual income",
+                    body: "Your total gross annual income from all sources. The calculator derives your annual savings as income minus expenses. If you have multiple income streams, add them together.",
                   },
                   {
                     n: "3",
-                    title: "Annual return rate",
-                    body: "The expected average annual return on your investments. A diversified stock market index fund has historically returned 7–10% nominally. Use 5–7% for conservative real-return estimates. Adjust the slider to see how sensitive your results are to return assumptions.",
+                    title: "Annual expenses",
+                    body: "What you spend in a year across all categories: housing, food, transport, travel, subscriptions, and discretionary spending. This number also sets your FIRE target — lower expenses means a smaller target AND more savings each year.",
                   },
                   {
                     n: "4",
-                    title: "Time horizon",
-                    body: "The number of years you plan to invest. Time is the most powerful variable in this calculator — doubling the investment period more than doubles the final value due to compounding. Model your actual expected investment period, not an idealized one.",
+                    title: "Current portfolio",
+                    body: "The combined value of all your invested assets today: 401(k), IRA, Roth, and taxable brokerage accounts. Enter 0 if you are starting from scratch. Even a modest existing portfolio meaningfully shortens your timeline through compound growth.",
                   },
                   {
                     n: "5",
-                    title: "Compound frequency",
-                    body: "Monthly compounding means returns are applied each month, producing slightly higher final values than annual compounding. For most brokerage accounts and index funds, monthly compounding is the realistic assumption. The difference grows over very long periods.",
+                    title: "Return, inflation, and withdrawal rate",
+                    body: "Use the sliders to set your investment assumptions. The calculator adjusts your nominal return for inflation to produce a real (purchasing-power) projection. The withdrawal rate determines your FIRE target — 4% is the most common choice based on the Trinity Study.",
                   },
                 ].map((step) => (
                   <li key={step.n} style={{ display: "flex", gap: "1.25rem", alignItems: "flex-start" }}>
@@ -436,11 +436,12 @@ export default function InvestmentGrowthCalculatorPage() {
               <SectionHeading>Understanding your results</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(240px, 100%), 1fr))", gap: "1rem" }}>
                 {[
-                  { label: "Final Portfolio Value", body: "The total value of your investment at the end of the selected time horizon, including all contributions and compound growth. This is the number to use when setting savings targets or modeling retirement scenarios." },
-                  { label: "Total Contributed", body: "The total amount you personally invested: your initial lump sum plus all monthly contributions added over the entire period. This is your 'break-even' — you never lost money if the final value exceeds this." },
-                  { label: "Total Growth", body: "The profit generated purely by compounding — the difference between your final portfolio value and what you actually put in. This grows dramatically in the later years of the investment period due to the exponential nature of compound interest." },
-                  { label: "Growth Multiplier", body: "How many times your money grew relative to what you contributed. A 3× multiplier means for every $1 you invested, your portfolio returned $3. This metric makes it easy to compare scenarios with different time horizons and return rates." },
-                  { label: "Year-by-Year Table", body: "The breakdown table shows your balance, total contributed, and total growth at each year (or every 5 years for longer periods). Use it to identify the inflection point where compound growth starts outpacing your own contributions." },
+                  { label: "Retirement Age", body: "The age at which your portfolio is projected to reach your FIRE number, based on your current savings rate and return assumptions. This is your primary output — the year your financial independence becomes possible." },
+                  { label: "FIRE Number", body: "Your target portfolio value: annual expenses divided by your withdrawal rate. At 4% withdrawal, this equals 25× annual spending. This is the finish line. Reducing expenses shrinks the target while simultaneously increasing your annual savings." },
+                  { label: "Years to FI", body: "How many years from today until your portfolio reaches the FIRE number. This drives your retirement age. Reducing this number by even 2–3 years is a significant life change — the scenario table shows you exactly how to do it." },
+                  { label: "Annual Savings", body: "Income minus expenses — the fuel for your wealth-building engine. This is the primary input to the compound growth formula. Small increases compound dramatically over long timelines." },
+                  { label: "Savings Rate", body: "Annual savings as a percentage of gross income. This is one of the best leading indicators of financial independence timeline. A 10% rate may take 40+ years; a 50% rate can achieve FI in under 20." },
+                  { label: "What-If Scenarios", body: "The scenario table shows 8 alternative timelines: 3 expense cuts (10%, 20%, 30%), 3 contribution increases (10%, 20%, 30%), and 2 return scenarios (+1%, +2%). Each scenario recalculates your FIRE target and retirement age independently." },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -475,39 +476,42 @@ export default function InvestmentGrowthCalculatorPage() {
                 boxShadow: "var(--f-shadow-card)",
               }}
             >
-              <SectionHeading>How the Investment Growth Calculator works</SectionHeading>
+              <SectionHeading>How the Retirement Timeline Calculator works</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "start" }}>
                 <div style={{ fontSize: "0.9rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 300 }}>
                   <p>
-                    The calculator uses the standard future value formula, which accounts for both a
-                    lump sum initial investment and regular periodic contributions. Two compounding
-                    modes are available: monthly (most common for brokerage accounts) and annual.
+                    The calculator applies three formulas in sequence. First it determines your FIRE target,
+                    then adjusts your return for inflation, then solves for the years until your portfolio
+                    reaches that target using the compound growth formula.
                   </p>
                   <FormulaBlock
-                    formula="FV = P × (1 + r)ⁿ + C × ((1 + r)ⁿ − 1) / r"
-                    example="P = initial investment · r = monthly rate · n = total months · C = monthly contribution"
+                    formula="FIRE Number = Annual Expenses ÷ Withdrawal Rate"
+                    example="Example: $50,000 ÷ 0.04 = $1,250,000"
+                  />
+                  <FormulaBlock
+                    formula="Real Return = ((1 + Nominal Return) ÷ (1 + Inflation)) − 1"
+                    example="Example: (1.07 ÷ 1.03) − 1 ≈ 3.88% real return"
                   />
                   <p style={{ marginTop: "1rem" }}>
-                    For monthly compounding: <strong>r = annual rate ÷ 12</strong>, <strong>n = years × 12</strong>.
-                    For annual compounding, contributions are treated as a single annual lump sum and
-                    the formula uses the annual rate directly.
+                    The years-to-FIRE formula solves for time given a starting portfolio, annual contributions,
+                    and real return rate:
                   </p>
                   <FormulaBlock
-                    formula="Total Interest = Final Value − Total Contributed"
-                    example="Total Contributed = Initial Investment + (Monthly Contribution × 12 × Years)"
+                    formula="Years = log((F × r + C) ÷ (P × r + C)) ÷ log(1 + r)"
+                    example="F = FIRE Number · r = real return · C = annual savings · P = current portfolio"
                   />
                   <p style={{ marginTop: "1rem" }}>
-                    The year-by-year table applies the same formula at each yearly interval to give you
-                    the full trajectory — not just the final number. When the rate is zero, the formula
-                    simplifies to: Final Value = Initial Investment + Monthly Contribution × 12 × Years.
+                    The scenario table recalculates this formula 8 times with modified inputs — expense cuts
+                    simultaneously reduce F (smaller FIRE target) and increase C (more savings), which produces
+                    a compounding effect that accelerates the timeline more than a return increase alone.
                   </p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                   {[
-                    { title: "Why compounding accelerates over time", body: "In early years, growth is modest because the base is small. By year 20, you are earning returns on returns accumulated over two decades. The chart shows this clearly — the growth area gets proportionally larger each year." },
-                    { title: "Monthly vs. annual compounding", body: "Monthly compounding applies returns 12 times per year rather than once. Over long periods this compounds to a meaningful difference. At 7% over 30 years on $100K, monthly compounding produces roughly $20K more than annual." },
-                    { title: "Return rate sensitivity", body: "Small changes in the assumed return rate produce large differences over long periods. The difference between 6% and 8% over 30 years on a $500/month investment is over $200,000. This is why keeping investment costs low (expense ratios, fees) matters enormously." },
-                    { title: "The contribution sweet spot", body: "Contributions matter most in the early years when the portfolio is small. As the portfolio grows, compound growth on the existing balance progressively outpaces new contributions. After 20–25 years, stopping contributions entirely still produces impressive results." },
+                    { title: "Why inflation matters", body: "Using a nominal return (ignoring inflation) overstates portfolio growth in real terms. By using the real return rate — nominal return adjusted for inflation — the calculator projects your portfolio in today's dollars, making the FIRE number directly comparable to today's expenses." },
+                    { title: "The dual power of expense cuts", body: "Cutting $5,000 from annual expenses does two things at once: it reduces your FIRE number by $125,000 (at 4% withdrawal, 25× multiplier) AND increases your annual savings by $5,000. No other single action has this compound effect on timeline." },
+                    { title: "Contributions vs. returns", body: "In the early years of accumulation, savings contributions dominate portfolio growth. Returns become the larger driver once the portfolio is substantial. This is why the scenarios show more timeline improvement from expense cuts than from a 1% return improvement." },
+                    { title: "Portfolio growth assumption", body: "The chart assumes end-of-year contributions and constant annual returns. Real markets are volatile — the chart shows a smoothed projection, not a guarantee. Use the scenarios to understand sensitivity to your assumptions." },
                   ].map((item) => (
                     <div
                       key={item.title}
@@ -532,7 +536,7 @@ export default function InvestmentGrowthCalculatorPage() {
 
             {/* Examples */}
             <section id="examples" style={{ marginBottom: "3rem" }}>
-              <SectionHeading>Investment growth scenarios</SectionHeading>
+              <SectionHeading>Retirement timeline scenarios</SectionHeading>
               <div
                 style={{
                   display: "grid",
@@ -542,45 +546,45 @@ export default function InvestmentGrowthCalculatorPage() {
                 }}
               >
                 <ExampleCard
-                  name="The consistent saver — 20 years"
+                  name="Average Saver — 20% savings rate"
                   inputs={[
-                    { label: "Initial Investment", value: "$10,000" },
-                    { label: "Monthly Contribution", value: "$500" },
-                    { label: "Annual Return", value: "7%" },
-                    { label: "Time Horizon", value: "20 years" },
+                    { label: "Age / Income", value: "35 / $75,000" },
+                    { label: "Annual Expenses", value: "$60,000" },
+                    { label: "Annual Savings", value: "$15,000 (20%)" },
+                    { label: "Current Portfolio", value: "$25,000" },
                   ]}
                   outputs={[
-                    { label: "Total Contributed", value: "$130,000" },
-                    { label: "Final Portfolio", value: "~$274,000", highlight: true },
-                    { label: "Growth Multiplier", value: "2.1×", highlight: true },
+                    { label: "FIRE Number", value: "$1,500,000" },
+                    { label: "Years to FI (7% / 3% inflation)", value: "~36 years", highlight: true },
+                    { label: "Retirement Age", value: "~71", highlight: true },
                   ]}
                 />
                 <ExampleCard
-                  name="Long-term index investor — 30 years"
+                  name="Active FIRE saver — 40% savings rate"
                   inputs={[
-                    { label: "Initial Investment", value: "$25,000" },
-                    { label: "Monthly Contribution", value: "$800" },
-                    { label: "Annual Return", value: "8%" },
-                    { label: "Time Horizon", value: "30 years" },
+                    { label: "Age / Income", value: "30 / $100,000" },
+                    { label: "Annual Expenses", value: "$60,000" },
+                    { label: "Annual Savings", value: "$40,000 (40%)" },
+                    { label: "Current Portfolio", value: "$80,000" },
                   ]}
                   outputs={[
-                    { label: "Total Contributed", value: "$313,000" },
-                    { label: "Final Portfolio", value: "~$1.3M", highlight: true },
-                    { label: "Growth Multiplier", value: "4.2×", highlight: true },
+                    { label: "FIRE Number", value: "$1,500,000" },
+                    { label: "Years to FI (7% / 3% inflation)", value: "~19 years", highlight: true },
+                    { label: "Retirement Age", value: "~49", highlight: true },
                   ]}
                 />
                 <ExampleCard
-                  name="Lump sum only — 40 years"
+                  name="FIRE optimized — 60% savings rate"
                   inputs={[
-                    { label: "Initial Investment", value: "$50,000" },
-                    { label: "Monthly Contribution", value: "$0" },
-                    { label: "Annual Return", value: "7%" },
-                    { label: "Time Horizon", value: "40 years" },
+                    { label: "Age / Income", value: "28 / $120,000" },
+                    { label: "Annual Expenses", value: "$48,000" },
+                    { label: "Annual Savings", value: "$72,000 (60%)" },
+                    { label: "Current Portfolio", value: "$50,000" },
                   ]}
                   outputs={[
-                    { label: "Total Contributed", value: "$50,000" },
-                    { label: "Final Portfolio", value: "~$748,000", highlight: true },
-                    { label: "Growth Multiplier", value: "15×", highlight: true },
+                    { label: "FIRE Number", value: "$1,200,000" },
+                    { label: "Years to FI (7% / 3% inflation)", value: "~12 years", highlight: true },
+                    { label: "Retirement Age", value: "~40", highlight: true },
                   ]}
                 />
               </div>
@@ -593,17 +597,17 @@ export default function InvestmentGrowthCalculatorPage() {
                 }}
               >
                 <p style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 300, margin: 0 }}>
-                  The lump sum example shows compounding at its most powerful: $50,000 invested without
-                  a single additional dollar becomes $748,000 over 40 years. Time and return rate are
-                  the primary drivers — not the size of your monthly contribution. Starting early
-                  is worth more than contributing more later.
+                  The key insight: the FIRE optimized saver retires 31 years earlier than the average saver
+                  despite earning only 60% more income. The difference is not income — it is the savings rate.
+                  Use the scenario table in the calculator to model how even a 10% cut in your own expenses
+                  changes your retirement age.
                 </p>
               </div>
             </section>
 
-            {/* Power of compounding */}
+            {/* Why it matters */}
             <section
-              id="power-of-compounding"
+              id="why-it-matters"
               style={{
                 marginBottom: "3rem",
                 background: "var(--f-card)",
@@ -613,42 +617,34 @@ export default function InvestmentGrowthCalculatorPage() {
                 boxShadow: "var(--f-shadow-card)",
               }}
             >
-              <SectionHeading>The power of compound interest</SectionHeading>
+              <SectionHeading>Why your retirement timeline is more controllable than you think</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem" }}>
                 <div style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", lineHeight: 1.8, fontWeight: 300 }}>
                   <p>
-                    Albert Einstein is often (perhaps apocryphal) credited with calling compound interest
-                    the eighth wonder of the world. Whether or not he said it, the math is unambiguous:
-                    compound interest is the mechanism by which modest, consistent saving transforms into
-                    life-changing wealth.
+                    Most people think of retirement age as something that happens to them — a date set by
+                    Social Security eligibility or employer pension rules. The FIRE framework reframes this:
+                    retirement is a financial milestone that you can reach by choice, and the primary levers
+                    are savings rate, time in the market, and expense level — not income.
                   </p>
                   <p style={{ marginTop: "1rem" }}>
-                    The key insight: you earn returns not just on your contributions, but on every dollar
-                    of return you have ever earned. A 7% return in year 25 is earned on a portfolio that
-                    includes 24 years of compounded growth — not just your original deposits.
+                    The retirement timeline calculator makes this concrete. Enter your current numbers and
+                    explore the scenario table. Most people find that cutting expenses by 20% or increasing
+                    contributions by 30% compresses their retirement timeline by 5–10 years. A change that
+                    costs relatively little in lifestyle terms can mean a decade of additional freedom.
                   </p>
                   <p style={{ marginTop: "1rem" }}>
-                    This is why early investing is so valuable. A 25-year-old who invests $5,000 once
-                    and never touches it will likely have more money at 65 than a 35-year-old who invests
-                    $5,000 every year for 30 years — because the 25-year-old's money gets an extra 10
-                    years of compounding.
-                  </p>
-                  <p style={{ marginTop: "1rem" }}>
-                    For FIRE planning, this insight reinforces the core strategy: maximize your investment
-                    rate early, choose low-cost diversified index funds, and let time do the heavy lifting.
-                    See our{" "}
-                    <Link href="/blog/index-fund-investing-for-fire" style={{ color: "var(--f-blue)", textDecoration: "none", fontWeight: 500 }}>
-                      index fund investing guide
-                    </Link>
-                    {" "}for how to structure your investments.
+                    The compound growth formula is the engine. Money invested early has decades to multiply —
+                    a dollar saved at 30 is worth far more than a dollar saved at 45. Time in the market is
+                    the one input you cannot get back. The calculator quantifies this tradeoff for your
+                    specific numbers.
                   </p>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                   {[
-                    { label: "The Rule of 72", body: "A quick mental shortcut: divide 72 by your annual return rate to estimate how many years it takes to double your money. At 7%, money doubles roughly every 10 years (72 ÷ 7 = 10.3). At 10%, every 7.2 years." },
-                    { label: "Why fees destroy returns", body: "A 1% annual fee on a $500,000 portfolio costs $5,000 per year — but the real cost is the compounding you lose. Over 20 years, that 1% fee could consume over $250,000 in compounded growth. Always check expense ratios." },
-                    { label: "Time beats contribution size", body: "Delaying investing by 5 years can cost more than doubling your monthly contribution afterward. Use this calculator to model the cost of waiting — the numbers are sobering and motivating." },
-                    { label: "Sequence of returns matters", body: "This calculator assumes a constant return rate, which is a simplification. In reality, returns vary year-to-year. Early strong returns produce better outcomes than the same average return with poor early years — especially important near retirement." },
+                    { label: "The expense lever is underrated", body: "Most people focus on earning more as the path to early retirement. But reducing expenses is often faster. It takes years to negotiate a 20% raise; a spending audit can find 20% of expenses to eliminate in a weekend. The scenario table shows exactly how many years each expense cut is worth." },
+                    { label: "Contributions matter most early on", body: "In the first decade of accumulation, your contributions are a larger driver of portfolio growth than investment returns. This means maximizing your savings rate in your 20s and 30s has an outsized impact on your retirement timeline compared to optimizing returns later." },
+                    { label: "The 4% rule as a planning tool", body: "The 4% safe withdrawal rate — annual expenses × 25 = FIRE number — gives you a defensible target. It is based on decades of historical data showing that a diversified portfolio can sustain a 4% annual withdrawal through most 30-year periods, including major market downturns." },
+                    { label: "Scenarios as a negotiation tool", body: "Use the scenario table to identify which changes have the most impact for you specifically. Some people find that a small increase in income contribution has more effect than a larger expense cut; others find the opposite. Your numbers tell your story." },
                   ].map((item) => (
                     <div
                       key={item.label}
@@ -676,36 +672,36 @@ export default function InvestmentGrowthCalculatorPage() {
               <SectionHeading>Frequently asked questions</SectionHeading>
               <div style={{ borderTop: "1px solid var(--f-border)", maxWidth: "720px" }}>
                 <FAQItem
-                  q="What return rate should I use?"
-                  a="A 7% nominal return is a reasonable baseline for a diversified stock market portfolio, based on long-run historical averages. For inflation-adjusted (real) returns, 4–5% is more appropriate. Use a lower rate (5–6%) for conservative planning and a higher rate (8–10%) to model optimistic scenarios. The safest approach is to run multiple scenarios and understand the range of outcomes."
+                  q="What is the retirement timeline calculator?"
+                  a="The retirement timeline calculator projects your retirement age based on your current income, expenses, portfolio, and investment return. It also generates a what-if scenario table showing how cutting expenses, increasing contributions, or earning a higher return changes your retirement date. It is designed for FIRE (Financial Independence, Retire Early) planning but is useful for any retirement timeline modeling."
                 />
                 <FAQItem
-                  q="Does this calculator account for inflation?"
-                  a="No — this calculator uses nominal (not inflation-adjusted) returns. If you enter a 7% return and inflation is 3%, your real purchasing power grows at roughly 4% per year. To model real returns, simply reduce your assumed return rate by your expected inflation rate. For example, enter 4% instead of 7% to model a 3% inflation environment."
+                  q="How is the retirement age calculated?"
+                  a="The calculator first determines your FIRE number (annual expenses ÷ withdrawal rate), then uses the compound growth formula to solve for how many years your portfolio needs to reach that target given your annual savings and real return rate. Your retirement age is simply your current age plus those projected years. The formula accounts for inflation by using a real (inflation-adjusted) return rate."
                 />
                 <FAQItem
-                  q="What is the difference between monthly and annual compounding?"
-                  a="Monthly compounding applies your annual return rate in smaller increments each month, which means you earn returns on earlier returns sooner. Over long periods this produces slightly higher final values. Most brokerage accounts and mutual funds compound continuously or daily in practice — monthly compounding is a close approximation. The difference is small but grows over decades."
+                  q="Why does the calculator use a real return rate?"
+                  a="Investment returns are quoted in nominal terms — but your future expenses will be higher due to inflation. To make the projection meaningful in today's dollars, the calculator adjusts the nominal return for inflation: real return = (1 + nominal) / (1 + inflation) − 1. This means the FIRE number represents today's purchasing power, and the projection is in inflation-adjusted dollars."
+                />
+                <FAQItem
+                  q="What are the what-if scenarios in the results table?"
+                  a="The scenario table shows 8 alternative retirement timelines: three expense-cut scenarios (10%, 20%, 30% less spending), three contribution-increase scenarios (10%, 20%, 30% more savings), and two return scenarios (+1% and +2% annual return). Each scenario independently recalculates your FIRE target and years to retirement. Expense cuts are especially powerful because they reduce both your FIRE number and your time to reach it simultaneously."
+                />
+                <FAQItem
+                  q="What is the 4% withdrawal rate and why is it the default?"
+                  a="The 4% rule is based on the Trinity Study, which found that a 4% annual withdrawal from a balanced portfolio survived 95%+ of historical 30-year periods, including major market downturns. At 4%, your FIRE number equals 25× your annual expenses. This is a widely used planning benchmark — it is not a guarantee, but it represents a historically defensible starting point for retirement income planning."
+                />
+                <FAQItem
+                  q="What if my expenses exceed my income?"
+                  a="If your annual expenses equal or exceed your annual income, the calculator shows 'Cannot Reach FI' because there is no savings surplus to invest. The only solutions are to increase income or reduce expenses until income exceeds spending. Even a small savings margin, when invested consistently, builds meaningfully over time — the scenario table will show the impact of cutting expenses to create that margin."
+                />
+                <FAQItem
+                  q="Should I include my home equity in the current portfolio?"
+                  a="Generally, no. The FIRE Number represents a portfolio that generates income via the 4% rule — this requires liquid, invested assets like stocks and bonds. Home equity cannot generate this cash flow unless you sell or take a home equity loan. Enter only your liquid investment accounts: 401(k), IRA, Roth IRA, and taxable brokerage accounts."
                 />
                 <FAQItem
                   q="How accurate is this calculator?"
-                  a="This calculator provides accurate mathematical projections based on the inputs you provide. The key limitation is that real-world returns are not constant — they fluctuate year-to-year. The calculator assumes your assumed return rate every single year, which won't happen in practice. Use the results as a planning guide, not a guarantee. Conservative return assumptions give more realistic outcomes."
-                />
-                <FAQItem
-                  q="Should I include my 401(k) and IRA in the initial investment?"
-                  a="Yes — include the current value of all invested accounts: 401(k), IRA, Roth IRA, and taxable brokerage accounts. Your monthly contributions should include all sources of regular investing (payroll deductions plus manual contributions). The calculator models total portfolio growth regardless of which account type holds the money."
-                />
-                <FAQItem
-                  q="What if I plan to stop contributing at some point?"
-                  a="Set your time horizon to the point when you stop contributing, note the final value, then run the calculator again with that value as the initial investment, zero monthly contributions, and the remaining time horizon. This two-step approach models a period of active saving followed by passive compounding."
-                />
-                <FAQItem
-                  q="How does this relate to my FIRE number?"
-                  a={<>Your FIRE number is the portfolio target — typically 25× your annual expenses. This calculator helps you project whether your current savings rate and timeline will reach that target. For a complete FIRE projection with income, expenses, and retirement age, use the{" "}<Link href="/fire-calculator" style={{ color: "var(--f-blue)", textDecoration: "none" }}>FIRE Calculator</Link>.</>}
-                />
-                <FAQItem
-                  q="Is past performance a reliable guide for future returns?"
-                  a="No — and this is the most important caveat to any investment projection. Historical averages (like the 7% S&P 500 figure) are useful planning guides, but they include periods of severe drawdown (2000–2002, 2008–2009, 2020) that this calculator smooths over. Future returns may be higher or lower. Diversify, keep costs low, and plan for a range of scenarios."
+                  a="The calculator is a planning tool, not a financial forecast. It assumes constant annual returns and contributions, which do not reflect real-world market volatility, tax changes, or life events. The real value of the calculator is in exploring the relative impact of different choices — scenario comparison is more useful than treating the retirement age output as a precise prediction. For personalized projections, consult a fee-only financial advisor."
                 />
               </div>
             </section>
@@ -715,20 +711,20 @@ export default function InvestmentGrowthCalculatorPage() {
               <SectionHeading>Next steps on your FIRE journey</SectionHeading>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 <NextStepCard
-                  title="Calculate your full FIRE timeline"
-                  description="See your complete path to financial independence — combining your investment growth projection with your expenses and FIRE number in one place."
-                  href="/fire-calculator"
-                  live={true}
-                />
-                <NextStepCard
-                  title="Find your FIRE Number"
-                  description="Calculate exactly how much you need to retire based on your annual expenses and withdrawal rate — your investment growth target."
+                  title="Calculate your FIRE number"
+                  description="Find your exact portfolio target based on your expenses and withdrawal rate — and see how monthly savings timelines vary."
                   href="/fire-number-calculator"
                   live={true}
                 />
                 <NextStepCard
-                  title="Optimize your savings rate"
-                  description="Discover how dramatically increasing your savings rate compresses your path to financial independence."
+                  title="Full FIRE projection"
+                  description="Get a complete financial independence analysis with income, portfolio, contributions, and a year-by-year portfolio chart."
+                  href="/fire-calculator"
+                  live={true}
+                />
+                <NextStepCard
+                  title="Calculate your savings rate"
+                  description="See how your current savings rate maps to years to FI — and explore the full savings-rate-to-timeline table."
                   href="/savings-rate-calculator"
                   live={true}
                 />
@@ -739,11 +735,48 @@ export default function InvestmentGrowthCalculatorPage() {
             <section id="related-calculators" style={{ marginBottom: "3rem" }}>
               <SectionHeading>Related FIRE calculators</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))", gap: "1rem" }}>
-                <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with income, portfolio, contributions, and retirement timeline." live={true} />
+                <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with income, portfolio, contributions, and retirement age." live={true} />
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your expenses and withdrawal rate." live={true} />
+                <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps to years until financial independence." live={true} />
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
-                <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate affects your timeline to financial independence." live={true} />
-                <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="More detailed compound interest calculations with daily, monthly, and annual compounding options." live={true} />
+                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals and how long your portfolio will last." live={true} />
+                <RelatedCard name="Investment Growth Calculator" href="/investment-growth-calculator" description="Project how your investments compound over time with regular contributions." live={true} />
+              </div>
+            </section>
+
+            {/* Related blog articles */}
+            <section id="related-articles" style={{ marginBottom: "3rem" }}>
+              <SectionHeading>Related articles</SectionHeading>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                {[
+                  { title: "What is FIRE? Financial Independence, Retire Early Explained", href: "/blog/what-is-fire", description: "A complete introduction to the FIRE movement — what it is, why people pursue it, and the core formulas behind every FIRE calculation." },
+                  { title: "The 4% Rule Explained: Safe Withdrawal Rate for Retirement", href: "/blog/4-percent-rule-explained", description: "The research behind the 4% safe withdrawal rate, what the Trinity Study actually found, and how to apply it to your own retirement planning." },
+                  { title: "Best Savings Rate for FIRE: How Much Do You Need to Save?", href: "/blog/savings-rate-and-retirement", description: "How savings rate determines retirement timeline more than income — and the exact relationship between savings rate and years to financial independence." },
+                ].map((article) => (
+                  <Link
+                    key={article.href}
+                    href={article.href}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div
+                      style={{
+                        background: "var(--f-card)",
+                        border: "1px solid var(--f-border)",
+                        borderRadius: "10px",
+                        padding: "1.125rem 1.375rem",
+                        transition: "border-color 0.15s ease",
+                      }}
+                      className="calc-card"
+                    >
+                      <p style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--f-text-heading)", marginBottom: "0.25rem", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+                        {article.title}
+                      </p>
+                      <p style={{ fontSize: "0.8125rem", color: "var(--f-text-faint)", lineHeight: 1.65, fontWeight: 300, margin: 0 }}>
+                        {article.description}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </section>
 
@@ -752,10 +785,12 @@ export default function InvestmentGrowthCalculatorPage() {
               <p style={{ fontSize: "0.75rem", color: "var(--f-text-faint)", lineHeight: 1.7, fontWeight: 300, margin: 0 }}>
                 <strong style={{ fontWeight: 500, color: "var(--f-text-muted)" }}>Disclaimer: </strong>
                 This calculator is for educational and informational purposes only. It does not constitute financial,
-                investment, or tax advice. All projections are estimates based on the assumptions you enter — actual
-                investment returns vary significantly from year to year and past performance does not guarantee future
-                results. This calculator assumes a constant annual return rate, which does not reflect real-world
-                market volatility. Consult a qualified financial advisor before making investment decisions.
+                investment, or tax advice. All projections are estimates based on hypothetical scenarios — actual
+                investment returns vary and past performance does not guarantee future results. The years-to-retirement
+                calculation assumes constant annual returns and contributions, which does not reflect real-world
+                market volatility, tax implications, or life changes. The 4% safe withdrawal rate is a historical
+                guideline based on the Trinity Study, not a guarantee of future portfolio sustainability. Consult
+                a qualified financial advisor before making investment decisions.
               </p>
             </div>
 

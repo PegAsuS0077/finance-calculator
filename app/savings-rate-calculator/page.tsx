@@ -727,7 +727,7 @@ export default function SavingsRateCalculatorPage() {
                 <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with income, portfolio, contributions, and retirement timeline." live={true} />
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your expenses and withdrawal rate." live={true} />
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
-                <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={false} />
+                <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={true} />
               </div>
             </section>
 

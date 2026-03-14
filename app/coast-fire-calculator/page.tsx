@@ -723,7 +723,7 @@ export default function CoastFireCalculatorPage() {
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your expenses and withdrawal rate." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps directly to years until financial independence." live={true} />
                 <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Model safe withdrawal rates and portfolio longevity in retirement." live={false} />
-                <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={false} />
+                <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={true} />
               </div>
             </section>
 
