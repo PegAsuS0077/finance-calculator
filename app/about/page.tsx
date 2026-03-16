@@ -5,7 +5,7 @@ import { config } from "@/lib/config"
 
 export const metadata: Metadata = {
   title: "About — FreedomCalc",
-  description: "Learn about FreedomCalc — free, open financial independence calculators built for anyone working toward FIRE.",
+  description: "Learn about FreedomCalc — free, independent financial independence calculators built for anyone working toward FIRE. Not affiliated with any financial institution.",
   alternates: { canonical: `${config.siteUrl}/about` },
 }
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </h1>
             <p className="legal-masthead-sub">
               Free financial independence calculators for anyone working toward FIRE —
-              no accounts, no paywalls, no data stored.
+              no accounts, no paywalls, no data stored. Independent and unaffiliated.
             </p>
           </div>
           <div className="legal-masthead-right">
@@ -136,10 +136,32 @@ export default function AboutPage() {
                 </p>
                 <p className="about-body-text" style={{ marginBottom: 0 }}>
                   We use Google Analytics 4 to understand which tools are most useful — page
-                  views and session data, nothing more. Your financial inputs are never part
-                  of that data.
+                  views and session data, nothing more. We also display ads via Google AdSense
+                  to keep the site free. Your financial inputs are never part of any data
+                  collected by these services. See our{" "}
+                  <Link href="/privacy" style={{ color: "var(--f-blue)", fontWeight: 500 }}>Privacy Policy</Link>
+                  {" "}for full details.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Independence notice ── */}
+      <section className="about-independence-section">
+        <div className="legal-content-inner">
+          <div className="about-independence-card">
+            <div className="about-independence-icon">🏛️</div>
+            <div>
+              <h2 className="about-independence-title">Independent &amp; unaffiliated</h2>
+              <p className="about-independence-body">
+                FreedomCalc is an independent website operated from the United Kingdom. We are
+                not affiliated with, endorsed by, or sponsored by any financial institution,
+                brokerage, investment platform, or financial services firm — including but not
+                limited to Vanguard, Fidelity, Schwab, or any other company. References to
+                financial research, strategies, or studies are for educational context only.
+              </p>
             </div>
           </div>
         </div>
@@ -178,12 +200,16 @@ export default function AboutPage() {
               <h2 className="about-section-heading" style={{ marginBottom: "0.625rem" }}>
                 We read every message.
               </h2>
-              <p className="about-body-text" style={{ marginBottom: 0 }}>
-                Found an error? Have a calculator suggestion? Just want to say hello?
-                Reach us at{" "}
+              <p className="about-body-text">
+                Found an error? Have a calculator suggestion? Questions about privacy or your
+                data? Reach us at{" "}
                 <a href="mailto:contact@freedomcalc.dev" className="about-email-link">
                   contact@freedomcalc.dev
                 </a>
+                . We aim to respond within 2 business days.
+              </p>
+              <p className="about-body-text" style={{ marginBottom: 0 }}>
+                <strong style={{ color: "var(--f-text-body)", fontWeight: 600 }}>Based in:</strong> United Kingdom
               </p>
             </div>
             <div className="about-disclaimer">

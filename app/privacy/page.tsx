@@ -5,52 +5,60 @@ import { config } from "@/lib/config"
 
 export const metadata: Metadata = {
   title: "Privacy Policy — FreedomCalc",
-  description: "FreedomCalc privacy policy. We don't collect, store, or sell your personal data.",
+  description: "FreedomCalc privacy policy. We don't collect, store, or sell your personal data. Learn how we handle analytics, cookies, and advertising.",
   alternates: { canonical: `${config.siteUrl}/privacy` },
 }
 
 const SECTIONS = [
   {
+    id: "personal-data",
+    title: "What counts as personal data",
+    body: "Personal data means any information that can identify you, directly or indirectly. This includes IP addresses, cookie identifiers, browser fingerprints, and device identifiers. It does not include the financial figures you enter into our calculators — those are processed entirely in your browser and are never transmitted to us.",
+  },
+  {
     id: "no-data",
     title: "Data we do not collect",
-    icon: "◎",
     body: "All calculator inputs — your age, income, expenses, portfolio value, and all other financial figures — are processed entirely in your browser. This data is never sent to our servers, never stored, and never shared with any third party. We have no access to the numbers you enter.",
   },
   {
     id: "analytics",
     title: "Analytics",
-    icon: "◉",
-    body: "We use Google Analytics 4 to understand how people use the site — which pages are visited, how long users stay, and which calculators are most popular. This data is aggregated and anonymised. It does not include any financial data you enter into the calculators. You can opt out using browser extensions like uBlock Origin or the Google Analytics Opt-out Add-on.",
+    body: "We use Google Analytics 4 to understand how people use the site — which pages are visited, how long users stay, and which calculators are most popular. This data is aggregated and anonymised. It does not include any financial data you enter into the calculators. GA4 may collect IP addresses and cookie identifiers for this purpose, subject to Google's Privacy Policy (policies.google.com/privacy). You can opt out using browser extensions like uBlock Origin or the Google Analytics Opt-out Add-on.",
+  },
+  {
+    id: "advertising",
+    title: "Advertising (Google AdSense)",
+    body: "We use Google AdSense to display advertisements on this site. Google AdSense uses cookies and device identifiers — including the DoubleClick cookie (IDE) — to serve ads based on your prior visits to this website or other websites across the internet. This is known as interest-based or personalised advertising. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites. You can opt out of personalised advertising by visiting Google's Ad Settings at adssettings.google.com, or by visiting aboutads.info. FreedomCalc does not control the content of third-party advertisements served by Google AdSense and is not responsible for them. Clicking on any advertisement is at your own discretion.",
   },
   {
     id: "cookies",
     title: "Cookies",
-    icon: "◈",
-    body: "FreedomCalc uses minimal cookies. Google Analytics sets cookies to distinguish unique visitors. We do not use advertising cookies, tracking pixels, or any third-party marketing cookies.",
+    body: "FreedomCalc uses cookies in three categories. Strictly necessary: no cookies of this type are currently set by us. Analytics: Google Analytics sets cookies (_ga, _gid) to distinguish unique visitors and track usage — these can be blocked without affecting site functionality. Advertising: Google AdSense and DoubleClick set cookies (IDE, DSID, and similar) to serve and measure personalised ads — you can opt out via adssettings.google.com. We do not set any first-party advertising, tracking, or marketing cookies.",
   },
   {
     id: "third-parties",
     title: "Third-party services",
-    icon: "◇",
-    body: "The site is hosted on Cloudflare Pages. Cloudflare may log basic request data (IP address, browser type) for security and performance purposes, subject to Cloudflare's own privacy policy. We do not use any other third-party services that have access to your data.",
+    body: "The site is hosted on Cloudflare Pages. Cloudflare may log basic request data (IP address, browser type) for security and performance purposes, subject to Cloudflare's own privacy policy. Google Analytics 4 and Google AdSense are our only other third-party services. Both are operated by Google LLC and governed by the Google Privacy Policy at policies.google.com/privacy.",
+  },
+  {
+    id: "user-rights",
+    title: "Your rights",
+    body: "Depending on where you are located, you may have the following rights regarding your personal data: the right to access data held about you; the right to correct inaccurate data; the right to request deletion of your data; the right to object to or restrict certain processing; and (under CCPA) the right to opt out of the sale of personal information — we do not sell personal information. To exercise any of these rights, or to ask about data held by our third-party partners (Google), contact us at contact@freedomcalc.dev. For data processed by Google, you can also manage your preferences directly at myaccount.google.com.",
   },
   {
     id: "children",
     title: "Children's privacy",
-    icon: "◐",
-    body: "FreedomCalc is not directed at children under 13. We do not knowingly collect any personal information from children.",
+    body: "FreedomCalc is not directed at children under 13. We do not knowingly collect any personal information from children under 13. If you believe a child has provided personal information through our site, please contact us and we will take steps to delete it.",
   },
   {
     id: "changes",
     title: "Changes to this policy",
-    icon: "◎",
-    body: 'We may update this policy from time to time. Changes will be reflected in the "Last updated" date above. Continued use of the site after changes constitutes acceptance of the updated policy.',
+    body: 'We may update this policy from time to time. Changes will be reflected in the "Last updated" date above. Continued use of the site after changes constitutes acceptance of the updated policy. We recommend reviewing this page periodically.',
   },
   {
     id: "contact",
     title: "Contact",
-    icon: "◉",
-    body: "Questions about this policy? Email us at contact@freedomcalc.dev — we read every message.",
+    body: "Questions about this policy or your personal data? Email us at contact@freedomcalc.dev. We aim to respond within 2 business days.",
   },
 ]
 
@@ -77,15 +85,15 @@ export default function PrivacyPage() {
             <div className="blog-stat-block">
               <div className="blog-stat">
                 <span className="blog-stat-num">0</span>
-                <span className="blog-stat-label">Data stored</span>
-              </div>
-              <div className="blog-stat">
-                <span className="blog-stat-num">0</span>
-                <span className="blog-stat-label">3rd-party ads</span>
+                <span className="blog-stat-label">Data sold</span>
               </div>
               <div className="blog-stat">
                 <span className="blog-stat-num">GA4</span>
-                <span className="blog-stat-label">Analytics only</span>
+                <span className="blog-stat-label">Analytics</span>
+              </div>
+              <div className="blog-stat">
+                <span className="blog-stat-num">Ads</span>
+                <span className="blog-stat-label">Google AdSense</span>
               </div>
             </div>
             <p className="legal-updated">Last updated: March 2026</p>
@@ -99,10 +107,11 @@ export default function PrivacyPage() {
           <div className="legal-lead-card">
             <div className="legal-lead-icon">🔒</div>
             <div>
-              <p className="legal-lead-headline">Your numbers never leave your device.</p>
+              <p className="legal-lead-headline">Your financial numbers never leave your device.</p>
               <p className="legal-lead-body">
                 Every calculation runs locally in your browser. We never see the financial
-                figures you enter — not your income, not your portfolio, not anything.
+                figures you enter. This policy explains what data is collected by our analytics
+                and advertising partners (Google), and how you can control it.
               </p>
             </div>
           </div>
@@ -124,6 +133,18 @@ export default function PrivacyPage() {
                   </a>
                 ))}
               </nav>
+              <div className="legal-toc-external">
+                <p className="legal-toc-label" style={{ marginTop: "1.5rem" }}>External policies</p>
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="legal-toc-link">
+                  Google Privacy Policy ↗
+                </a>
+                <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="legal-toc-link">
+                  Google Ad Settings ↗
+                </a>
+                <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="legal-toc-link">
+                  AdChoices opt-out ↗
+                </a>
+              </div>
             </aside>
 
             {/* Content */}
