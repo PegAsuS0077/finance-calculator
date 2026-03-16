@@ -63,7 +63,7 @@ const SECTIONS = [
   {
     id: "governing-law",
     title: "Governing law",
-    body: "These terms are governed by the laws of England and Wales. Any disputes arising from use of this site shall be subject to the jurisdiction of the courts of England and Wales, unless local mandatory consumer protection laws require otherwise.",
+    body: "These terms are governed by the laws of Germany. Any disputes arising from use of this site shall be subject to the jurisdiction of the competent courts of Germany, unless local mandatory consumer protection laws require otherwise.",
   },
 ]
 

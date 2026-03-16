@@ -156,7 +156,7 @@ export default function AboutPage() {
             <div>
               <h2 className="about-independence-title">Independent &amp; unaffiliated</h2>
               <p className="about-independence-body">
-                FreedomCalc is an independent website operated from the United Kingdom. We are
+                FreedomCalc is an independent website operated from Germany. We are
                 not affiliated with, endorsed by, or sponsored by any financial institution,
                 brokerage, investment platform, or financial services firm — including but not
                 limited to Vanguard, Fidelity, Schwab, or any other company. References to
@@ -209,7 +209,7 @@ export default function AboutPage() {
                 . We aim to respond within 2 business days.
               </p>
               <p className="about-body-text" style={{ marginBottom: 0 }}>
-                <strong style={{ color: "var(--f-text-body)", fontWeight: 600 }}>Based in:</strong> United Kingdom
+                <strong style={{ color: "var(--f-text-body)", fontWeight: 600 }}>Based in:</strong> Germany
               </p>
             </div>
             <div className="about-disclaimer">

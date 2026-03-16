@@ -70,7 +70,7 @@ export default function Footer() {
               No signup. No data stored. Always free.
             </p>
             <div className="footer-brand-meta">
-              <span className="footer-meta-item">🇬🇧 United Kingdom</span>
+              <span className="footer-meta-item">🇩🇪 Germany</span>
               <a href="mailto:contact@freedomcalc.dev" className="footer-meta-item footer-meta-link">
                 <Mail size={13} />
                 contact@freedomcalc.dev
@@ -147,17 +147,13 @@ export default function Footer() {
             © {new Date().getFullYear()} FreedomCalc. Independent &amp; unaffiliated. For educational purposes only — not financial advice.
           </p>
           <div className="footer-bottom-links">
-            <Link href="/privacy" className="footer-bottom-link">Privacy</Link>
-            <span className="footer-bottom-sep">·</span>
-            <Link href="/terms" className="footer-bottom-link">Terms</Link>
-            <span className="footer-bottom-sep">·</span>
             <a
               href="https://policies.google.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
               className="footer-bottom-link"
             >
-              Google Privacy Policy
+              Google Privacy Policy ↗
             </a>
           </div>
         </div>

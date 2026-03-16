@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
+import { motion } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -225,6 +226,111 @@ function LearnDropdown({ onClose }: { onClose: () => void }) {
   )
 }
 
+/* ─────────────────────────────── tubelight nav items ─────────────────────────────── */
+
+type NavItemName = "Home" | "Calculators" | "Learn" | "About"
+
+const NAV_ITEM_NAMES: NavItemName[] = ["Home", "Calculators", "Learn", "About"]
+
+function TubelightNavItems({
+  activeTab,
+  openDropdown,
+  onToggle,
+  onLinkClick,
+}: {
+  activeTab: NavItemName
+  openDropdown: "calculators" | "learn" | null
+  onToggle: (name: "calculators" | "learn") => void
+  onLinkClick: () => void
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLElement | null)[]>([])
+  const [highlight, setHighlight] = useState<{ left: number; width: number } | null>(null)
+
+  useEffect(() => {
+    const activeIndex = NAV_ITEM_NAMES.indexOf(activeTab)
+    const activeEl = itemRefs.current[activeIndex]
+    const containerEl = containerRef.current
+    if (!activeEl || !containerEl) return
+    const containerRect = containerEl.getBoundingClientRect()
+    const itemRect = activeEl.getBoundingClientRect()
+    setHighlight({ left: itemRect.left - containerRect.left, width: itemRect.width })
+  }, [activeTab])
+
+  return (
+    <div
+      ref={containerRef}
+      className="tubelight-nav"
+    >
+      {/* Sliding lamp highlight */}
+      {highlight && (
+        <motion.div
+          animate={{ left: highlight.left, width: highlight.width }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          style={{ position: "absolute", top: 0, height: "100%", borderRadius: "9999px", zIndex: 0 }}
+          className="bg-muted"
+        >
+          <div
+            className="absolute -top-2 left-1/2 -translate-x-1/2 w-6 h-1 rounded-t-full"
+            style={{ background: "var(--f-blue)" }}
+          >
+            <div className="absolute w-10 h-5 rounded-full blur-md -top-2 -left-2" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
+            <div className="absolute w-6 h-5 rounded-full blur-md -top-1" style={{ background: "var(--f-blue)", opacity: 0.2 }} />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Home */}
+      <Link
+        href="/"
+        ref={(el) => { itemRefs.current[0] = el }}
+        onClick={onLinkClick}
+        className={cn("tubelight-item", activeTab === "Home" && "tubelight-item--active")}
+        style={{ zIndex: 1 }}
+      >
+        Home
+      </Link>
+
+      {/* Calculators */}
+      <button
+        ref={(el) => { itemRefs.current[1] = el }}
+        onClick={() => onToggle("calculators")}
+        aria-expanded={openDropdown === "calculators"}
+        aria-haspopup="true"
+        className={cn("tubelight-item tubelight-item--btn", activeTab === "Calculators" && "tubelight-item--active")}
+        style={{ zIndex: 1 }}
+      >
+        Calculators
+        <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "calculators" && "nav-chevron--open")} />
+      </button>
+
+      {/* Learn */}
+      <button
+        ref={(el) => { itemRefs.current[2] = el }}
+        onClick={() => onToggle("learn")}
+        aria-expanded={openDropdown === "learn"}
+        aria-haspopup="true"
+        className={cn("tubelight-item tubelight-item--btn", activeTab === "Learn" && "tubelight-item--active")}
+        style={{ zIndex: 1 }}
+      >
+        Learn
+        <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "learn" && "nav-chevron--open")} />
+      </button>
+
+      {/* About */}
+      <Link
+        href="/about"
+        ref={(el) => { itemRefs.current[3] = el }}
+        onClick={onLinkClick}
+        className={cn("tubelight-item", activeTab === "About" && "tubelight-item--active")}
+        style={{ zIndex: 1 }}
+      >
+        About
+      </Link>
+    </div>
+  )
+}
+
 /* ─────────────────────────────── main navbar ─────────────────────────────── */
 
 export function NavBar() {
@@ -235,18 +341,14 @@ export function NavBar() {
 
   const closeAll = useCallback(() => setOpenDropdown(null), [])
 
-  // close on outside click
   useEffect(() => {
     function handler(e: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        closeAll()
-      }
+      if (navRef.current && !navRef.current.contains(e.target as Node)) closeAll()
     }
     document.addEventListener("mousedown", handler)
     return () => document.removeEventListener("mousedown", handler)
   }, [closeAll])
 
-  // close on route change
   useEffect(() => {
     closeAll()
     setMobileOpen(false)
@@ -258,6 +360,14 @@ export function NavBar() {
 
   const isCalcActive = CALCULATORS.flatMap((g) => g.items).some((i) => pathname === i.href)
   const isLearnActive = pathname === "/blog" || pathname.startsWith("/blog/")
+
+  const activeTab: NavItemName = isCalcActive
+    ? "Calculators"
+    : isLearnActive
+    ? "Learn"
+    : pathname === "/about"
+    ? "About"
+    : "Home"
 
   return (
     <>
@@ -293,45 +403,21 @@ export function NavBar() {
             </span>
           </Link>
 
-          {/* Desktop nav links */}
-          <nav className="nav-links">
-            <Link href="/" className={cn("nav-link", pathname === "/" && !isCalcActive && !isLearnActive && "nav-link--active")}>
-              Home
-            </Link>
-
-            {/* Calculators dropdown trigger */}
-            <button
-              className={cn("nav-link nav-link--btn", isCalcActive && "nav-link--active", openDropdown === "calculators" && "nav-link--open")}
-              onClick={() => toggle("calculators")}
-              aria-expanded={openDropdown === "calculators"}
-              aria-haspopup="true"
-            >
-              Calculators
-              <ChevronDown size={14} className={cn("nav-chevron", openDropdown === "calculators" && "nav-chevron--open")} />
-            </button>
-
-            {/* Learn dropdown trigger */}
-            <button
-              className={cn("nav-link nav-link--btn", isLearnActive && "nav-link--active", openDropdown === "learn" && "nav-link--open")}
-              onClick={() => toggle("learn")}
-              aria-expanded={openDropdown === "learn"}
-              aria-haspopup="true"
-            >
-              Learn
-              <ChevronDown size={14} className={cn("nav-chevron", openDropdown === "learn" && "nav-chevron--open")} />
-            </button>
-
-            <Link href="/about" className={cn("nav-link", pathname === "/about" && "nav-link--active")}>
-              About
-            </Link>
-          </nav>
+          {/* Centered tubelight nav — desktop only */}
+          <div className="nav-center-slot">
+            <TubelightNavItems
+              activeTab={activeTab}
+              openDropdown={openDropdown}
+              onToggle={toggle}
+              onLinkClick={closeAll}
+            />
+          </div>
 
           {/* Right side */}
           <div className="nav-right">
             <Link href="/fire-calculator" className="nav-cta">
               Try for free
             </Link>
-            {/* Hamburger — mobile only */}
             <button
               className="nav-hamburger"
               onClick={() => setMobileOpen(true)}
@@ -341,7 +427,7 @@ export function NavBar() {
             </button>
           </div>
 
-          {/* Dropdown panels */}
+          {/* Dropdown panels — anchored to center slot */}
           {openDropdown === "calculators" && <CalcDropdown onClose={closeAll} />}
           {openDropdown === "learn" && <LearnDropdown onClose={closeAll} />}
         </div>
