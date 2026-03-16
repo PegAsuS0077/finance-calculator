@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { FourPercentRuleCalculator } from "@/components/calculators/four-percent-rule-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is the 4% rule?", a: "The 4% rule states that you can safely withdraw 4% of your retirement portfolio in year one, then increase that dollar amount by inflation each year, with a high probability of the portfolio lasting 30 years. It originated from the 1998 Trinity Study analyzing historical stock and bond returns. For FIRE planning, the 4% rule implies a savings target of 25× your annual expenses." },
+  { q: "Is the 4% rule still safe for early retirees?", a: "The original 4% rule was designed for a 30-year retirement. For FIRE retirees planning a 40–50 year retirement, 3–3.5% is often recommended by researchers like Wade Pfau. Use this calculator to test different withdrawal rates against your expected returns and choose a rate that feels sustainable over your full retirement horizon." },
+  { q: "What withdrawal rate should I use?", a: "The right withdrawal rate depends on your expected retirement length and risk tolerance. 3% is very conservative — appropriate for 50+ year retirements or very low-risk portfolios. 4% is the classic benchmark for 30-year retirements. Anything above 4.5% carries meaningful depletion risk unless your return assumptions are optimistic or your retirement spending is flexible." },
+  { q: "What does 'indefinite' portfolio duration mean?", a: "When your portfolio's real (inflation-adjusted) return equals or exceeds your annual withdrawal amount, the portfolio generates enough growth to sustain withdrawals without eroding the principal. In this scenario, the portfolio could last indefinitely — and may even grow over time. This is typically the outcome at 3% withdrawal rates with decent investment returns." },
+  { q: "Does this calculator account for taxes?", a: "No — this calculator models pre-tax returns and withdrawals. In practice, withdrawals from traditional 401(k) and IRA accounts are taxed as ordinary income. Roth accounts are tax-free in retirement. A realistic retirement plan should account for your tax situation, which can significantly affect the net withdrawal amount available for spending." },
+  { q: "What return rate should I use for a retirement portfolio?", a: "A balanced 60/40 stock/bond portfolio has historically returned around 5–7% nominally. More conservative allocations (40/60 or less equity) typically return 4–5%. With inflation at 3%, your real return is roughly 2–4% for a balanced portfolio. Use 5% nominal / 3% inflation (2% real) as a conservative baseline and 7% / 3% (4% real) as a moderate assumption." },
+  { q: "How does the 4% rule relate to my FIRE number?", a: "Your FIRE number is the portfolio size needed to fund retirement at a 4% withdrawal rate — it is simply 25× your annual expenses. If you spend $60,000/year, your FIRE number is $1,500,000." },
+  { q: "What is sequence of returns risk?", a: "Sequence of returns risk refers to the danger of experiencing poor investment returns in the early years of retirement. Even if the long-run average return is the same, retiring into a bear market forces you to sell assets at low prices, which permanently reduces the portfolio's ability to recover. This risk is not modeled in this calculator, which assumes constant annual returns. Flexible spending strategies or a cash buffer can help mitigate it." },
+]
 
 export const metadata: Metadata = {
   title: "4% Rule Calculator — Safe Withdrawal Rate Calculator",
@@ -223,6 +235,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function FourPercentRuleCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "4% Rule Calculator", description: "Calculate safe withdrawal amounts and portfolio survival duration at different withdrawal rates.", url: `${config.siteUrl}/4-percent-rule-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

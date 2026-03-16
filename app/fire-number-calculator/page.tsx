@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { FireNumberCalculator } from "@/components/calculators/fire-number-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is a FIRE number?", a: "Your FIRE number is the total investment portfolio you need to retire permanently. Once you reach it, your portfolio generates enough returns to cover all expenses indefinitely. At a 4% withdrawal rate, your FIRE number is exactly 25× your annual spending." },
+  { q: "How is the FIRE number calculated?", a: "FIRE Number = Annual Expenses ÷ Withdrawal Rate. For $40,000 in annual expenses at a 4% withdrawal rate: $40,000 ÷ 0.04 = $1,000,000." },
+  { q: "Should I use the 4% rule or a different withdrawal rate?", a: "The 4% rule works well for 30-year retirements. For early retirement spanning 40–50 years, many FIRE practitioners use 3–3.5% to reduce the risk of running out of money. The more conservative your withdrawal rate, the larger your FIRE number — but the safer your retirement." },
+  { q: "Does my FIRE number account for inflation?", a: "Yes, indirectly. Your expenses are stated in today's dollars, and the safe withdrawal rate research accounts for inflation-adjusted withdrawals. As long as your portfolio is invested in assets that historically beat inflation (like broad market index funds), the real value of your portfolio is maintained." },
+  { q: "Should I include Social Security in my FIRE number?", a: "If you plan to receive Social Security, you can subtract that annual income from your expenses before calculating your FIRE number. Example: $50,000 expenses − $15,000 Social Security = $35,000 from portfolio. Your FIRE number would then be $35,000 ÷ 0.04 = $875,000." },
+  { q: "What return rate does the savings table assume?", a: "The savings table assumes a 7% nominal annual return — a commonly cited long-run average for a diversified US stock market portfolio. This is before inflation. Real (inflation-adjusted) returns would be lower, around 4–5%." },
+  { q: "Is this different from the full FIRE Calculator?", a: "Yes. This calculator focuses on two things: your target number, and how much you need to save to reach it. The full FIRE Calculator adds your current portfolio, income, contributions, and inflation to project when you'll actually reach FIRE and at what age." },
+  { q: "What about taxes on withdrawals?", a: "This calculator does not model taxes. Depending on your account types (taxable, traditional IRA/401k, Roth), your effective tax rate in retirement varies significantly. Roth accounts are generally tax-free in retirement; traditional accounts are taxed as ordinary income." },
+]
 
 export const metadata: Metadata = {
   title: "FIRE Number Calculator — How Much Do You Need to Retire?",
@@ -299,6 +311,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function FireNumberCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "FIRE Number Calculator", description: "Calculate your FIRE number — the total portfolio needed to retire based on your annual expenses and withdrawal rate.", url: `${config.siteUrl}/fire-number-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

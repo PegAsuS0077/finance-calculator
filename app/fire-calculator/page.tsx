@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { FireCalculator } from "@/components/calculators/fire-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is a FIRE number?", a: "Your FIRE number is the total investment portfolio needed to retire and live off investment returns indefinitely. It equals your annual expenses divided by your safe withdrawal rate. At the 4% rule, your FIRE number is 25 times your annual spending — $40,000/year requires $1,000,000." },
+  { q: "What withdrawal rate should I use?", a: "The 4% rate is the most widely-used starting point, supported by the Trinity Study (Bengen, 1994). For retirements lasting 40–50 years — common for early retirees — consider 3–3.5% to reduce sequence-of-returns risk." },
+  { q: "What return rate should I assume?", a: "A 7% nominal return is commonly used based on long-run US stock market averages. Combined with 3% inflation, this gives a 4% real return. For conservative projections, use 5–6% nominal." },
+  { q: "Does this calculator account for inflation?", a: "Yes. The calculator computes a real return rate (nominal minus inflation). All results are expressed in today's purchasing power." },
+  { q: "Is the 4% rule still valid?", a: "Research supports it as a reasonable starting point for 30-year retirements. For longer retirements, 3–3.5% may be safer. Use the withdrawal rate slider to model different scenarios." },
+  { q: "Should I include home equity?", a: "Generally no — the FIRE number refers to liquid investment assets that generate returns. A paid-off home reduces expenses but doesn't produce portfolio income." },
+  { q: "How does savings rate affect my timeline?", a: "It's the most powerful variable. Moving from 20% to 50% savings rate can cut your years to FIRE nearly in half — you build wealth faster and need a smaller FIRE number (lower expenses)." },
+  { q: "What about taxes?", a: "This calculator does not model taxes. Tax-advantaged accounts (401k, IRA, Roth) have different treatment. Consult a financial advisor for a full tax-aware model." },
+]
 
 export const metadata: Metadata = {
   title: "FIRE Calculator — Free Financial Independence Calculator",
@@ -299,6 +311,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function FireCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "FIRE Calculator", description: "Calculate your FIRE number, years to financial independence, and projected retirement age.", url: `${config.siteUrl}/fire-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { RetirementTimelineCalculator } from "@/components/calculators/retirement-timeline-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is the retirement timeline calculator?", a: "The retirement timeline calculator projects your retirement age based on your current income, expenses, portfolio, and investment return. It also generates a what-if scenario table showing how cutting expenses, increasing contributions, or earning a higher return changes your retirement date." },
+  { q: "How is the retirement age calculated?", a: "The calculator first determines your FIRE number (annual expenses ÷ withdrawal rate), then uses the compound growth formula to solve for how many years your portfolio needs to reach that target given your annual savings and real return rate. Your retirement age is simply your current age plus those projected years." },
+  { q: "Why does the calculator use a real return rate?", a: "Investment returns are quoted in nominal terms — but your future expenses will be higher due to inflation. To make the projection meaningful in today's dollars, the calculator adjusts the nominal return for inflation: real return = (1 + nominal) / (1 + inflation) − 1." },
+  { q: "What are the what-if scenarios in the results table?", a: "The scenario table shows 8 alternative retirement timelines: three expense-cut scenarios (10%, 20%, 30% less spending), three contribution-increase scenarios (10%, 20%, 30% more savings), and two return scenarios (+1% and +2% annual return). Expense cuts are especially powerful because they reduce both your FIRE number and your time to reach it simultaneously." },
+  { q: "What is the 4% withdrawal rate and why is it the default?", a: "The 4% rule is based on the Trinity Study, which found that a 4% annual withdrawal from a balanced portfolio survived 95%+ of historical 30-year periods. At 4%, your FIRE number equals 25× your annual expenses." },
+  { q: "What if my expenses exceed my income?", a: "If your annual expenses equal or exceed your annual income, the calculator shows 'Cannot Reach FI' because there is no savings surplus to invest. The only solutions are to increase income or reduce expenses until income exceeds spending." },
+  { q: "Should I include my home equity in the current portfolio?", a: "Generally, no. The FIRE Number represents a portfolio that generates income via the 4% rule — this requires liquid, invested assets like stocks and bonds. Enter only your liquid investment accounts: 401(k), IRA, Roth IRA, and taxable brokerage accounts." },
+  { q: "How accurate is this calculator?", a: "The calculator is a planning tool, not a financial forecast. It assumes constant annual returns and contributions, which do not reflect real-world market volatility or life events. The real value of the calculator is in exploring the relative impact of different choices — scenario comparison is more useful than treating the retirement age output as a precise prediction." },
+]
 
 export const metadata: Metadata = {
   title: "Retirement Timeline Calculator — When Can You Retire?",
@@ -298,6 +310,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function RetirementTimelineCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Retirement Timeline Calculator", description: "Project your retirement age and financial independence date based on income, expenses, portfolio, and savings rate.", url: `${config.siteUrl}/retirement-timeline-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { SavingsRateCalculator } from "@/components/calculators/savings-rate-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is a savings rate?", a: "Your savings rate is the percentage of your take-home income that you save and invest each year. It is calculated as: (Take-Home Income − Annual Expenses) ÷ Take-Home Income. A 25% savings rate means you invest $1 for every $3 you spend." },
+  { q: "What is a good savings rate for FIRE?", a: "Traditional financial advice targets 10–15%. FIRE practitioners typically aim for 40–70% or more. At 50%, you can theoretically retire in about 17 years from scratch. At 65%, closer to 10 years." },
+  { q: "Should I use gross or take-home income for savings rate?", a: "This calculator uses take-home income (after taxes) for the savings rate formula, which is the most practical approach. Your savings rate is about what you do with money you actually control." },
+  { q: "Does the calculator account for inflation?", a: "The inputs are in today's dollars. The expected annual return you enter is a nominal return. If you want to model real (inflation-adjusted) returns, reduce your return rate by your expected inflation rate." },
+  { q: "What is the FIRE Number and why is it 25× expenses?", a: "The FIRE Number is the portfolio size from which you can withdraw your annual expenses indefinitely using the 4% safe withdrawal rate. At 4% withdrawal, your portfolio needs to be 1 ÷ 0.04 = 25 times your annual spending." },
+  { q: "Why does the table show years to FI capped at 100?", a: "If your savings rate is very low (or negative), the formula can produce very large numbers or infinity. Rather than showing 'infinite years', the table caps at 100 to indicate that a given savings rate is not a viable path to financial independence within a realistic timeframe." },
+  { q: "Should I include 401(k) contributions in my savings rate?", a: "Yes — your 401(k), IRA, Roth IRA, and all other investment contributions count. The key distinction is the difference between your take-home income and total spending." },
+  { q: "My employer matches my 401(k) — does that count?", a: "Employer matching is effectively part of your total compensation. Some people include it in their savings rate calculation; others exclude it for a conservative estimate. Consistency over time matters more than the exact methodology." },
+]
 
 export const metadata: Metadata = {
   title: "Savings Rate Calculator — How Fast Can You Reach FIRE?",
@@ -298,6 +310,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function SavingsRateCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Savings Rate Calculator", description: "Calculate your savings rate and see how it maps to years until financial independence.", url: `${config.siteUrl}/savings-rate-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

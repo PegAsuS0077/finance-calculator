@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { BaristaFireCalculator } from "@/components/calculators/barista-fire-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is Barista FIRE?", a: "Barista FIRE is a semi-retirement strategy where you leave full-time work before reaching full financial independence. You earn a small part-time income — enough to cover some expenses — while your portfolio covers the rest. The name comes from the idea of working at a coffee shop like Starbucks, which offers health insurance to part-time employees. The result: you need a much smaller portfolio to semi-retire than you'd need to fully retire." },
+  { q: "How is Barista FIRE different from full FIRE?", a: "Full FIRE requires a portfolio large enough to cover 100% of your expenses through investment withdrawals alone — typically 25× annual expenses at a 4% withdrawal rate. Barista FIRE only requires the portfolio to cover the gap between your total expenses and your part-time income. If you earn $15,000/year part-time and spend $50,000/year, your portfolio only needs to cover $35,000 — a $875,000 target instead of $1,250,000." },
+  { q: "How does Barista FIRE differ from Lean FIRE or Coast FIRE?", a: "Lean FIRE is fully retired on a minimal budget with zero earned income. Coast FIRE means you have enough invested that compound growth alone will reach full FIRE by traditional retirement age — you still work full-time, but only to cover current expenses without saving more. Barista FIRE sits between these: you've semi-retired with part-time income supplementing your portfolio withdrawals." },
+  { q: "What part-time income counts for Barista FIRE?", a: "Any flexible, reliable income source works: retail or service jobs, freelancing in your professional field, consulting, seasonal work, part-time teaching, online content creation, Airbnb hosting, or any side income you can maintain while living a semi-retired lifestyle. The key is that the work is lower stress, more flexible, and optional." },
+  { q: "What happens when I can no longer work part-time?", a: "This is the central risk of Barista FIRE. If your portfolio only covers part of expenses, and you can no longer work, you need either a larger portfolio, reduced spending, or other income sources (like Social Security). Many Barista FIRE practitioners plan to gradually reduce part-time work as their portfolio grows beyond the Barista FIRE number, eventually transitioning to full FIRE." },
+  { q: "Should I include expected Social Security in my part-time income?", a: "No — Social Security is typically expected at age 62–70, not during semi-retirement at 40 or 50. It's better to plan your Barista FIRE strategy without assuming Social Security, then treat it as a bonus safety net when it arrives." },
+  { q: "What withdrawal rate should I use for Barista FIRE?", a: "The standard 4% rule works for typical Barista FIRE timelines. However, because semi-retirement often starts earlier than traditional retirement, consider 3.5% for very long retirement horizons (25+ years). With part-time income actively supplementing your portfolio, you may actually have more flexibility." },
+  { q: "How does healthcare factor into Barista FIRE planning?", a: "Healthcare is the biggest financial wildcard in early semi-retirement, especially in the United States before Medicare eligibility at 65. The original Barista FIRE concept was specifically designed around working at Starbucks for their part-time employee health benefits. If you can secure employer-provided health insurance through part-time work, it dramatically reduces your semi-retirement costs." },
+]
 
 export const metadata: Metadata = {
   title: "Barista FIRE Calculator — Semi-Retirement Planning Tool",
@@ -302,6 +314,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function BaristaFireCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Barista FIRE Calculator", description: "Calculate your Barista FIRE number and semi-retirement timeline with part-time income.", url: `${config.siteUrl}/barista-fire-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

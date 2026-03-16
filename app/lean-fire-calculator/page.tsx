@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { LeanFireCalculator } from "@/components/calculators/lean-fire-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is Lean FIRE?", a: "Lean FIRE is a variation of the FIRE movement focused on retiring with a very frugal annual budget — typically $15,000–$40,000 per year. Because the FIRE number equals expenses ÷ withdrawal rate, lower spending dramatically reduces the portfolio needed to retire. Lean FIRE practitioners often achieve financial independence years earlier than standard FIRE." },
+  { q: "What is the typical Lean FIRE number?", a: "At the standard 4% withdrawal rate, Lean FIRE numbers range from $375,000 (at $15k/year spending) to $1,000,000 (at $40k/year). The default in this calculator — $25,000/year expenses — produces a $625,000 Lean FIRE number." },
+  { q: "How does Lean FIRE differ from regular FIRE?", a: "The formula is identical — FIRE Number = Annual Expenses ÷ Withdrawal Rate. The difference is purely in the spending target. Regular FIRE might target $50,000–$80,000/year. Lean FIRE targets $15,000–$40,000, which means a much smaller required portfolio and a faster path to retirement." },
+  { q: "What withdrawal rate should I use for Lean FIRE?", a: "Because Lean FIRE often involves a very long retirement — potentially 50–60 years — many practitioners use 3–3.5% rather than the standard 4%. This provides a larger margin of safety against sequence-of-returns risk and prolonged bear markets." },
+  { q: "Is Lean FIRE sustainable long-term?", a: "It depends on flexibility. A strict Lean FIRE budget with zero flexibility can be stressful if unexpected expenses arise. Most successful Lean FIRE practitioners build in a buffer through geographic arbitrage, part-time or side income to cover discretionary spending, and variable withdrawals in bad market years." },
+  { q: "Can I upgrade from Lean FIRE to Fat FIRE later?", a: "Yes — many Lean FIRE practitioners coast from Lean FIRE to Regular FIRE over time through part-time income, business projects, or simply letting a portfolio grow beyond the lean target before fully withdrawing." },
+  { q: "Does this calculator account for Social Security or pension income?", a: "No — this calculator models portfolio-funded retirement only. If you expect Social Security or pension income, subtract that annual amount from your lean expenses before entering it." },
+  { q: "What is the difference between Lean FIRE, Barista FIRE, and Coast FIRE?", a: "Lean FIRE: fully retire on a minimal budget with no earned income needed. Barista FIRE: semi-retire with a small part-time job to cover some expenses, requiring a smaller portfolio. Coast FIRE: stop contributing and let compound growth carry you to a full FIRE number in the future — you still work, but only to cover current expenses." },
+]
 
 export const metadata: Metadata = {
   title: "Lean FIRE Calculator — Frugal Early Retirement Number",
@@ -301,6 +313,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function LeanFireCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Lean FIRE Calculator", description: "Calculate your Lean FIRE number and timeline for retiring on a frugal budget with minimal annual expenses.", url: `${config.siteUrl}/lean-fire-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

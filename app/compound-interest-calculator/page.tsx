@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { CompoundInterestCalculator } from "@/components/calculators/compound-interest-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is compound interest?", a: "Compound interest is interest calculated on both the initial principal and the interest already accumulated. Unlike simple interest (which only applies to the original amount), compound interest grows your balance exponentially — each period's interest becomes part of the base for the next period's calculation. Over long periods, this produces dramatically higher returns than simple interest." },
+  { q: "How often does compound interest compound?", a: "Compounding frequency varies by account type. Savings accounts and money market accounts typically compound daily. CDs and some bonds compound monthly or quarterly. Some older bonds compound annually. More frequent compounding produces a slightly higher effective annual rate. This calculator supports daily, monthly, quarterly, and annual compounding." },
+  { q: "What is the difference between compound interest and simple interest?", a: "Simple interest applies the rate only to the original principal. Compound interest applies the rate to the entire balance including prior interest. Over 30 years, a compound account is worth nearly 10× the principal; a simple account is worth 3.4×." },
+  { q: "What is the Rule of 72?", a: "The Rule of 72 is a mental shortcut: divide 72 by your annual interest rate (as a percentage) to estimate how many years it takes to double your money. At 6%, money doubles in approximately 12 years (72 ÷ 6 = 12). At 9%, approximately 8 years." },
+  { q: "How is this different from the Investment Growth Calculator?", a: "The Investment Growth Calculator models monthly contributions with monthly or annual compounding — ideal for modeling regular investing like 401k or monthly index fund contributions. This Compound Interest Calculator models annual contributions and supports four compounding frequencies including daily and quarterly — better for savings accounts, bonds, CDs, or lump-sum scenarios." },
+  { q: "What interest rate should I use for savings vs investments?", a: "For a high-yield savings account, use the current APY (typically 4–5% in 2024–2025). For a CD, use the stated APY. For a broad stock market index fund, 7–10% is commonly used based on long-run historical averages." },
+  { q: "Does compound interest apply to retirement accounts?", a: "Yes — 401(k) accounts, IRAs, and Roth IRAs all benefit from compound growth. Investment gains (dividends, capital gains) are reinvested and compound over time. The major advantage of retirement accounts is that growth is either tax-deferred (traditional) or tax-free (Roth)." },
+  { q: "How accurate is this calculator?", a: "The calculator applies the standard compound interest formula precisely for your chosen inputs. For investments, the main limitation is that real-world returns are not constant — they fluctuate year-to-year. Use conservative rate assumptions for planning purposes." },
+]
 
 export const metadata: Metadata = {
   title: "Compound Interest Calculator — See How Money Grows Over Time",
@@ -183,6 +195,8 @@ function NextStepCard({ title, description, href, live }: { title: string; descr
 export default function CompoundInterestCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Compound Interest Calculator", description: "Calculate compound interest growth with daily, monthly, quarterly, or annual compounding and regular contributions.", url: `${config.siteUrl}/compound-interest-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

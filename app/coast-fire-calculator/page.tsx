@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { CoastFireCalculator } from "@/components/calculators/coast-fire-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What is Coast FIRE?", a: "Coast FIRE is the point at which your portfolio is large enough that — with no additional contributions — it will grow to your full FIRE number by your target retirement age through compound interest alone. You've 'coasted' to a funded retirement." },
+  { q: "How is the Coast FIRE number calculated?", a: "First, your FIRE number is calculated: Annual Expenses ÷ Withdrawal Rate. Then the Coast FIRE number is the present value of that future target: FIRE Number ÷ (1 + annual return)^years until retirement. A $1,000,000 FIRE target 30 years away at 7% annual return gives a Coast FIRE number of about $131,000." },
+  { q: "Does Coast FIRE mean I can stop working?", a: "Not necessarily. Coast FIRE means you can stop contributing to retirement savings. You still need income to cover your current living expenses. The difference is that your retirement is now funded without any further investment contributions — you just need to pay your bills today." },
+  { q: "What return rate should I use?", a: "For long-term projections, a 6–7% nominal return is commonly cited for a diversified stock market portfolio. More aggressive assumptions (8–10%) give a lower Coast FIRE number but carry more risk. For conservative planning, use 5–6%. The calculator uses 7% as a default." },
+  { q: "Should I include my 401(k) and IRA balances?", a: "Yes — include all invested assets: 401(k), IRA, Roth accounts, taxable brokerage accounts. Even though you can't withdraw from retirement accounts without penalty until 59½ (with some exceptions), they still compound and count toward your Coast FIRE number." },
+  { q: "What if I've already hit my Coast FIRE number?", a: "Congratulations — you're coasting. The calculator will show a green indicator confirming this. At this point, you can redirect future investment contributions to other goals: more spending now, paying off low-interest debt, charitable giving, or building a larger cushion for an earlier retirement." },
+  { q: "How does Coast FIRE differ from the full FIRE Calculator?", a: "The full FIRE Calculator projects when you'll reach retirement based on your current portfolio, income, and ongoing contributions. Coast FIRE only asks: how much do you need invested today so future growth alone gets you there? It answers a different question: not 'when will I retire?' but 'when can I stop saving for retirement?'" },
+  { q: "Does this account for inflation?", a: "Your annual expenses are stated in today's dollars. The withdrawal rate methodology (historically the 4% rule) is designed for inflation-adjusted withdrawals, so the FIRE number in today's dollars is approximately correct as long as your investments grow at a real return above inflation." },
+]
 
 export const metadata: Metadata = {
   title: "Coast FIRE Calculator — How Much Do You Need to Invest Today?",
@@ -307,6 +319,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function CoastFireCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Coast FIRE Calculator", description: "Calculate your Coast FIRE number — the portfolio needed today so compound growth reaches your FIRE number without further contributions.", url: `${config.siteUrl}/coast-fire-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 

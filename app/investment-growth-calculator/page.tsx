@@ -4,6 +4,18 @@ import Link from "next/link"
 import { config } from "@/lib/config"
 import { InvestmentGrowthCalculator } from "@/components/calculators/investment-growth-calculator"
 import { OnThisPage } from "@/components/ui/on-this-page"
+import { buildFaqSchema, buildWebAppSchema } from "@/lib/schema"
+
+const FAQS = [
+  { q: "What return rate should I use?", a: "A 7% nominal return is a reasonable baseline for a diversified stock market portfolio, based on long-run historical averages. For inflation-adjusted (real) returns, 4–5% is more appropriate. Use a lower rate (5–6%) for conservative planning and a higher rate (8–10%) to model optimistic scenarios." },
+  { q: "Does this calculator account for inflation?", a: "No — this calculator uses nominal (not inflation-adjusted) returns. If you enter a 7% return and inflation is 3%, your real purchasing power grows at roughly 4% per year. To model real returns, simply reduce your assumed return rate by your expected inflation rate." },
+  { q: "What is the difference between monthly and annual compounding?", a: "Monthly compounding applies your annual return rate in smaller increments each month, which means you earn returns on earlier returns sooner. Over long periods this produces slightly higher final values. The difference is small but grows over decades." },
+  { q: "How accurate is this calculator?", a: "This calculator provides accurate mathematical projections based on the inputs you provide. The key limitation is that real-world returns are not constant — they fluctuate year-to-year. Use the results as a planning guide, not a guarantee. Conservative return assumptions give more realistic outcomes." },
+  { q: "Should I include my 401(k) and IRA in the initial investment?", a: "Yes — include the current value of all invested accounts: 401(k), IRA, Roth IRA, and taxable brokerage accounts. Your monthly contributions should include all sources of regular investing. The calculator models total portfolio growth regardless of which account type holds the money." },
+  { q: "What if I plan to stop contributing at some point?", a: "Set your time horizon to the point when you stop contributing, note the final value, then run the calculator again with that value as the initial investment, zero monthly contributions, and the remaining time horizon. This two-step approach models a period of active saving followed by passive compounding." },
+  { q: "How does this relate to my FIRE number?", a: "Your FIRE number is the portfolio target — typically 25× your annual expenses. This calculator helps you project whether your current savings rate and timeline will reach that target." },
+  { q: "Is past performance a reliable guide for future returns?", a: "No — historical averages (like the 7% S&P 500 figure) are useful planning guides, but they include periods of severe drawdown that this calculator smooths over. Future returns may be higher or lower. Diversify, keep costs low, and plan for a range of scenarios." },
+]
 
 export const metadata: Metadata = {
   title: "Investment Growth Calculator — Project Your Portfolio Over Time",
@@ -298,6 +310,8 @@ function NextStepCard({ title, description, href, live }: {
 export default function InvestmentGrowthCalculatorPage() {
   return (
     <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFaqSchema(FAQS)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildWebAppSchema({ name: "Investment Growth Calculator", description: "Project how your investments grow over time with compound returns and regular monthly contributions.", url: `${config.siteUrl}/investment-growth-calculator` })) }} />
 
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
 
