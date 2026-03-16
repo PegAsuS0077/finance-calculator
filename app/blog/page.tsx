@@ -2,188 +2,261 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { config } from "@/lib/config"
-import { blogPosts, formatDate } from "@/lib/blog"
+import { blogPosts, formatDate, type BlogPost } from "@/lib/blog"
 
 export const metadata: Metadata = {
   title: "Blog — FIRE & Financial Independence Articles",
-  description: "In-depth articles on financial independence, the FIRE movement, safe withdrawal rates, index fund investing, and retirement planning strategies.",
+  description:
+    "In-depth articles on financial independence, the FIRE movement, safe withdrawal rates, index fund investing, and retirement planning strategies.",
   alternates: { canonical: `${config.siteUrl}/blog` },
   openGraph: {
     title: "FreedomCalc Blog — Financial Independence Articles",
-    description: "In-depth guides on FIRE, safe withdrawal rates, savings rate, index investing, and early retirement planning.",
+    description:
+      "In-depth guides on FIRE, safe withdrawal rates, savings rate, index investing, and early retirement planning.",
     url: `${config.siteUrl}/blog`,
     siteName: "FreedomCalc",
     type: "website",
   },
 }
 
-const categories = ["All", "FIRE Fundamentals", "FIRE Strategy", "FIRE Types", "Investing"]
+const CATEGORY_META: Record<string, { color: string; bg: string; border: string; label: string }> = {
+  "FIRE Fundamentals": {
+    color: "var(--f-blue)",
+    bg: "var(--f-blue-light)",
+    border: "var(--f-blue-border)",
+    label: "Fundamentals",
+  },
+  "FIRE Strategy": {
+    color: "oklch(0.52 0.18 145)",
+    bg: "oklch(0.96 0.04 145)",
+    border: "oklch(0.82 0.09 145)",
+    label: "Strategy",
+  },
+  "FIRE Types": {
+    color: "oklch(0.55 0.19 38)",
+    bg: "oklch(0.96 0.04 38)",
+    border: "oklch(0.84 0.09 38)",
+    label: "FIRE Types",
+  },
+  Investing: {
+    color: "oklch(0.50 0.18 300)",
+    bg: "oklch(0.96 0.03 300)",
+    border: "oklch(0.83 0.08 300)",
+    label: "Investing",
+  },
+  Tutorial: {
+    color: "oklch(0.48 0.17 220)",
+    bg: "oklch(0.96 0.03 220)",
+    border: "oklch(0.83 0.08 220)",
+    label: "Tutorial",
+  },
+}
+
+function getCatMeta(cat: string) {
+  return (
+    CATEGORY_META[cat] ?? {
+      color: "var(--f-blue)",
+      bg: "var(--f-blue-light)",
+      border: "var(--f-blue-border)",
+      label: cat,
+    }
+  )
+}
+
+const TYPE_ICONS: Record<string, string> = {
+  Tutorial: "◈",
+  "List/affiliate": "◇",
+  Guide: "◉",
+  "Keyword-rich blog": "◎",
+  Storytelling: "◐",
+}
 
 export default function BlogPage() {
-  const grouped = categories.slice(1).map((cat) => ({
-    category: cat,
-    posts: blogPosts.filter((p) => p.category === cat),
-  }))
+  const featured = blogPosts[blogPosts.length - 1]
+  const secondFeatured = blogPosts[blogPosts.length - 2]
+  const rest = [...blogPosts].reverse().slice(2)
+
+  const categories = Array.from(new Set(blogPosts.map((p) => p.category)))
 
   return (
-    <div style={{ background: "var(--f-page)", minHeight: "100vh", fontFamily: "var(--font-inter), ui-sans-serif, sans-serif" }}>
+    <div className="blog-index-root">
+      {/* ── Masthead ── */}
+      <header className="blog-masthead">
+        <div className="blog-masthead-inner">
+          <div className="blog-masthead-left">
+            <span className="blog-eyebrow">FreedomCalc / Learning Center</span>
+            <h1 className="blog-masthead-title">
+              Financial
+              <br />
+              Independence
+              <br />
+              <em>Library</em>
+            </h1>
+            <p className="blog-masthead-sub">
+              Guides, strategies, and deep dives on reaching FIRE — from calculating your
+              number to retiring by 40.
+            </p>
+            <div className="blog-category-pills">
+              {categories.map((cat) => {
+                const m = getCatMeta(cat)
+                return (
+                  <span
+                    key={cat}
+                    className="blog-cat-pill"
+                    style={{
+                      color: m.color,
+                      background: m.bg,
+                      borderColor: m.border,
+                    }}
+                  >
+                    {m.label}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
 
-      {/* ── Header ── */}
-      <div style={{ borderBottom: "1px solid var(--f-border)", background: "var(--f-card)" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)" }}>
-          <p style={{ fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--f-blue)", marginBottom: "0.625rem" }}>
-            Learning Center
-          </p>
-          <h1 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 800, color: "var(--f-text-heading)", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "0.875rem" }}>
-            Financial Independence Articles
-          </h1>
-          <p style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.0625rem)", color: "var(--f-text-muted)", lineHeight: 1.75, maxWidth: "560px", margin: 0, fontWeight: 400 }}>
-            In-depth guides on FIRE strategy, safe withdrawal rates, savings rate, index investing, and building your path to financial independence.
-          </p>
-        </div>
-      </div>
-
-      {/* ── Featured post ── */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem) 0" }}>
-        <FeaturedPost post={blogPosts[blogPosts.length - 1]} />
-      </div>
-
-      {/* ── Posts by category ── */}
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3rem)" }}>
-        {grouped.map(({ category, posts }) =>
-          posts.length > 0 ? (
-            <div key={category} style={{ marginBottom: "3rem" }}>
-              <h2
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--f-blue)",
-                  marginBottom: "1.125rem",
-                  paddingBottom: "0.75rem",
-                  borderBottom: "1px solid var(--f-border)",
-                }}
-              >
-                {category}
-              </h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(320px, 100%), 1fr))", gap: "1rem" }}>
-                {posts.map((post) => (
-                  <PostCard key={post.slug} post={post} />
-                ))}
+          <div className="blog-masthead-right">
+            <div className="blog-stat-block">
+              <div className="blog-stat">
+                <span className="blog-stat-num">{blogPosts.length}</span>
+                <span className="blog-stat-label">Articles</span>
+              </div>
+              <div className="blog-stat">
+                <span className="blog-stat-num">{categories.length}</span>
+                <span className="blog-stat-label">Topics</span>
+              </div>
+              <div className="blog-stat">
+                <span className="blog-stat-num">Free</span>
+                <span className="blog-stat-label">Always</span>
               </div>
             </div>
-          ) : null
-        )}
-      </div>
-
-      {/* ── CTA ── */}
-      <div style={{ borderTop: "1px solid var(--f-border)", background: "var(--f-card)" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
-          <div>
-            <p style={{ fontSize: "1rem", fontWeight: 600, color: "var(--f-text-heading)", margin: "0 0 0.25rem" }}>Ready to run the numbers?</p>
-            <p style={{ fontSize: "0.875rem", color: "var(--f-text-muted)", margin: 0, fontWeight: 400 }}>Use our free calculators to model your personal FIRE timeline.</p>
           </div>
-          <Link
-            href="/fire-calculator"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              background: "var(--f-blue)",
-              color: "#fff",
-              fontWeight: 600,
-              fontSize: "0.9rem",
-              padding: "0.75rem 1.5rem",
-              borderRadius: "8px",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Try FIRE Calculator
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
-              <path d="M2 6.5h9M7 2.5l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
         </div>
-      </div>
+      </header>
 
+      {/* ── Hero double feature ── */}
+      <section className="blog-hero-section">
+        <div className="blog-hero-inner">
+          <div className="blog-hero-label">
+            <span className="blog-section-tag">Featured</span>
+          </div>
+          <div className="blog-hero-grid">
+            <HeroCard post={featured} size="large" />
+            <HeroCard post={secondFeatured} size="small" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── All articles ── */}
+      <section className="blog-articles-section">
+        <div className="blog-articles-inner">
+          <div className="blog-articles-header">
+            <span className="blog-section-tag">All Articles</span>
+            <span className="blog-articles-count">{blogPosts.length} guides</span>
+          </div>
+          <div className="blog-card-grid">
+            {rest.map((post) => (
+              <ArticleCard key={post.slug} post={post} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA strip ── */}
+      <section className="blog-cta-strip">
+        <div className="blog-cta-inner">
+          <div className="blog-cta-text">
+            <p className="blog-cta-headline">Put the theory to work.</p>
+            <p className="blog-cta-body">
+              Run the numbers on your own FIRE timeline with our free calculators.
+            </p>
+          </div>
+          <div className="blog-cta-actions">
+            <Link href="/fire-calculator" className="blog-cta-btn blog-cta-btn--primary">
+              FIRE Calculator
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path
+                  d="M2 7h10M7.5 2.5l4.5 4.5-4.5 4.5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
+            <Link href="/fire-number-calculator" className="blog-cta-btn blog-cta-btn--ghost">
+              FIRE Number
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
 
-function FeaturedPost({ post }: { post: (typeof blogPosts)[0] }) {
+/* ─────────────────────────────── Components ─────────────────────────────── */
+
+function HeroCard({ post, size }: { post: BlogPost; size: "large" | "small" }) {
+  const m = getCatMeta(post.category)
   return (
-    <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block" }}>
-      <div
-        className="calc-card"
-        style={{
-          background: "linear-gradient(135deg, oklch(0.96 0.02 258) 0%, oklch(0.98 0.01 258) 100%)",
-          border: "1px solid var(--f-border-strong)",
-          borderRadius: "12px",
-          padding: "clamp(1.75rem, 3vw, 2.5rem)",
-          transition: "border-color 0.15s ease, box-shadow 0.15s ease",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "0.6875rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--f-blue)", background: "var(--f-blue-light)", border: "1px solid var(--f-blue-border)", padding: "0.25rem 0.625rem", borderRadius: "4px" }}>
-            Latest
+    <Link href={`/blog/${post.slug}`} className={`blog-hero-card blog-hero-card--${size}`}>
+      <div className="blog-hero-card-accent" style={{ background: m.color }} />
+      <div className="blog-hero-card-body">
+        <div className="blog-hero-card-meta">
+          <span
+            className="blog-cat-badge"
+            style={{ color: m.color, background: m.bg, borderColor: m.border }}
+          >
+            {m.label}
           </span>
-          <span style={{ fontSize: "0.6875rem", fontWeight: 600, color: "var(--f-text-faint)" }}>{post.category}</span>
-          <span style={{ fontSize: "0.6875rem", color: "var(--f-text-faint)" }}>·</span>
-          <span style={{ fontSize: "0.6875rem", color: "var(--f-text-faint)" }}>{post.readingTime}</span>
+          <span className="blog-hero-card-read">{post.readingTime}</span>
         </div>
-        <h2 style={{ fontSize: "clamp(1.25rem, 2.5vw, 1.625rem)", fontWeight: 700, color: "var(--f-text-heading)", letterSpacing: "-0.025em", lineHeight: 1.25, marginBottom: "0.75rem" }}>
-          {post.title}
-        </h2>
-        <p style={{ fontSize: "0.9375rem", color: "var(--f-text-muted)", lineHeight: 1.75, fontWeight: 400, margin: "0 0 1.25rem", maxWidth: "680px" }}>
-          {post.description}
-        </p>
-        <span style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--f-blue)", display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
-          Read article
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-            <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+        <h2 className="blog-hero-card-title">{post.title}</h2>
+        <p className="blog-hero-card-desc">{post.description}</p>
+        <div className="blog-hero-card-footer">
+          <span className="blog-hero-card-date">{formatDate(post.date)}</span>
+          <span className="blog-read-link">
+            Read
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+              <path
+                d="M2 6h8M6 2l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </div>
       </div>
     </Link>
   )
 }
 
-function PostCard({ post }: { post: (typeof blogPosts)[0] }) {
+function ArticleCard({ post }: { post: BlogPost }) {
+  const m = getCatMeta(post.category)
   return (
-    <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block", height: "100%" }}>
+    <Link href={`/blog/${post.slug}`} className="blog-article-card">
       <div
-        className="calc-card"
-        style={{
-          background: "var(--f-card)",
-          border: "1px solid var(--f-border)",
-          borderRadius: "10px",
-          padding: "1.375rem 1.5rem",
-          height: "100%",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          transition: "border-color 0.15s ease, box-shadow 0.15s ease",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
-          <span style={{ fontSize: "0.6875rem", fontWeight: 600, color: "var(--f-text-faint)" }}>{formatDate(post.date)}</span>
-          <span style={{ fontSize: "0.6875rem", color: "var(--f-text-faint)" }}>·</span>
-          <span style={{ fontSize: "0.6875rem", color: "var(--f-text-faint)" }}>{post.readingTime}</span>
+        className="blog-article-card-stripe"
+        style={{ background: m.color }}
+      />
+      <div className="blog-article-card-body">
+        <div className="blog-article-card-top">
+          <span
+            className="blog-cat-badge"
+            style={{ color: m.color, background: m.bg, borderColor: m.border }}
+          >
+            {m.label}
+          </span>
+          <span className="blog-article-card-read">{post.readingTime}</span>
         </div>
-        <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "var(--f-text-heading)", letterSpacing: "-0.015em", lineHeight: 1.35, marginBottom: "0.625rem" }}>
-          {post.title}
-        </h3>
-        <p style={{ fontSize: "0.8125rem", color: "var(--f-text-muted)", lineHeight: 1.7, fontWeight: 400, margin: "0 0 1rem", flex: 1 }}>
-          {post.description}
-        </p>
-        <span style={{ fontSize: "0.8125rem", fontWeight: 600, color: "var(--f-blue)", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
-          Read more
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden>
-            <path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+        <h3 className="blog-article-card-title">{post.title}</h3>
+        <p className="blog-article-card-desc">{post.description}</p>
+        <div className="blog-article-card-footer">
+          <span className="blog-article-card-date">{formatDate(post.date)}</span>
+        </div>
       </div>
     </Link>
   )

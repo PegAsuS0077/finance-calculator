@@ -74,6 +74,46 @@ export const blogPosts: BlogPost[] = [
     readingTime: "10 min read",
     category: "Investing",
   },
+  {
+    slug: "how-to-retire-early-using-4-percent-rule",
+    title: "How to Retire Early Using the 4% Rule",
+    description: "A step-by-step tutorial on applying the 4% rule to plan your early retirement — calculating expenses, choosing a withdrawal rate, building your portfolio, and stress-testing the plan.",
+    date: "2026-03-16",
+    readingTime: "13 min read",
+    category: "Tutorial",
+  },
+  {
+    slug: "best-investment-apps-financial-freedom",
+    title: "Top 5 Investment Apps to Achieve Financial Freedom",
+    description: "Fidelity, Vanguard, M1 Finance, Betterment, and Schwab compared for FIRE investors — which platform is right for your savings strategy and portfolio size.",
+    date: "2026-03-16",
+    readingTime: "11 min read",
+    category: "Investing",
+  },
+  {
+    slug: "financial-independence-calculator-explained",
+    title: "Financial Independence Calculator Explained",
+    description: "What FIRE calculators actually compute, how to use them effectively, what the inputs mean, how to read the outputs, and the scenarios you must stress-test.",
+    date: "2026-03-16",
+    readingTime: "12 min read",
+    category: "FIRE Fundamentals",
+  },
+  {
+    slug: "how-much-to-save-retire-by-40",
+    title: "How Much Should I Save to Retire by 40?",
+    description: "The exact portfolio targets, savings rate requirements, income scenarios, and account strategies for achieving financial independence by your early 40s.",
+    date: "2026-03-16",
+    readingTime: "11 min read",
+    category: "FIRE Strategy",
+  },
+  {
+    slug: "case-study-retiring-with-1m-by-35",
+    title: "Case Study: Retiring with $1M by 35",
+    description: "A detailed year-by-year breakdown of how a software engineer went from $8,000 in savings at 24 to $1,040,000 and work-optional at 35 — the decisions, numbers, and lessons.",
+    date: "2026-03-16",
+    readingTime: "14 min read",
+    category: "FIRE Strategy",
+  },
 ]
 
 export function getBlogPost(slug: string): BlogPost | undefined {
