@@ -744,6 +744,8 @@ export default function InvestmentGrowthCalculatorPage() {
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate affects your timeline to financial independence." live={true} />
                 <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="More detailed compound interest calculations with daily, monthly, and annual compounding options." live={true} />
+                <RelatedCard name="Lean FIRE Calculator" href="/lean-fire-calculator" description="Plan an ultra-frugal early retirement and calculate the minimum portfolio needed." live={true} />
+                <RelatedCard name="Barista FIRE Calculator" href="/barista-fire-calculator" description="Semi-retirement planning with part-time income and a smaller required portfolio." live={true} />
               </div>
             </section>
 

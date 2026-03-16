@@ -710,7 +710,7 @@ export default function CoastFireCalculatorPage() {
                   title="Model your safe withdrawal rate"
                   description="Use the 4% Rule Calculator to see how different withdrawal rates affect how long your portfolio lasts in retirement."
                   href="/4-percent-rule-calculator"
-                  live={false}
+                  live={true}
                 />
               </div>
             </section>
@@ -722,8 +722,10 @@ export default function CoastFireCalculatorPage() {
                 <RelatedCard name="FIRE Calculator" href="/fire-calculator" description="Full FIRE projection with income, portfolio, contributions, and retirement timeline." live={true} />
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your expenses and withdrawal rate." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps directly to years until financial independence." live={true} />
-                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Model safe withdrawal rates and portfolio longevity in retirement." live={false} />
+                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Model safe withdrawal rates and portfolio longevity in retirement." live={true} />
                 <RelatedCard name="Retirement Timeline Calculator" href="/retirement-timeline-calculator" description="Year-by-year roadmap to retirement with scenario comparisons." live={true} />
+                <RelatedCard name="Lean FIRE Calculator" href="/lean-fire-calculator" description="Plan an ultra-frugal early retirement and calculate the minimum portfolio needed." live={true} />
+                <RelatedCard name="Barista FIRE Calculator" href="/barista-fire-calculator" description="Semi-retirement planning with part-time income and a smaller required portfolio." live={true} />
               </div>
             </section>
 

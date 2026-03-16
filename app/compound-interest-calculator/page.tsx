@@ -518,6 +518,8 @@ export default function CompoundInterestCalculatorPage() {
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Find exactly how much you need to retire based on your annual expenses and withdrawal rate." live={true} />
                 <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from a retirement portfolio and how long it will last." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps to years until financial independence." live={true} />
+                <RelatedCard name="Lean FIRE Calculator" href="/lean-fire-calculator" description="Plan an ultra-frugal early retirement and calculate the minimum portfolio needed." live={true} />
+                <RelatedCard name="Barista FIRE Calculator" href="/barista-fire-calculator" description="Semi-retirement planning with part-time income and a smaller required portfolio." live={true} />
               </div>
             </section>
 

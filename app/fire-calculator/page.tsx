@@ -587,7 +587,7 @@ export default function FireCalculatorPage() {
                   title="Calculate your Coast FIRE number"
                   description="Find the lump sum you need invested today so compound growth alone carries you to FIRE — no more contributions needed."
                   href="/coast-fire-calculator"
-                  live={false}
+                  live={true}
                 />
                 <NextStepCard
                   title="See how your savings rate drives your timeline"
@@ -599,7 +599,7 @@ export default function FireCalculatorPage() {
                   title="Stress-test your withdrawal strategy"
                   description="Use the 4% Rule Calculator to model how long your portfolio lasts at different withdrawal rates and portfolio sizes."
                   href="/4-percent-rule-calculator"
-                  live={false}
+                  live={true}
                 />
               </div>
             </section>
@@ -609,10 +609,12 @@ export default function FireCalculatorPage() {
               <SectionHeading>Other FIRE calculators</SectionHeading>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))", gap: "1rem" }}>
                 <RelatedCard name="FIRE Number Calculator" href="/fire-number-calculator" description="Focus specifically on your target portfolio based on annual spending." live={true} />
-                <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find when compound interest alone will carry you to retirement." live={false} />
+                <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find when compound interest alone will carry you to retirement." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps to years until financial independence." live={true} />
-                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from any portfolio size." live={false} />
-                <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Visualize how investments grow with regular contributions." live={false} />
+                <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from any portfolio size." live={true} />
+                <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Visualize how investments grow with regular contributions." live={true} />
+                <RelatedCard name="Lean FIRE Calculator" href="/lean-fire-calculator" description="Plan an ultra-frugal early retirement and calculate the minimum portfolio needed." live={true} />
+                <RelatedCard name="Barista FIRE Calculator" href="/barista-fire-calculator" description="Semi-retirement planning with part-time income and a smaller required portfolio." live={true} />
               </div>
             </section>
 

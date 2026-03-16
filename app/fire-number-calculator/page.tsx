@@ -723,7 +723,9 @@ export default function FireNumberCalculatorPage() {
                 <RelatedCard name="4% Rule Calculator" href="/4-percent-rule-calculator" description="Calculate safe annual withdrawals from a portfolio and how long the money lasts." live={true} />
                 <RelatedCard name="Savings Rate Calculator" href="/savings-rate-calculator" description="See how your savings rate maps directly to years until financial independence." live={true} />
                 <RelatedCard name="Coast FIRE Calculator" href="/coast-fire-calculator" description="Find the lump sum needed today so compound growth alone reaches your FIRE number." live={true} />
-                <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Project how investments grow over time with regular contributions." live={false} />
+                <RelatedCard name="Compound Interest Calculator" href="/compound-interest-calculator" description="Project how investments grow over time with regular contributions." live={true} />
+                <RelatedCard name="Lean FIRE Calculator" href="/lean-fire-calculator" description="Plan an ultra-frugal early retirement and calculate the minimum portfolio needed." live={true} />
+                <RelatedCard name="Barista FIRE Calculator" href="/barista-fire-calculator" description="Semi-retirement planning with part-time income and a smaller required portfolio." live={true} />
               </div>
             </section>
 
