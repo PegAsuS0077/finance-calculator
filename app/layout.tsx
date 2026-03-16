@@ -61,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
         <CustomScrollbar />
         <NavBar />
-        <div className="pt-20 sm:pt-24 pb-20 sm:pb-0">
+        <div className="pt-[60px] pb-20 md:pb-0">
           {children}
         </div>
         <Footer />
