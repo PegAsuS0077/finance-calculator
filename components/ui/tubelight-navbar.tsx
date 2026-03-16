@@ -237,11 +237,13 @@ function TubelightNavItems({
   openDropdown,
   onToggle,
   onLinkClick,
+  onClose,
 }: {
   activeTab: NavItemName
   openDropdown: "calculators" | "learn" | null
   onToggle: (name: "calculators" | "learn") => void
   onLinkClick: () => void
+  onClose: () => void
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<(HTMLElement | null)[]>([])
@@ -291,31 +293,49 @@ function TubelightNavItems({
         Home
       </Link>
 
-      {/* Calculators */}
-      <button
-        ref={(el) => { itemRefs.current[1] = el }}
-        onClick={() => onToggle("calculators")}
-        aria-expanded={openDropdown === "calculators"}
-        aria-haspopup="true"
-        className={cn("tubelight-item tubelight-item--btn", activeTab === "Calculators" && "tubelight-item--active")}
-        style={{ zIndex: 1 }}
-      >
-        Calculators
-        <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "calculators" && "nav-chevron--open")} />
-      </button>
+      {/* Calculators — wrapper is position:relative so dropdown anchors to it */}
+      <div className="nav-dropdown-anchor" style={{ zIndex: 1 }}>
+        <div
+          ref={(el) => { itemRefs.current[1] = el }}
+          className={cn("tubelight-item tubelight-item--btn", activeTab === "Calculators" && "tubelight-item--active")}
+          aria-expanded={openDropdown === "calculators"}
+          aria-haspopup="true"
+        >
+          <Link href="/#calculators" onClick={onLinkClick} className="tubelight-item-label">
+            Calculators
+          </Link>
+          <button
+            onClick={() => onToggle("calculators")}
+            className="tubelight-item-chevron"
+            aria-label="Toggle calculators menu"
+          >
+            <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "calculators" && "nav-chevron--open")} />
+          </button>
+        </div>
+        {openDropdown === "calculators" && <CalcDropdown onClose={onClose} />}
+      </div>
 
-      {/* Learn */}
-      <button
-        ref={(el) => { itemRefs.current[2] = el }}
-        onClick={() => onToggle("learn")}
-        aria-expanded={openDropdown === "learn"}
-        aria-haspopup="true"
-        className={cn("tubelight-item tubelight-item--btn", activeTab === "Learn" && "tubelight-item--active")}
-        style={{ zIndex: 1 }}
-      >
-        Learn
-        <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "learn" && "nav-chevron--open")} />
-      </button>
+      {/* Learn — wrapper is position:relative so dropdown anchors to it */}
+      <div className="nav-dropdown-anchor" style={{ zIndex: 1 }}>
+        <div
+          ref={(el) => { itemRefs.current[2] = el }}
+          className={cn("tubelight-item tubelight-item--btn", activeTab === "Learn" && "tubelight-item--active")}
+          aria-expanded={openDropdown === "learn"}
+          aria-haspopup="true"
+        >
+          <Link href="/blog" onClick={onLinkClick} className="tubelight-item-label">
+            Learn
+          </Link>
+          <button
+            onClick={() => onToggle("learn")}
+            className="tubelight-item-chevron"
+            aria-label="Toggle learn menu"
+          >
+            <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "learn" && "nav-chevron--open")} />
+          </button>
+        </div>
+        {openDropdown === "learn" && <LearnDropdown onClose={onClose} />}
+      </div>
 
       {/* About */}
       <Link
@@ -410,6 +430,7 @@ export function NavBar() {
               openDropdown={openDropdown}
               onToggle={toggle}
               onLinkClick={closeAll}
+              onClose={closeAll}
             />
           </div>
 
@@ -426,10 +447,6 @@ export function NavBar() {
               <Menu size={20} />
             </button>
           </div>
-
-          {/* Dropdown panels — anchored to center slot */}
-          {openDropdown === "calculators" && <CalcDropdown onClose={closeAll} />}
-          {openDropdown === "learn" && <LearnDropdown onClose={closeAll} />}
         </div>
       </header>
 
