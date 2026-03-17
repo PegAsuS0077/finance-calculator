@@ -419,10 +419,28 @@ input[type="number"] {
   box-shadow: 0 8px 32px oklch(0.4 0.1 258 / 0.08);
   transform: translateY(-2px);
 }
-.blog-hero-card-accent {
-  height: 3px;
+.blog-hero-card-img {
+  position: relative;
   width: 100%;
+  height: 200px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.blog-hero-card--large .blog-hero-card-img {
+  height: 240px;
+}
+.blog-hero-card-img-inner {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blog-hero-card:hover .blog-hero-card-img-inner {
+  transform: scale(1.04);
+}
+.blog-hero-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  pointer-events: none;
 }
 .blog-hero-card-body {
   padding: clamp(1.5rem, 3vw, 2.25rem);
@@ -530,6 +548,7 @@ input[type="number"] {
 /* Article cards */
 .blog-article-card {
   display: flex;
+  flex-direction: column;
   text-decoration: none;
   border: 1px solid var(--f-border);
   border-radius: 10px;
@@ -542,9 +561,25 @@ input[type="number"] {
   box-shadow: 0 4px 20px oklch(0.4 0.1 258 / 0.07);
   transform: translateY(-1px);
 }
-.blog-article-card-stripe {
-  width: 3px;
+.blog-article-card-img {
+  position: relative;
+  width: 100%;
+  height: 160px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+.blog-article-card-img-inner {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.blog-article-card:hover .blog-article-card-img-inner {
+  transform: scale(1.04);
+}
+.blog-article-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: oklch(0.1 0 0 / 0.15);
+  pointer-events: none;
 }
 .blog-article-card-body {
   padding: 1.25rem 1.375rem;
@@ -1191,6 +1226,23 @@ input[type="number"] {
   letter-spacing: 0.04em;
 }
 
+/* Cover image */
+.bpost-cover {
+  position: relative;
+  width: 100%;
+  height: clamp(220px, 35vw, 420px);
+  overflow: hidden;
+}
+.bpost-cover-img {
+  object-fit: cover;
+}
+.bpost-cover-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
 /* Layout */
 .bpost-layout {
   padding: clamp(2rem, 4vw, 3rem) 0 clamp(3rem, 5vw, 5rem);
@@ -1315,17 +1367,38 @@ input[type="number"] {
 .bpost-related-card {
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
   text-decoration: none;
   background: var(--f-page);
   border: 1px solid var(--f-border);
   border-radius: 9px;
-  padding: 1.125rem 1.25rem;
-  transition: border-color 0.12s, box-shadow 0.12s;
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s, transform 0.12s;
 }
 .bpost-related-card:hover {
   border-color: var(--f-border-strong);
   box-shadow: 0 4px 16px oklch(0.4 0.1 258 / 0.06);
+  transform: translateY(-2px);
+}
+.bpost-related-img {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.bpost-related-img-inner {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.bpost-related-card:hover .bpost-related-img-inner {
+  transform: scale(1.04);
+}
+.bpost-related-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1rem 1.125rem 1.125rem;
+  flex: 1;
 }
 .bpost-related-cat {
   font-size: 0.625rem;

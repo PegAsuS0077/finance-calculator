@@ -91,6 +91,7 @@ export default async function BlogPostPage({ params }: Props) {
       category={post.category}
       date={post.date}
       readingTime={post.readingTime}
+      coverImage={post.coverImage}
       catMeta={catMeta}
       relatedPosts={allRelated}
     >

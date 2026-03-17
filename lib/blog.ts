@@ -7,6 +7,7 @@ export type BlogPost = {
   date: string
   readingTime: string
   category: string
+  coverImage: string
 }
 
 export const blogPosts: BlogPost[] = [
@@ -17,6 +18,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-01-15",
     readingTime: "12 min read",
     category: "FIRE Fundamentals",
+    coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
   },
   {
     slug: "how-to-calculate-fire-number",
@@ -25,6 +27,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-01-22",
     readingTime: "10 min read",
     category: "FIRE Fundamentals",
+    coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
   },
   {
     slug: "4-percent-rule-explained",
@@ -33,6 +36,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-02-05",
     readingTime: "11 min read",
     category: "FIRE Strategy",
+    coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
   },
   {
     slug: "savings-rate-and-retirement",
@@ -41,6 +45,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-02-18",
     readingTime: "9 min read",
     category: "FIRE Strategy",
+    coverImage: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
   },
   {
     slug: "coast-fire-explained",
@@ -49,6 +54,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-03-03",
     readingTime: "10 min read",
     category: "FIRE Types",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
   },
   {
     slug: "lean-fire-vs-fat-fire",
@@ -57,6 +63,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-03-10",
     readingTime: "11 min read",
     category: "FIRE Types",
+    coverImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80",
   },
   {
     slug: "index-fund-investing-for-fire",
@@ -65,6 +72,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-03-13",
     readingTime: "13 min read",
     category: "Investing",
+    coverImage: "https://images.unsplash.com/photo-1642790551116-18e4f18d5c3a?w=800&q=80",
   },
   {
     slug: "investment-growth-and-compound-returns",
@@ -73,6 +81,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-14",
     readingTime: "10 min read",
     category: "Investing",
+    coverImage: "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=800&q=80",
   },
   {
     slug: "how-to-retire-early-using-4-percent-rule",
@@ -81,6 +90,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     readingTime: "13 min read",
     category: "Tutorial",
+    coverImage: "https://images.unsplash.com/photo-1473188588951-666fce8e7c68?w=800&q=80",
   },
   {
     slug: "best-investment-apps-financial-freedom",
@@ -89,6 +99,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     readingTime: "11 min read",
     category: "Investing",
+    coverImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
   },
   {
     slug: "financial-independence-calculator-explained",
@@ -97,6 +108,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     readingTime: "12 min read",
     category: "FIRE Fundamentals",
+    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
   },
   {
     slug: "how-much-to-save-retire-by-40",
@@ -105,6 +117,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     readingTime: "11 min read",
     category: "FIRE Strategy",
+    coverImage: "https://images.unsplash.com/photo-1484981138541-3d074aa97716?w=800&q=80",
   },
   {
     slug: "case-study-retiring-with-1m-by-35",
@@ -113,6 +126,7 @@ export const blogPosts: BlogPost[] = [
     date: "2026-03-16",
     readingTime: "14 min read",
     category: "FIRE Strategy",
+    coverImage: "https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80",
   },
 ]
 

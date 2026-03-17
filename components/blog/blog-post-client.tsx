@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { formatDate, type BlogPost } from "@/lib/blog"
 
@@ -15,6 +16,7 @@ interface Props {
   category: string
   date: string
   readingTime: string
+  coverImage: string
   catMeta: CatMeta
   relatedPosts: BlogPost[]
   children: React.ReactNode
@@ -25,6 +27,7 @@ export function BlogPostClient({
   category,
   date,
   readingTime,
+  coverImage,
   catMeta,
   relatedPosts,
   children,
@@ -152,6 +155,19 @@ export function BlogPostClient({
         </div>
       </header>
 
+      {/* Cover image */}
+      <div className="bpost-cover">
+        <Image
+          src={coverImage}
+          alt={title}
+          fill
+          priority
+          sizes="(max-width: 1280px) 100vw, 1280px"
+          className="bpost-cover-img"
+        />
+        <div className="bpost-cover-overlay" style={{ background: catMeta.color }} />
+      </div>
+
       {/* Body: article + sidebar */}
       <div className="bpost-layout">
         <div className="bpost-layout-inner">
@@ -194,9 +210,20 @@ export function BlogPostClient({
             <div className="bpost-related-grid">
               {allRelated(relatedPosts).map((p) => (
                 <Link key={p.slug} href={`/blog/${p.slug}`} className="bpost-related-card">
-                  <span className="bpost-related-cat" style={{ color: catMeta.color }}>{p.category}</span>
-                  <p className="bpost-related-title">{p.title}</p>
-                  <span className="bpost-related-read">{p.readingTime}</span>
+                  <div className="bpost-related-img">
+                    <Image
+                      src={p.coverImage}
+                      alt={p.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="bpost-related-img-inner"
+                    />
+                  </div>
+                  <div className="bpost-related-body">
+                    <span className="bpost-related-cat" style={{ color: catMeta.color }}>{p.category}</span>
+                    <p className="bpost-related-title">{p.title}</p>
+                    <span className="bpost-related-read">{p.readingTime}</span>
+                  </div>
                 </Link>
               ))}
             </div>

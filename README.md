@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FIRE Tools — Financial Independence Calculator Platform
+
+A high-performance, SEO-focused web application providing interactive FIRE (Financial Independence Retire Early) calculators and educational content.
+
+## What It Does
+
+FIRE Tools gives users a suite of financial calculators to plan their path to financial independence. Key features:
+
+- **Interactive calculators** — live results that update instantly as you type
+- **Portfolio growth charts** — visual projections using Recharts
+- **Educational content** — 1000+ word MDX pages explaining methodology, examples, and FIRE concepts
+- **10 calculators planned** — FIRE number, retirement withdrawal, compound interest, savings rate, and more
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router), React 19
+- **Styling:** Tailwind CSS v4 + shadcn/ui
+- **Charts:** Recharts
+- **Validation:** Zod
+- **Testing:** Vitest
+- **Content:** MDX
+- **Hosting:** Cloudflare Pages (`@cloudflare/next-on-pages`)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/                  # Next.js App Router pages (server components)
+components/
+  calculators/        # Calculator UI components
+  ui/                 # Shared shadcn/ui primitives
+lib/
+  calculators/        # All financial logic (formulas only here)
+  validation/         # Zod input schemas
+content/
+  tools/              # MDX pages for calculator pages
+  blog/               # MDX blog articles
+tests/                # Vitest unit tests
+docs/                 # Architecture, specs, and workflow docs
+```
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
+See [CLAUDE.md](CLAUDE.md) for full architecture rules and development workflow.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Key docs:
+- [docs/calculator-specs.md](docs/calculator-specs.md) — inputs, formulas, outputs for all calculators
+- [docs/development-workflow.md](docs/development-workflow.md) — step-by-step workflow
+- [docs/tool-roadmap.md](docs/tool-roadmap.md) — calculator priority list and status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Deployed to Cloudflare Pages via `@cloudflare/next-on-pages`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Build command:
+```bash
+npx @cloudflare/next-on-pages@1
+```

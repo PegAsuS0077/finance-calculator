@@ -1,5 +1,6 @@
 // app/blog/page.tsx
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { config } from "@/lib/config"
 import { blogPosts, formatDate, type BlogPost } from "@/lib/blog"
@@ -201,7 +202,16 @@ function HeroCard({ post, size }: { post: BlogPost; size: "large" | "small" }) {
   const m = getCatMeta(post.category)
   return (
     <Link href={`/blog/${post.slug}`} className={`blog-hero-card blog-hero-card--${size}`}>
-      <div className="blog-hero-card-accent" style={{ background: m.color }} />
+      <div className="blog-hero-card-img">
+        <Image
+          src={post.coverImage}
+          alt={post.title}
+          fill
+          sizes={size === "large" ? "(max-width: 768px) 100vw, 60vw" : "(max-width: 768px) 100vw, 40vw"}
+          className="blog-hero-card-img-inner"
+        />
+        <div className="blog-hero-card-img-overlay" />
+      </div>
       <div className="blog-hero-card-body">
         <div className="blog-hero-card-meta">
           <span
@@ -238,10 +248,16 @@ function ArticleCard({ post }: { post: BlogPost }) {
   const m = getCatMeta(post.category)
   return (
     <Link href={`/blog/${post.slug}`} className="blog-article-card">
-      <div
-        className="blog-article-card-stripe"
-        style={{ background: m.color }}
-      />
+      <div className="blog-article-card-img">
+        <Image
+          src={post.coverImage}
+          alt={post.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="blog-article-card-img-inner"
+        />
+        <div className="blog-article-card-img-overlay" />
+      </div>
       <div className="blog-article-card-body">
         <div className="blog-article-card-top">
           <span
