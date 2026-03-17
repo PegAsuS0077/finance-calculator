@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { config } from "@/lib/config"
 import { blogPosts, formatDate, type BlogPost } from "@/lib/blog"
+import { BlogFilter } from "@/components/blog/blog-filter"
 
 export const metadata: Metadata = {
   title: "Blog — FIRE & Financial Independence Articles",
@@ -64,18 +65,9 @@ function getCatMeta(cat: string) {
   )
 }
 
-const TYPE_ICONS: Record<string, string> = {
-  Tutorial: "◈",
-  "List/affiliate": "◇",
-  Guide: "◉",
-  "Keyword-rich blog": "◎",
-  Storytelling: "◐",
-}
-
 export default function BlogPage() {
   const featured = blogPosts[blogPosts.length - 1]
   const secondFeatured = blogPosts[blogPosts.length - 2]
-  const rest = [...blogPosts].reverse().slice(2)
 
   const categories = Array.from(new Set(blogPosts.map((p) => p.category)))
 
@@ -97,24 +89,6 @@ export default function BlogPage() {
               Guides, strategies, and deep dives on reaching FIRE — from calculating your
               number to retiring by 40.
             </p>
-            <div className="blog-category-pills">
-              {categories.map((cat) => {
-                const m = getCatMeta(cat)
-                return (
-                  <span
-                    key={cat}
-                    className="blog-cat-pill"
-                    style={{
-                      color: m.color,
-                      background: m.bg,
-                      borderColor: m.border,
-                    }}
-                  >
-                    {m.label}
-                  </span>
-                )
-              })}
-            </div>
           </div>
 
           <div className="blog-masthead-right">
@@ -149,18 +123,14 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* ── All articles ── */}
+      {/* ── All articles with category filter ── */}
       <section className="blog-articles-section">
         <div className="blog-articles-inner">
           <div className="blog-articles-header">
             <span className="blog-section-tag">All Articles</span>
             <span className="blog-articles-count">{blogPosts.length} guides</span>
           </div>
-          <div className="blog-card-grid">
-            {rest.map((post) => (
-              <ArticleCard key={post.slug} post={post} />
-            ))}
-          </div>
+          <BlogFilter posts={[...blogPosts].reverse()} categories={categories} />
         </div>
       </section>
 
@@ -238,40 +208,6 @@ function HeroCard({ post, size }: { post: BlogPost; size: "large" | "small" }) {
               />
             </svg>
           </span>
-        </div>
-      </div>
-    </Link>
-  )
-}
-
-function ArticleCard({ post }: { post: BlogPost }) {
-  const m = getCatMeta(post.category)
-  return (
-    <Link href={`/blog/${post.slug}`} className="blog-article-card">
-      <div className="blog-article-card-img">
-        <Image
-          src={post.coverImage}
-          alt={post.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="blog-article-card-img-inner"
-        />
-        <div className="blog-article-card-img-overlay" />
-      </div>
-      <div className="blog-article-card-body">
-        <div className="blog-article-card-top">
-          <span
-            className="blog-cat-badge"
-            style={{ color: m.color, background: m.bg, borderColor: m.border }}
-          >
-            {m.label}
-          </span>
-          <span className="blog-article-card-read">{post.readingTime}</span>
-        </div>
-        <h3 className="blog-article-card-title">{post.title}</h3>
-        <p className="blog-article-card-desc">{post.description}</p>
-        <div className="blog-article-card-footer">
-          <span className="blog-article-card-date">{formatDate(post.date)}</span>
         </div>
       </div>
     </Link>

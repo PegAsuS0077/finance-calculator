@@ -261,10 +261,41 @@ input[type="number"] {
 .prose-blog code { font-size: 0.875em; background: oklch(0.94 0.01 258); border: 1px solid var(--f-border); border-radius: 4px; padding: 0.15em 0.4em; font-family: ui-monospace, monospace; color: var(--f-blue); }
 .prose-blog pre { background: oklch(0.14 0.02 258); border-radius: 8px; padding: 1.25rem 1.5rem; overflow-x: auto; margin: 0 0 1.25rem; }
 .prose-blog pre code { background: none; border: none; padding: 0; color: oklch(0.88 0.02 258); }
-.prose-blog table { width: 100%; border-collapse: collapse; margin: 0 0 1.5rem; font-size: 0.875rem; }
-.prose-blog th { background: oklch(0.95 0.015 258); color: var(--f-text-heading); font-weight: 600; text-align: left; padding: 0.625rem 0.875rem; border: 1px solid var(--f-border); }
-.prose-blog td { padding: 0.5rem 0.875rem; border: 1px solid var(--f-border); vertical-align: top; }
-.prose-blog tr:nth-child(even) td { background: oklch(0.98 0.003 258); }
+.prose-blog .table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
+  border: 1px solid var(--f-border);
+  margin: 0 0 1.75rem;
+}
+.prose-blog table {
+  width: 100%;
+  min-width: max-content;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.prose-blog thead { background: var(--f-card); }
+.prose-blog th {
+  color: var(--f-text-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--f-border);
+  white-space: nowrap;
+}
+.prose-blog td {
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid var(--f-border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.prose-blog tr:last-child td { border-bottom: none; }
+.prose-blog tbody tr:nth-child(odd) td { background: var(--f-page); }
+.prose-blog tbody tr:nth-child(even) td { background: var(--f-card); }
+.prose-blog tbody tr:hover td { background: var(--f-blue-light); }
 
 /* ── Selection ──────────────────────────────────────────────────────────── */
 ::selection {
@@ -331,15 +362,30 @@ input[type="number"] {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  padding: 1rem 0 1.75rem;
+  border-bottom: 1px solid var(--f-border);
+  margin-bottom: 2rem;
 }
 .blog-cat-pill {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 0.3rem 0.75rem;
+  padding: 0.45rem 1.1rem;
   border-radius: 100px;
-  border: 1px solid;
+  border: 1px solid var(--f-border);
+  background: var(--f-surface);
+  color: var(--f-text-muted);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.blog-cat-pill:hover {
+  border-color: var(--f-blue-border);
+  color: var(--f-blue);
+  background: var(--f-blue-light);
+}
+.blog-cat-pill[aria-pressed="true"] {
+  box-shadow: 0 1px 4px oklch(0 0 0 / 0.08);
 }
 .blog-masthead-right { flex-shrink: 0; }
 .blog-stat-block {
@@ -530,7 +576,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding-bottom: 0.875rem;
   border-bottom: 1px solid var(--f-border);
 }
@@ -542,7 +588,7 @@ input[type="number"] {
 .blog-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 /* Article cards */
@@ -1226,12 +1272,14 @@ input[type="number"] {
   letter-spacing: 0.04em;
 }
 
-/* Cover image */
+/* Cover image — sits inside the article column */
 .bpost-cover {
   position: relative;
   width: 100%;
-  height: clamp(220px, 35vw, 420px);
+  aspect-ratio: 16 / 7;
+  border-radius: 12px;
   overflow: hidden;
+  margin-bottom: 2.5rem;
 }
 .bpost-cover-img {
   object-fit: cover;
@@ -1239,7 +1287,7 @@ input[type="number"] {
 .bpost-cover-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.12;
+  opacity: 0.1;
   pointer-events: none;
 }
 
@@ -1610,9 +1658,21 @@ input[type="number"] {
   z-index: 100;
   animation: nav-dropdown-in 0.15s ease;
 }
+/* Fixed variant — anchored to viewport center, not the trigger element */
+.nav-dropdown--fixed {
+  position: fixed;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: nav-dropdown-fixed-in 0.15s ease;
+}
 @keyframes nav-dropdown-in {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes nav-dropdown-fixed-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* Calculators mega dropdown */

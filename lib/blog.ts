@@ -72,7 +72,7 @@ export const blogPosts: BlogPost[] = [
     date: "2025-03-13",
     readingTime: "13 min read",
     category: "Investing",
-    coverImage: "https://images.unsplash.com/photo-1642790551116-18e4f18d5c3a?w=800&q=80",
+    coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
   },
   {
     slug: "investment-growth-and-compound-returns",

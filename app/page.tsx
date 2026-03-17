@@ -143,7 +143,7 @@ export default function HomePage() {
               </svg>
             </Link>
             <Link
-              href="#calculators"
+              href="/calculators"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

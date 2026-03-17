@@ -68,12 +68,20 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getBlogPost(slug)
   if (!post) notFound()
 
-  let Content: React.ComponentType
+  let Content: React.ComponentType<{ components?: Record<string, React.ComponentType> }>
   try {
     const mod = await import(`@/content/blog/${slug}.mdx`)
     Content = mod.default
   } catch {
     notFound()
+  }
+
+  const mdxComponents = {
+    table: ({ children, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+      <div className="table-wrapper">
+        <table {...props}>{children}</table>
+      </div>
+    ),
   }
 
   const catMeta = getCatMeta(post.category)
@@ -95,7 +103,7 @@ export default async function BlogPostPage({ params }: Props) {
       catMeta={catMeta}
       relatedPosts={allRelated}
     >
-      <Content />
+      <Content components={mdxComponents} />
     </BlogPostClient>
   )
 }

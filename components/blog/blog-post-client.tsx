@@ -155,24 +155,23 @@ export function BlogPostClient({
         </div>
       </header>
 
-      {/* Cover image */}
-      <div className="bpost-cover">
-        <Image
-          src={coverImage}
-          alt={title}
-          fill
-          priority
-          sizes="(max-width: 1280px) 100vw, 1280px"
-          className="bpost-cover-img"
-        />
-        <div className="bpost-cover-overlay" style={{ background: catMeta.color }} />
-      </div>
-
       {/* Body: article + sidebar */}
       <div className="bpost-layout">
         <div className="bpost-layout-inner">
           {/* Article */}
           <article ref={articleRef} className="bpost-article prose-blog">
+            {/* Cover image — inside the article column */}
+            <div className="bpost-cover">
+              <Image
+                src={coverImage}
+                alt={title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 800px"
+                className="bpost-cover-img"
+              />
+              <div className="bpost-cover-overlay" style={{ background: catMeta.color }} />
+            </div>
             {children}
           </article>
 

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     { url: config.siteUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
+    { url: `${config.siteUrl}/calculators`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${config.siteUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${config.siteUrl}/about`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.4 },
     { url: `${config.siteUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },

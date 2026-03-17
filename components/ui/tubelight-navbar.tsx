@@ -140,20 +140,8 @@ function MobileNav({ open, onClose, pathname }: { open: boolean; onClose: () => 
             )
           })}
 
-          <div className="mobile-nav-section-label">Learn</div>
-          {LEARN_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn("mobile-nav-link", pathname === item.href && "mobile-nav-link--active")}
-              onClick={onClose}
-            >
-              <BookOpen size={16} /> {item.name}
-            </Link>
-          ))}
-
           <Link href="/blog" className={cn("mobile-nav-link", pathname === "/blog" && "mobile-nav-link--active")} onClick={onClose}>
-            <BookOpen size={16} /> All blog posts
+            <BookOpen size={16} /> Learn
           </Link>
           <Link href="/about" className={cn("mobile-nav-link", pathname === "/about" && "mobile-nav-link--active")} onClick={onClose}>
             <Info size={16} /> About
@@ -174,7 +162,7 @@ function MobileNav({ open, onClose, pathname }: { open: boolean; onClose: () => 
 
 function CalcDropdown({ onClose }: { onClose: () => void }) {
   return (
-    <div className="nav-dropdown nav-dropdown--wide">
+    <div className="nav-dropdown nav-dropdown--wide nav-dropdown--fixed">
       <div className="nav-dropdown-grid">
         {CALCULATORS.map((group) => (
           <div key={group.group} className="nav-dropdown-group">
@@ -195,7 +183,7 @@ function CalcDropdown({ onClose }: { onClose: () => void }) {
         ))}
       </div>
       <div className="nav-dropdown-footer">
-        <Link href="/#calculators" className="nav-dropdown-footer-link" onClick={onClose}>
+        <Link href="/calculators" className="nav-dropdown-footer-link" onClick={onClose}>
           View all calculators →
         </Link>
       </div>
@@ -293,7 +281,7 @@ function TubelightNavItems({
         Home
       </Link>
 
-      {/* Calculators — wrapper is position:relative so dropdown anchors to it */}
+      {/* Calculators */}
       <div className="nav-dropdown-anchor" style={{ zIndex: 1 }}>
         <div
           ref={(el) => { itemRefs.current[1] = el }}
@@ -301,7 +289,7 @@ function TubelightNavItems({
           aria-expanded={openDropdown === "calculators"}
           aria-haspopup="true"
         >
-          <Link href="/#calculators" onClick={onLinkClick} className="tubelight-item-label">
+          <Link href="/calculators" onClick={onLinkClick} className="tubelight-item-label">
             Calculators
           </Link>
           <button
@@ -312,30 +300,18 @@ function TubelightNavItems({
             <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "calculators" && "nav-chevron--open")} />
           </button>
         </div>
-        {openDropdown === "calculators" && <CalcDropdown onClose={onClose} />}
       </div>
 
-      {/* Learn — wrapper is position:relative so dropdown anchors to it */}
-      <div className="nav-dropdown-anchor" style={{ zIndex: 1 }}>
-        <div
-          ref={(el) => { itemRefs.current[2] = el }}
-          className={cn("tubelight-item tubelight-item--btn", activeTab === "Learn" && "tubelight-item--active")}
-          aria-expanded={openDropdown === "learn"}
-          aria-haspopup="true"
-        >
-          <Link href="/blog" onClick={onLinkClick} className="tubelight-item-label">
-            Learn
-          </Link>
-          <button
-            onClick={() => onToggle("learn")}
-            className="tubelight-item-chevron"
-            aria-label="Toggle learn menu"
-          >
-            <ChevronDown size={13} className={cn("nav-chevron", openDropdown === "learn" && "nav-chevron--open")} />
-          </button>
-        </div>
-        {openDropdown === "learn" && <LearnDropdown onClose={onClose} />}
-      </div>
+      {/* Learn — direct link, no dropdown */}
+      <Link
+        href="/blog"
+        ref={(el) => { itemRefs.current[2] = el }}
+        onClick={onLinkClick}
+        className={cn("tubelight-item", activeTab === "Learn" && "tubelight-item--active")}
+        style={{ zIndex: 1 }}
+      >
+        Learn
+      </Link>
 
       {/* About */}
       <Link
@@ -378,7 +354,7 @@ export function NavBar() {
     setOpenDropdown((prev) => (prev === name ? null : name))
   }
 
-  const isCalcActive = CALCULATORS.flatMap((g) => g.items).some((i) => pathname === i.href)
+  const isCalcActive = pathname === "/calculators" || CALCULATORS.flatMap((g) => g.items).some((i) => pathname === i.href)
   const isLearnActive = pathname === "/blog" || pathname.startsWith("/blog/")
 
   const activeTab: NavItemName = isCalcActive
@@ -448,6 +424,9 @@ export function NavBar() {
             </button>
           </div>
         </div>
+
+        {/* Dropdowns — rendered inside header but positioned fixed to avoid anchor-relative shift */}
+        {openDropdown === "calculators" && <CalcDropdown onClose={closeAll} />}
       </header>
 
       {/* Mobile full-screen nav */}
@@ -459,13 +438,13 @@ export function NavBar() {
           <Home size={20} />
           <span>Home</span>
         </Link>
-        <button
+        <Link
+          href="/calculators"
           className={cn("mobile-tab", isCalcActive && "mobile-tab--active")}
-          onClick={() => setMobileOpen(true)}
         >
           <Calculator size={20} />
           <span>Calculators</span>
-        </button>
+        </Link>
         <button
           className={cn("mobile-tab", isLearnActive && "mobile-tab--active")}
           onClick={() => setMobileOpen(true)}
