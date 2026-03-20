@@ -120,6 +120,15 @@ export const blogPosts: BlogPost[] = [
     coverImage: "https://images.unsplash.com/photo-1484981138541-3d074aa97716?w=800&q=80",
   },
   {
+    slug: "barista-fire-explained",
+    title: "Barista FIRE Explained: How to Semi-Retire Sooner Than You Think",
+    description: "Barista FIRE lets you leave your high-income career early by combining a smaller portfolio with part-time income. Here's the math, a real example, and how to plan the transition.",
+    date: "2026-03-20",
+    readingTime: "12 min read",
+    category: "FIRE Types",
+    coverImage: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+  },
+  {
     slug: "case-study-retiring-with-1m-by-35",
     title: "Case Study: Retiring with $1M by 35",
     description: "A detailed year-by-year breakdown of how a software engineer went from $8,000 in savings at 24 to $1,040,000 and work-optional at 35 — the decisions, numbers, and lessons.",
